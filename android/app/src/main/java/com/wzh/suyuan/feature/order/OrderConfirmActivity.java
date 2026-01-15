@@ -100,7 +100,7 @@ public class OrderConfirmActivity extends BaseActivity<OrderConfirmContract.View
         } else {
             String receiver = address.getReceiver() == null ? "" : address.getReceiver();
             String phone = address.getPhone() == null ? "" : address.getPhone();
-            addressNameView.setText(receiver + "  " + phone);
+            addressNameView.setText(getString(R.string.address_name_phone, receiver, phone));
             addressDetailView.setText(buildAddress(address));
         }
         updateSubmitState();
@@ -183,7 +183,7 @@ public class OrderConfirmActivity extends BaseActivity<OrderConfirmContract.View
                         .multiply(BigDecimal.valueOf(item.getQuantity())));
             }
         }
-        totalView.setText("гд" + FormatUtils.formatPrice(total));
+        totalView.setText(getString(R.string.price_value, FormatUtils.formatPrice(total)));
     }
 
     private void updateSubmitState() {

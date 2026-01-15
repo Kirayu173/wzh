@@ -1,5 +1,6 @@
 package com.wzh.suyuan.feature.product;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import java.util.List;
 public class ProductImageAdapter extends RecyclerView.Adapter<ProductImageAdapter.ImageViewHolder> {
     private final List<String> images = new ArrayList<>();
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setImages(List<String> data) {
         images.clear();
         if (data != null) {

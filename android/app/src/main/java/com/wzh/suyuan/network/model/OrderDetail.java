@@ -14,6 +14,9 @@ public class OrderDetail {
     private String createTime;
     private String payTime;
     private String confirmTime;
+    private String shipTime;
+    private String expressNo;
+    private String expressCompany;
     private List<OrderItem> items;
 
     public Long getId() {
@@ -94,6 +97,30 @@ public class OrderDetail {
 
     public void setConfirmTime(String confirmTime) {
         this.confirmTime = confirmTime;
+    }
+
+    public String getShipTime() {
+        return shipTime;
+    }
+
+    public void setShipTime(String shipTime) {
+        this.shipTime = shipTime;
+    }
+
+    public String getExpressNo() {
+        return expressNo;
+    }
+
+    public void setExpressNo(String expressNo) {
+        this.expressNo = expressNo;
+    }
+
+    public String getExpressCompany() {
+        return expressCompany;
+    }
+
+    public void setExpressCompany(String expressCompany) {
+        this.expressCompany = expressCompany;
     }
 
     public List<OrderItem> getItems() {

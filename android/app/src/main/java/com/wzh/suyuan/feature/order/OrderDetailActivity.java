@@ -118,7 +118,8 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailContract.View, 
         orderTimeView.setText(getString(R.string.order_time_value, safeText(detail.getCreateTime())));
         payTimeView.setText(getString(R.string.order_pay_time_value, safeText(detail.getPayTime())));
         confirmTimeView.setText(getString(R.string.order_confirm_time_value, safeText(detail.getConfirmTime())));
-        addressNameView.setText(safeText(detail.getReceiver()) + "  " + safeText(detail.getPhone()));
+        addressNameView.setText(getString(R.string.address_name_phone,
+                safeText(detail.getReceiver()), safeText(detail.getPhone())));
         addressDetailView.setText(safeText(detail.getAddress()));
         totalView.setText(getString(R.string.order_total_value,
                 "гд" + FormatUtils.formatPrice(detail.getTotalAmount())));

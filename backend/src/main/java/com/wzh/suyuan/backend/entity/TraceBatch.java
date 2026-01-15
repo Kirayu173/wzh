@@ -1,6 +1,7 @@
 package com.wzh.suyuan.backend.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,10 +26,10 @@ public class TraceBatch {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "product_id")
+    @Column(name = "product_id", nullable = false)
     private Long productId;
 
-    @Column(name = "trace_code", length = 64)
+    @Column(name = "trace_code", nullable = false, unique = true, length = 64)
     private String traceCode;
 
     @Column(name = "batch_no", length = 64)
@@ -43,7 +44,7 @@ public class TraceBatch {
     @Column(name = "harvest_date")
     private LocalDate harvestDate;
 
-    @Column(name = "process_info")
+    @Column(name = "process_info", length = 2000)
     private String processInfo;
 
     @Column(name = "test_org", length = 128)
@@ -52,9 +53,12 @@ public class TraceBatch {
     @Column(name = "test_date")
     private LocalDate testDate;
 
-    @Column(name = "test_result")
+    @Column(name = "test_result", length = 255)
     private String testResult;
 
     @Column(name = "report_url", length = 255)
     private String reportUrl;
+
+    @Column(name = "create_time")
+    private LocalDateTime createTime;
 }

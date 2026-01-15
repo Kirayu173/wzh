@@ -36,7 +36,8 @@ public class OrderPayActivity extends BaseActivity<OrderPayContract.View, OrderP
         orderId = getIntent().getLongExtra(EXTRA_ORDER_ID, 0L);
         String amount = getIntent().getStringExtra(EXTRA_ORDER_AMOUNT);
         orderIdView.setText(getString(R.string.order_number_value, String.valueOf(orderId)));
-        amountView.setText("гд" + (amount == null ? "0.00" : amount));
+        String amountText = amount == null ? "0.00" : amount;
+        amountView.setText(getString(R.string.price_value, amountText));
         payButton.setEnabled(orderId > 0);
         payButton.setOnClickListener(v -> {
             if (presenter != null) {

@@ -18,4 +18,5 @@ public class ProductSummary {
     private Integer stock;
     private String coverUrl;
     private String origin;
+    private String status;
 }

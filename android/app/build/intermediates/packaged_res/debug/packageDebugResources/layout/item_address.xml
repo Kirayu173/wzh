@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
     android:orientation="vertical"
     android:padding="12dp">
 
@@ -53,13 +52,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:gravity="end">
+        android:gravity="end"
+        style="?android:attr/buttonBarStyle">
 
         <Button
             android:id="@+id/address_set_default"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:layout_marginEnd="8dp"
+            style="?android:attr/buttonBarButtonStyle"
             android:text="@string/address_set_default" />
 
         <Button
@@ -67,12 +68,14 @@
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:layout_marginEnd="8dp"
+            style="?android:attr/buttonBarButtonStyle"
             android:text="@string/action_edit" />
 
         <Button
             android:id="@+id/address_delete"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
+            style="?android:attr/buttonBarButtonStyle"
             android:text="@string/action_delete" />
     </LinearLayout>
 </LinearLayout>

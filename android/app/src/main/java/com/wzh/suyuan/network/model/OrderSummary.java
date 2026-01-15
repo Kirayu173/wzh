@@ -12,6 +12,9 @@ public class OrderSummary {
     private String receiver;
     private String phone;
     private String address;
+    private String expressNo;
+    private String expressCompany;
+    private String shipTime;
     private List<OrderItem> items;
 
     public Long getId() {
@@ -76,6 +79,30 @@ public class OrderSummary {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getExpressNo() {
+        return expressNo;
+    }
+
+    public void setExpressNo(String expressNo) {
+        this.expressNo = expressNo;
+    }
+
+    public String getExpressCompany() {
+        return expressCompany;
+    }
+
+    public void setExpressCompany(String expressCompany) {
+        this.expressCompany = expressCompany;
+    }
+
+    public String getShipTime() {
+        return shipTime;
+    }
+
+    public void setShipTime(String shipTime) {
+        this.shipTime = shipTime;
     }
 
     public List<OrderItem> getItems() {

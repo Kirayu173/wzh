@@ -164,13 +164,15 @@
         android:background="@android:color/white"
         android:gravity="center_vertical"
         android:paddingStart="12dp"
-        android:paddingEnd="12dp">
+        android:paddingEnd="12dp"
+        style="?android:attr/buttonBarStyle">
 
         <Button
             android:id="@+id/order_action_cancel"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_marginEnd="8dp"
+            style="?android:attr/buttonBarButtonStyle"
             android:text="@string/action_cancel" />
 
         <Button
@@ -178,6 +180,7 @@
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_marginEnd="8dp"
+            style="?android:attr/buttonBarButtonStyle"
             android:text="@string/action_confirm" />
 
         <Button
@@ -185,6 +188,7 @@
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:background="@drawable/bg_primary_button"
+            style="?android:attr/buttonBarButtonStyle"
             android:text="@string/action_pay"
             android:textColor="@color/white" />
     </LinearLayout>

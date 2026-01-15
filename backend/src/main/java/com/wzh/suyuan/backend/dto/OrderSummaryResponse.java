@@ -22,5 +22,8 @@ public class OrderSummaryResponse {
     private String receiver;
     private String phone;
     private String address;
+    private String expressNo;
+    private String expressCompany;
+    private LocalDateTime shipTime;
     private List<OrderItemResponse> items;
 }

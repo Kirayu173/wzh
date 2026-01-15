@@ -24,5 +24,8 @@ public class OrderDetailResponse {
     private LocalDateTime createTime;
     private LocalDateTime payTime;
     private LocalDateTime confirmTime;
+    private LocalDateTime shipTime;
+    private String expressNo;
+    private String expressCompany;
     private List<OrderItemResponse> items;
 }

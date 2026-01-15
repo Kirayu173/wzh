@@ -188,7 +188,7 @@ public class CartFragment extends BaseFragment<CartContract.View, CartPresenter>
             BigDecimal price = item.getPriceSnapshot() == null ? BigDecimal.ZERO : item.getPriceSnapshot();
             total = total.add(price.multiply(BigDecimal.valueOf(item.getQuantity())));
         }
-        totalValueView.setText("¥" + FormatUtils.formatPrice(total));
+        totalValueView.setText(getString(R.string.price_value, FormatUtils.formatPrice(total)));
         checkoutButton.setEnabled(hasSelectedItems());
     }
 

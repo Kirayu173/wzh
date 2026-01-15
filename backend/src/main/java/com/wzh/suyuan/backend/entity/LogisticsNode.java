@@ -25,10 +25,10 @@ public class LogisticsNode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "trace_code", length = 64)
+    @Column(name = "trace_code", nullable = false, length = 64)
     private String traceCode;
 
-    @Column(name = "node_time")
+    @Column(name = "node_time", nullable = false)
     private LocalDateTime nodeTime;
 
     @Column(length = 128)

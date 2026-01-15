@@ -101,6 +101,24 @@
             android:textColor="@color/white" />
 
         <Button
+            android:id="@+id/button_trace_scan"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/color_primary"
+            android:text="@string/action_trace_scan"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/button_trace_record"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/color_primary"
+            android:text="@string/action_trace_record"
+            android:textColor="@color/white" />
+
+        <Button
             android:id="@+id/button_logout"
             android:layout_width="match_parent"
             android:layout_height="48dp"

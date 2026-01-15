@@ -1,5 +1,6 @@
 package com.wzh.suyuan.feature.order;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Item
 
     private final List<OrderItem> items = new ArrayList<>();
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setItems(List<OrderItem> data) {
         items.clear();
         if (data != null) {
@@ -66,7 +68,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Item
                 return;
             }
             nameView.setText(item.getProductName());
-            priceView.setText("гд" + FormatUtils.formatPrice(item.getPrice()));
+            priceView.setText(itemView.getContext().getString(
+                    R.string.price_value, FormatUtils.formatPrice(item.getPrice())));
             quantityView.setText(itemView.getContext().getString(R.string.label_quantity_value,
                     item.getQuantity() == null ? 0 : item.getQuantity()));
             Glide.with(itemView.getContext())

@@ -1,5 +1,6 @@
 package com.wzh.suyuan.feature.address;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
         this.listener = listener;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     void setItems(List<Address> addresses) {
         items.clear();
         if (addresses != null) {

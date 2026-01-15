@@ -18,6 +18,8 @@ import com.wzh.suyuan.BuildConfig;
 import com.wzh.suyuan.R;
 import com.wzh.suyuan.data.auth.AuthManager;
 import com.wzh.suyuan.feature.auth.AuthActivity;
+import com.wzh.suyuan.feature.admin.AdminHomeActivity;
+import com.wzh.suyuan.kit.ToastUtils;
 import com.wzh.suyuan.network.model.AuthUser;
 
 public class ProfileFragment extends Fragment {
@@ -28,7 +30,11 @@ public class ProfileFragment extends Fragment {
     private TextView versionView;
     private Button ordersButton;
     private Button addressesButton;
+    private Button traceScanButton;
+    private Button traceRecordButton;
     private Button logoutButton;
+    private int adminTapCount;
+    private long lastTapTime;
 
     @Nullable
     @Override
@@ -42,12 +48,19 @@ public class ProfileFragment extends Fragment {
         versionView = root.findViewById(R.id.text_version);
         ordersButton = root.findViewById(R.id.button_orders);
         addressesButton = root.findViewById(R.id.button_addresses);
+        traceScanButton = root.findViewById(R.id.button_trace_scan);
+        traceRecordButton = root.findViewById(R.id.button_trace_record);
         logoutButton = root.findViewById(R.id.button_logout);
         ordersButton.setOnClickListener(v ->
                 startActivity(new Intent(getContext(), com.wzh.suyuan.feature.order.OrderListActivity.class)));
         addressesButton.setOnClickListener(v ->
                 startActivity(new Intent(getContext(), com.wzh.suyuan.feature.address.AddressListActivity.class)));
+        traceScanButton.setOnClickListener(v ->
+                startActivity(new Intent(getContext(), com.wzh.suyuan.feature.trace.TraceScanActivity.class)));
+        traceRecordButton.setOnClickListener(v ->
+                startActivity(new Intent(getContext(), com.wzh.suyuan.feature.trace.TraceRecordActivity.class)));
         logoutButton.setOnClickListener(v -> confirmLogout());
+        versionView.setOnClickListener(v -> handleAdminEntry());
         refreshUserInfo();
         return root;
     }
@@ -81,6 +94,29 @@ public class ProfileFragment extends Fragment {
         if (versionView != null) {
             versionView.setText(BuildConfig.VERSION_NAME);
         }
+    }
+
+    private void handleAdminEntry() {
+        long now = System.currentTimeMillis();
+        if (now - lastTapTime > 800) {
+            adminTapCount = 0;
+        }
+        lastTapTime = now;
+        adminTapCount++;
+        if (adminTapCount < 5) {
+            return;
+        }
+        adminTapCount = 0;
+        if (getContext() == null) {
+            return;
+        }
+        AuthUser user = AuthManager.getUser(getContext());
+        String role = user == null ? "" : user.getRole();
+        if (role == null || !"admin".equalsIgnoreCase(role)) {
+            ToastUtils.showToast(getString(R.string.admin_no_permission));
+            return;
+        }
+        startActivity(new Intent(getContext(), AdminHomeActivity.class));
     }
 
     private void confirmLogout() {

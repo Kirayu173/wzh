@@ -1,5 +1,6 @@
 package com.wzh.suyuan.feature.order;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         this.listener = listener;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setItems(List<OrderSummary> orders) {
         items.clear();
         if (orders != null) {
@@ -105,8 +107,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 summaryView.setText(R.string.order_item_summary_empty);
                 imageView.setImageResource(R.drawable.ic_launcher);
             }
-            totalView.setText(itemView.getContext()
-                    .getString(R.string.order_total_value, "гд" + FormatUtils.formatPrice(order.getTotalAmount())));
+            String price = itemView.getContext().getString(
+                    R.string.price_value, FormatUtils.formatPrice(order.getTotalAmount()));
+            totalView.setText(itemView.getContext().getString(R.string.order_total_value, price));
             itemView.setOnClickListener(v -> {
                 if (listener != null) {
                     listener.onOrderClick(order);

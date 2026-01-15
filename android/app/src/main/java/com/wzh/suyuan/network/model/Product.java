@@ -11,6 +11,7 @@ public class Product {
     private String coverUrl;
     private String origin;
     private String description;
+    private String status;
     private List<String> images;
 
     public Long getId() {
@@ -67,6 +68,14 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<String> getImages() {

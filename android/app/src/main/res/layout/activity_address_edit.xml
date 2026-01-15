@@ -22,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:labelFor="@id/input_receiver"
             android:text="@string/label_receiver"
             android:textColor="@color/text_secondary"
             android:textSize="12sp" />
@@ -30,6 +31,7 @@
             android:id="@+id/input_receiver"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="personName"
             android:inputType="textPersonName"
             android:textColor="@color/text_primary"
             android:textSize="15sp" />
@@ -38,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:labelFor="@id/input_phone"
             android:text="@string/label_phone"
             android:textColor="@color/text_secondary"
             android:textSize="12sp" />
@@ -46,6 +49,7 @@
             android:id="@+id/input_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="phone"
             android:inputType="phone"
             android:textColor="@color/text_primary"
             android:textSize="15sp" />
@@ -54,6 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:labelFor="@id/input_province"
             android:text="@string/label_province"
             android:textColor="@color/text_secondary"
             android:textSize="12sp" />
@@ -62,6 +67,7 @@
             android:id="@+id/input_province"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="addressRegion"
             android:inputType="text"
             android:textColor="@color/text_primary"
             android:textSize="15sp" />
@@ -70,6 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:labelFor="@id/input_city"
             android:text="@string/label_city"
             android:textColor="@color/text_secondary"
             android:textSize="12sp" />
@@ -78,6 +85,7 @@
             android:id="@+id/input_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="addressLocality"
             android:inputType="text"
             android:textColor="@color/text_primary"
             android:textSize="15sp" />
@@ -86,6 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:labelFor="@id/input_detail"
             android:text="@string/label_detail"
             android:textColor="@color/text_secondary"
             android:textSize="12sp" />
@@ -94,6 +103,7 @@
             android:id="@+id/input_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="streetAddress"
             android:inputType="textMultiLine"
             android:minLines="2"
             android:textColor="@color/text_primary"

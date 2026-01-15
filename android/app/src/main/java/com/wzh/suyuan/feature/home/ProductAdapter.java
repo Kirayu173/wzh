@@ -1,5 +1,6 @@
 package com.wzh.suyuan.feature.home;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         this.listener = listener;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setItems(List<Product> products, boolean append) {
         if (!append) {
             items.clear();
@@ -81,7 +83,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         void bind(Product product, OnProductClickListener listener) {
             nameView.setText(product.getName());
-            priceView.setText("¥" + FormatUtils.formatPrice(product.getPrice()));
+            priceView.setText(itemView.getContext().getString(
+                    R.string.price_value, FormatUtils.formatPrice(product.getPrice())));
             originView.setText(itemView.getContext().getString(R.string.label_origin_value, safeText(product.getOrigin())));
             Integer stock = product.getStock();
             stockView.setText(itemView.getContext().getString(R.string.label_stock_value, stock == null ? 0 : stock));

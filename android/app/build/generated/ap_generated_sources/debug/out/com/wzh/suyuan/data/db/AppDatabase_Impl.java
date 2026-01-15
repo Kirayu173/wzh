@@ -17,6 +17,8 @@ import com.wzh.suyuan.data.db.dao.CartDao;
 import com.wzh.suyuan.data.db.dao.CartDao_Impl;
 import com.wzh.suyuan.data.db.dao.ProductDao;
 import com.wzh.suyuan.data.db.dao.ProductDao_Impl;
+import com.wzh.suyuan.data.db.dao.ScanRecordDao;
+import com.wzh.suyuan.data.db.dao.ScanRecordDao_Impl;
 import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
@@ -38,17 +40,20 @@ public final class AppDatabase_Impl extends AppDatabase {
 
   private volatile CartDao _cartDao;
 
+  private volatile ScanRecordDao _scanRecordDao;
+
   @Override
   @NonNull
   protected SupportSQLiteOpenHelper createOpenHelper(@NonNull final DatabaseConfiguration config) {
-    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(3) {
+    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(4) {
       @Override
       public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS `bootstrap_record` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `created_at` INTEGER NOT NULL)");
         db.execSQL("CREATE TABLE IF NOT EXISTS `product` (`id` INTEGER NOT NULL, `name` TEXT, `price` TEXT, `stock` INTEGER, `cover_url` TEXT, `origin` TEXT, `description` TEXT, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`id`))");
         db.execSQL("CREATE TABLE IF NOT EXISTS `cart_item` (`id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `product_id` INTEGER NOT NULL, `quantity` INTEGER NOT NULL, `selected` INTEGER NOT NULL, `price_snapshot` TEXT, `product_name` TEXT, `product_image` TEXT, `updated_at` INTEGER NOT NULL, `synced` INTEGER NOT NULL, PRIMARY KEY(`id`))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `scan_record` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `trace_code` TEXT, `scan_time` INTEGER NOT NULL, `product_name` TEXT)");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e77fe4e0b0efe6fdece205c34676d51c')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e037e22a4514c81a84bafc33067e13c8')");
       }
 
       @Override
@@ -56,6 +61,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         db.execSQL("DROP TABLE IF EXISTS `bootstrap_record`");
         db.execSQL("DROP TABLE IF EXISTS `product`");
         db.execSQL("DROP TABLE IF EXISTS `cart_item`");
+        db.execSQL("DROP TABLE IF EXISTS `scan_record`");
         final List<? extends RoomDatabase.Callback> _callbacks = mCallbacks;
         if (_callbacks != null) {
           for (RoomDatabase.Callback _callback : _callbacks) {
@@ -150,9 +156,23 @@ public final class AppDatabase_Impl extends AppDatabase {
                   + " Expected:\n" + _infoCartItem + "\n"
                   + " Found:\n" + _existingCartItem);
         }
+        final HashMap<String, TableInfo.Column> _columnsScanRecord = new HashMap<String, TableInfo.Column>(4);
+        _columnsScanRecord.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsScanRecord.put("trace_code", new TableInfo.Column("trace_code", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsScanRecord.put("scan_time", new TableInfo.Column("scan_time", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsScanRecord.put("product_name", new TableInfo.Column("product_name", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysScanRecord = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesScanRecord = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoScanRecord = new TableInfo("scan_record", _columnsScanRecord, _foreignKeysScanRecord, _indicesScanRecord);
+        final TableInfo _existingScanRecord = TableInfo.read(db, "scan_record");
+        if (!_infoScanRecord.equals(_existingScanRecord)) {
+          return new RoomOpenHelper.ValidationResult(false, "scan_record(com.wzh.suyuan.data.db.entity.ScanRecordEntity).\n"
+                  + " Expected:\n" + _infoScanRecord + "\n"
+                  + " Found:\n" + _existingScanRecord);
+        }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "e77fe4e0b0efe6fdece205c34676d51c", "cdf69bebd3f6441dd7799a953998e3d6");
+    }, "e037e22a4514c81a84bafc33067e13c8", "59a99a36430ad9f31aedd4ff4b4061b8");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;
@@ -163,7 +183,7 @@ public final class AppDatabase_Impl extends AppDatabase {
   protected InvalidationTracker createInvalidationTracker() {
     final HashMap<String, String> _shadowTablesMap = new HashMap<String, String>(0);
     final HashMap<String, Set<String>> _viewTables = new HashMap<String, Set<String>>(0);
-    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "bootstrap_record","product","cart_item");
+    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "bootstrap_record","product","cart_item","scan_record");
   }
 
   @Override
@@ -175,6 +195,7 @@ public final class AppDatabase_Impl extends AppDatabase {
       _db.execSQL("DELETE FROM `bootstrap_record`");
       _db.execSQL("DELETE FROM `product`");
       _db.execSQL("DELETE FROM `cart_item`");
+      _db.execSQL("DELETE FROM `scan_record`");
       super.setTransactionSuccessful();
     } finally {
       super.endTransaction();
@@ -192,6 +213,7 @@ public final class AppDatabase_Impl extends AppDatabase {
     _typeConvertersMap.put(BootstrapDao.class, BootstrapDao_Impl.getRequiredConverters());
     _typeConvertersMap.put(ProductDao.class, ProductDao_Impl.getRequiredConverters());
     _typeConvertersMap.put(CartDao.class, CartDao_Impl.getRequiredConverters());
+    _typeConvertersMap.put(ScanRecordDao.class, ScanRecordDao_Impl.getRequiredConverters());
     return _typeConvertersMap;
   }
 
@@ -248,6 +270,20 @@ public final class AppDatabase_Impl extends AppDatabase {
           _cartDao = new CartDao_Impl(this);
         }
         return _cartDao;
+      }
+    }
+  }
+
+  @Override
+  public ScanRecordDao scanRecordDao() {
+    if (_scanRecordDao != null) {
+      return _scanRecordDao;
+    } else {
+      synchronized(this) {
+        if(_scanRecordDao == null) {
+          _scanRecordDao = new ScanRecordDao_Impl(this);
+        }
+        return _scanRecordDao;
       }
     }
   }

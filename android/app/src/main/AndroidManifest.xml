@@ -3,6 +3,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <application
         android:name=".App"
@@ -53,6 +55,54 @@
 
         <activity
             android:name=".feature.order.OrderDetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".feature.trace.TraceScanActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".feature.trace.TraceDetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".feature.trace.TraceRecordActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".feature.admin.AdminHomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".feature.admin.product.AdminProductListActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".feature.admin.product.AdminProductEditActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".feature.admin.order.AdminOrderListActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".feature.admin.order.AdminOrderDetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".feature.admin.trace.AdminTraceListActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".feature.admin.trace.AdminTraceEditActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".feature.admin.trace.AdminTraceLogisticsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".feature.admin.trace.AdminTraceQrCodeActivity"
             android:exported="false" />
     </application>
 </manifest>

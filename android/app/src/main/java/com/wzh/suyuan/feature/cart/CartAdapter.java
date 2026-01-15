@@ -1,5 +1,6 @@
 package com.wzh.suyuan.feature.cart;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         this.listener = listener;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setItems(List<CartEntity> data) {
         items.clear();
         if (data != null) {
@@ -90,7 +92,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         void bind(CartEntity item, CartActionListener listener, int position) {
             nameView.setText(item.getProductName());
-            priceView.setText("¥" + FormatUtils.formatPrice(item.getPriceSnapshot()));
+            priceView.setText(itemView.getContext().getString(
+                    R.string.price_value, FormatUtils.formatPrice(item.getPriceSnapshot())));
             quantityView.setText(String.valueOf(item.getQuantity()));
             Glide.with(itemView.getContext())
                     .load(item.getProductImage())

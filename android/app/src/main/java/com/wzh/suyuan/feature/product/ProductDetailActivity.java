@@ -153,7 +153,7 @@ public class ProductDetailActivity extends BaseActivity<ProductDetailContract.Vi
             return;
         }
         nameView.setText(product.getName());
-        priceView.setText("¥" + FormatUtils.formatPrice(product.getPrice()));
+        priceView.setText(getString(R.string.price_value, FormatUtils.formatPrice(product.getPrice())));
         Integer stock = product.getStock();
         stockView.setText(getString(R.string.label_stock_value, stock == null ? 0 : stock));
         originView.setText(getString(R.string.label_origin_value, safeText(product.getOrigin())));
@@ -171,9 +171,9 @@ public class ProductDetailActivity extends BaseActivity<ProductDetailContract.Vi
 
     private void updateIndicator(int index, int total) {
         if (total <= 0) {
-            indicatorView.setText("0/0");
+            indicatorView.setText(getString(R.string.indicator_default));
         } else {
-            indicatorView.setText(index + "/" + total);
+            indicatorView.setText(getString(R.string.indicator_value, index, total));
         }
     }
 

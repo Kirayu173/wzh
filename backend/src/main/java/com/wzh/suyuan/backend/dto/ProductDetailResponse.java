@@ -20,5 +20,6 @@ public class ProductDetailResponse {
     private String coverUrl;
     private String origin;
     private String description;
+    private String status;
     private List<String> images;
 }

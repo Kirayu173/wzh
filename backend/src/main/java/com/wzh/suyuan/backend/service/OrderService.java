@@ -24,6 +24,7 @@ import com.wzh.suyuan.backend.dto.OrderCreateResponse;
 import com.wzh.suyuan.backend.dto.OrderDetailResponse;
 import com.wzh.suyuan.backend.dto.OrderItemResponse;
 import com.wzh.suyuan.backend.dto.OrderListResponse;
+import com.wzh.suyuan.backend.dto.OrderShipRequest;
 import com.wzh.suyuan.backend.dto.OrderSummaryResponse;
 import com.wzh.suyuan.backend.entity.Address;
 import com.wzh.suyuan.backend.entity.CartItem;
@@ -195,6 +196,51 @@ public class OrderService {
         return toDetailResponse(order, items);
     }
 
+    public OrderDetailResponse getOrderDetailForAdmin(Long orderId) {
+        OrderEntity order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "order not found"));
+        List<OrderItemResponse> items = orderItemRepository.findByOrderId(order.getId())
+                .stream()
+                .map(this::toItemResponse)
+                .collect(Collectors.toList());
+        return toDetailResponse(order, items);
+    }
+
+    public OrderListResponse listOrdersForAdmin(String status, String keyword, int page, int size) {
+        PageRequest pageable = PageRequest.of(Math.max(page - 1, 0), size, Sort.by(Sort.Direction.DESC, "id"));
+        String normalizedStatus = normalizeStatus(status);
+        String trimmedKeyword = normalizeKeyword(keyword);
+        List<OrderEntity> orders;
+        long total;
+        if (trimmedKeyword != null) {
+            OrderEntity order = findByKeyword(trimmedKeyword);
+            if (order == null || (normalizedStatus != null && !normalizedStatus.equals(order.getStatus()))) {
+                orders = new ArrayList<>();
+                total = 0;
+            } else {
+                orders = new ArrayList<>();
+                orders.add(order);
+                total = 1;
+            }
+        } else {
+            Page<OrderEntity> orderPage;
+            if (normalizedStatus == null) {
+                orderPage = orderRepository.findAll(pageable);
+            } else {
+                orderPage = orderRepository.findByStatus(normalizedStatus, pageable);
+            }
+            orders = orderPage.getContent();
+            total = orderPage.getTotalElements();
+        }
+        List<OrderSummaryResponse> summaries = buildSummaries(orders);
+        return OrderListResponse.builder()
+                .items(summaries)
+                .page(page)
+                .size(size)
+                .total(total)
+                .build();
+    }
+
     @Transactional
     public OrderDetailResponse payOrder(Long userId, Long orderId) {
         long start = System.currentTimeMillis();
@@ -236,6 +282,26 @@ public class OrderService {
         List<OrderItemResponse> items = loadItemResponses(saved.getId());
         log.info("order confirm success: userId={}, orderId={}, costMs={}",
                 maskUserId(userId), orderId, System.currentTimeMillis() - start);
+        return toDetailResponse(saved, items);
+    }
+
+    @Transactional
+    public OrderDetailResponse shipOrder(Long orderId, OrderShipRequest request) {
+        long start = System.currentTimeMillis();
+        if (request == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "request required");
+        }
+        OrderEntity order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "order not found"));
+        ensureStatus(order, OrderStatus.PAID);
+        order.setStatus(OrderStatus.SHIPPED.name());
+        order.setExpressNo(trimToNull(request.getExpressNo()));
+        order.setExpressCompany(trimToNull(request.getExpressCompany()));
+        order.setShipTime(LocalDateTime.now());
+        OrderEntity saved = orderRepository.save(order);
+        List<OrderItemResponse> items = loadItemResponses(saved.getId());
+        log.info("order ship success: orderId={}, costMs={}",
+                orderId, System.currentTimeMillis() - start);
         return toDetailResponse(saved, items);
     }
 
@@ -320,6 +386,9 @@ public class OrderService {
                         .receiver(order.getReceiver())
                         .phone(order.getPhone())
                         .address(order.getAddress())
+                        .expressNo(order.getExpressNo())
+                        .expressCompany(order.getExpressCompany())
+                        .shipTime(order.getShipTime())
                         .items(itemMap.getOrDefault(order.getId(), new ArrayList<>()))
                         .build())
                 .collect(Collectors.toList());
@@ -354,6 +423,9 @@ public class OrderService {
                 .createTime(order.getCreateTime())
                 .payTime(order.getPayTime())
                 .confirmTime(order.getConfirmTime())
+                .shipTime(order.getShipTime())
+                .expressNo(order.getExpressNo())
+                .expressCompany(order.getExpressCompany())
                 .items(items)
                 .build();
     }
@@ -390,6 +462,39 @@ public class OrderService {
             return null;
         }
         String trimmed = requestId.trim();
+        return trimmed.isEmpty() ? null : trimmed;
+    }
+
+    private String normalizeStatus(String status) {
+        if (status == null) {
+            return null;
+        }
+        String trimmed = status.trim();
+        return trimmed.isEmpty() ? null : trimmed.toUpperCase();
+    }
+
+    private String normalizeKeyword(String keyword) {
+        if (keyword == null) {
+            return null;
+        }
+        String trimmed = keyword.trim();
+        return trimmed.isEmpty() ? null : trimmed;
+    }
+
+    private OrderEntity findByKeyword(String keyword) {
+        try {
+            long orderId = Long.parseLong(keyword);
+            return orderRepository.findById(orderId).orElse(null);
+        } catch (NumberFormatException ex) {
+            return null;
+        }
+    }
+
+    private String trimToNull(String value) {
+        if (value == null) {
+            return null;
+        }
+        String trimmed = value.trim();
         return trimmed.isEmpty() ? null : trimmed;
     }
 
