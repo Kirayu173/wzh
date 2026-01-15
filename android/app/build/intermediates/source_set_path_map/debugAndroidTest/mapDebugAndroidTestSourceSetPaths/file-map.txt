@@ -1,0 +1,5 @@
+com.wzh.suyuan.test.app-androidTest-0 D:\Work\wzh_graduation_design\wzh\android\app\build\generated\res\resValues\androidTest\debug
+com.wzh.suyuan.test.app-updated_navigation_xml-1 D:\Work\wzh_graduation_design\wzh\android\app\build\generated\updated_navigation_xml\debugAndroidTest
+com.wzh.suyuan.test.app-mergeDebugAndroidTestResources-2 D:\Work\wzh_graduation_design\wzh\android\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.wzh.suyuan.test.app-mergeDebugAndroidTestResources-3 D:\Work\wzh_graduation_design\wzh\android\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.wzh.suyuan.test.app-debugAndroidTest-4 D:\Work\wzh_graduation_design\wzh\android\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources

@@ -1,0 +1,106 @@
+[
+    {
+        "merged": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-debug-33:\\layout_activity_auth.xml.flat",
+        "source": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-main-35:\\layout\\activity_auth.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-debug-33:\\layout_activity_product_detail.xml.flat",
+        "source": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-main-35:\\layout\\activity_product_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-debug-33:\\layout_fragment_cart.xml.flat",
+        "source": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-main-35:\\layout\\fragment_cart.xml"
+    },
+    {
+        "merged": "com.wzh.suyuan.app-debug-33:/layout_activity_address_edit.xml.flat",
+        "source": "com.wzh.suyuan.app-main-35:/layout/activity_address_edit.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-debug-33:\\layout_fragment_profile.xml.flat",
+        "source": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-main-35:\\layout\\fragment_profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-debug-33:\\color_nav_text_selector.xml.flat",
+        "source": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-main-35:\\color\\nav_text_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-debug-33:\\layout_item_product.xml.flat",
+        "source": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-main-35:\\layout\\item_product.xml"
+    },
+    {
+        "merged": "com.wzh.suyuan.app-debug-33:/layout_item_order_confirm.xml.flat",
+        "source": "com.wzh.suyuan.app-main-35:/layout/item_order_confirm.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-debug-33:\\color_auth_tab_text_selector.xml.flat",
+        "source": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-main-35:\\color\\auth_tab_text_selector.xml"
+    },
+    {
+        "merged": "com.wzh.suyuan.app-debug-33:/layout_fragment_profile.xml.flat",
+        "source": "com.wzh.suyuan.app-main-35:/layout/fragment_profile.xml"
+    },
+    {
+        "merged": "com.wzh.suyuan.app-debug-33:/layout_activity_order_confirm.xml.flat",
+        "source": "com.wzh.suyuan.app-main-35:/layout/activity_order_confirm.xml"
+    },
+    {
+        "merged": "com.wzh.suyuan.app-debug-33:/layout_activity_order_detail.xml.flat",
+        "source": "com.wzh.suyuan.app-main-35:/layout/activity_order_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-debug-33:\\layout_item_banner_image.xml.flat",
+        "source": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-main-35:\\layout\\item_banner_image.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-debug-33:\\drawable_ic_launcher.xml.flat",
+        "source": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-main-35:\\drawable\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-debug-33:\\drawable_bg_primary_button.xml.flat",
+        "source": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-main-35:\\drawable\\bg_primary_button.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-debug-33:\\layout_item_cart.xml.flat",
+        "source": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-main-35:\\layout\\item_cart.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-debug-33:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-main-35:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "com.wzh.suyuan.app-debug-33:/layout_activity_address_list.xml.flat",
+        "source": "com.wzh.suyuan.app-main-35:/layout/activity_address_list.xml"
+    },
+    {
+        "merged": "com.wzh.suyuan.app-debug-33:/layout_item_order_list.xml.flat",
+        "source": "com.wzh.suyuan.app-main-35:/layout/item_order_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-debug-33:\\layout_fragment_home.xml.flat",
+        "source": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-main-35:\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-debug-33:\\drawable_bg_quantity_button.xml.flat",
+        "source": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-main-35:\\drawable\\bg_quantity_button.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-debug-33:\\drawable_auth_tab_selector.xml.flat",
+        "source": "C:\\Users\\Kirayu\\.gradle\\daemon\\8.13\\com.wzh.suyuan.app-main-35:\\drawable\\auth_tab_selector.xml"
+    },
+    {
+        "merged": "com.wzh.suyuan.app-debug-33:/layout_item_order_item.xml.flat",
+        "source": "com.wzh.suyuan.app-main-35:/layout/item_order_item.xml"
+    },
+    {
+        "merged": "com.wzh.suyuan.app-debug-33:/layout_activity_order_list.xml.flat",
+        "source": "com.wzh.suyuan.app-main-35:/layout/activity_order_list.xml"
+    },
+    {
+        "merged": "com.wzh.suyuan.app-debug-33:/layout_activity_order_pay.xml.flat",
+        "source": "com.wzh.suyuan.app-main-35:/layout/activity_order_pay.xml"
+    },
+    {
+        "merged": "com.wzh.suyuan.app-debug-33:/layout_item_address.xml.flat",
+        "source": "com.wzh.suyuan.app-main-35:/layout/item_address.xml"
+    }
+]

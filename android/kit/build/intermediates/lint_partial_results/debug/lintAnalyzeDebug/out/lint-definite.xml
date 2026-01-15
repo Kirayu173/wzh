@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 8.13.2" type="incidents">
+
+    <incident
+        id="OldTargetApi"
+        severity="warning"
+        message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the `android.os.Build.VERSION_CODES` javadoc for details.">
+        <fix-replace
+            description="Update targetSdkVersion to 36"
+            oldString="34"
+            replacement="36"
+            priority="0"/>
+        <location
+            file="${:kit*projectDir}/build.gradle"
+            line="9"
+            column="9"
+            startOffset="147"
+            endLine="9"
+            endColumn="21"
+            endOffset="159"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of `compileSdkVersion` than 34 is available: 36">
+        <fix-replace
+            description="Set compileSdkVersion to 36"
+            oldString="34"
+            replacement="36"
+            priority="0"/>
+        <location
+            file="${:kit*projectDir}/build.gradle"
+            line="4"
+            column="5"
+            startOffset="51"
+            endLine="4"
+            endColumn="18"
+            endOffset="64"/>
+    </incident>
+
+    <incident
+        id="ObsoleteSdkInt"
+        severity="warning"
+        message="Unnecessary; `SDK_INT` is always >= 21">
+        <fix-data conditional="true"/>
+        <location
+            file="${:kit*debug*MAIN*sourceProvider*0*javaDir*0}/com/wzh/suyuan/kit/StatusBarUtils.java"
+            line="18"
+            column="13"
+            startOffset="416"
+            endLine="18"
+            endColumn="66"
+            endOffset="469"/>
+    </incident>
+
+</incidents>

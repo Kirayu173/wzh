@@ -1,0 +1,2 @@
+com.wzh.suyuan.kit
+string kit_module_name

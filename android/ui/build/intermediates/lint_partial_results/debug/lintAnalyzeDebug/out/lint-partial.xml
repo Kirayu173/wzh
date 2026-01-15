@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 8.13.2" type="partial_results">
+    <map id="UnusedResources">
+        <location id="R.string.ui_module_name"
+            file="${:ui*debug*MAIN*sourceProvider*0*resDir*0}/values/strings.xml"
+            line="2"
+            column="13"
+            startOffset="24"
+            endLine="2"
+            endColumn="34"
+            endOffset="45"/>
+        <entry
+            name="model"
+            string="id[content_view(U)],layout[activity_base(U)],string[ui_module_name(D)];;;;"/>
+    </map>
+
+</incidents>

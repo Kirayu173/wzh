@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 8.13.2" type="incidents">
+
+    <incident
+        id="OldTargetApi"
+        severity="warning"
+        message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the `android.os.Build.VERSION_CODES` javadoc for details.">
+        <fix-replace
+            description="Update targetSdkVersion to 36"
+            oldString="34"
+            replacement="36"
+            priority="0"/>
+        <location
+            file="${:ui*projectDir}/build.gradle"
+            line="9"
+            column="9"
+            startOffset="146"
+            endLine="9"
+            endColumn="21"
+            endOffset="158"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of `compileSdkVersion` than 34 is available: 36">
+        <fix-replace
+            description="Set compileSdkVersion to 36"
+            oldString="34"
+            replacement="36"
+            priority="0"/>
+        <location
+            file="${:ui*projectDir}/build.gradle"
+            line="4"
+            column="5"
+            startOffset="51"
+            endLine="4"
+            endColumn="18"
+            endOffset="64"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.fragment:fragment than 1.6.2 is available: 1.8.9">
+        <fix-replace
+            description="Change to 1.8.9"
+            family="Update versions"
+            oldString="1.6.2"
+            replacement="1.8.9"
+            priority="0"/>
+        <location
+            file="${:ui*projectDir}/build.gradle"
+            line="27"
+            column="20"
+            startOffset="567"
+            endLine="27"
+            endColumn="54"
+            endOffset="601"/>
+    </incident>
+
+</incidents>

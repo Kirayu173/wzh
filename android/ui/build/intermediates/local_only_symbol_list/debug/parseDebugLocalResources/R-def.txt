@@ -1,0 +1,5 @@
+R_DEF: Internal format may change without notice
+local
+id content_view
+layout activity_base
+string ui_module_name

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 8.13.2" type="conditional_incidents">
+
+    <incident
+        id="MissingPermission"
+        severity="error"
+        message="">
+        <fix-data missing="android.permission.ACCESS_NETWORK_STATE" message="Missing permissions required by ConnectivityManager.getActiveNetworkInfo: %1$s" lastApi="2147483647" operator="&amp;"/>
+        <location
+            file="${:kit*debug*MAIN*sourceProvider*0*javaDir*0}/com/wzh/suyuan/kit/NetworkUtils.java"
+            line="16"
+            column="28"
+            startOffset="478"
+            endLine="16"
+            endColumn="58"
+            endOffset="508"/>
+        <map>
+            <entry
+                name="message"
+                string="Missing permissions required by ConnectivityManager.getActiveNetworkInfo: %1$s"/>
+            <entry
+                name="requirement"
+                string="android.permission.ACCESS_NETWORK_STATE"/>
+        </map>
+    </incident>
+
+    <incident
+        id="MissingPermission"
+        severity="error"
+        message="">
+        <fix-data missing="android.permission.ACCESS_NETWORK_STATE" message="Missing permissions required by ConnectivityManager.getActiveNetworkInfo: %1$s" lastApi="2147483647" operator="&amp;"/>
+        <location
+            file="${:kit*debug*MAIN*sourceProvider*0*javaDir*0}/com/wzh/suyuan/kit/NetworkUtils.java"
+            line="25"
+            column="28"
+            startOffset="845"
+            endLine="25"
+            endColumn="58"
+            endOffset="875"/>
+        <map>
+            <entry
+                name="message"
+                string="Missing permissions required by ConnectivityManager.getActiveNetworkInfo: %1$s"/>
+            <entry
+                name="requirement"
+                string="android.permission.ACCESS_NETWORK_STATE"/>
+        </map>
+    </incident>
+
+</incidents>

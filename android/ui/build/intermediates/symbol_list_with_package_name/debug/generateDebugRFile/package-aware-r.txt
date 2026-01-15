@@ -1,0 +1,4 @@
+com.wzh.suyuan.ui
+id content_view
+layout activity_base
+string ui_module_name

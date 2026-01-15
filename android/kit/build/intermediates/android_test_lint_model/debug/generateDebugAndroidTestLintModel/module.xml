@@ -1,0 +1,19 @@
+<lint-module
+    format="1"
+    dir="D:\Work\wzh_graduation_design\wzh\android\kit"
+    name=":kit"
+    type="LIBRARY"
+    maven="suyuan-android:kit:unspecified"
+    agpVersion="8.13.2"
+    buildFolder="build"
+    bootClassPath="D:\Application\AndroidStudio_SDK\platforms\android-34\android.jar;D:\Application\AndroidStudio_SDK\build-tools\35.0.0\core-lambda-stubs.jar"
+    javaSourceLevel="17"
+    compileTarget="android-34"
+    neverShrinking="true">
+  <lintOptions
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="debug"/>
+</lint-module>
