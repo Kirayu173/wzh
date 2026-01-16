@@ -25,15 +25,21 @@ public class AdminProductEditPresenter extends BasePresenter<AdminProductEditCon
         if (view != null) {
             view.showLoading(true);
         }
-        Call<BaseResponse<?>> call;
         if (productId > 0) {
-            call = ApiClient.getService().updateAdminProduct(productId, request);
+            ApiClient.getService()
+                    .updateAdminProduct(productId, request)
+                    .enqueue(createSaveCallback(context));
         } else {
-            call = ApiClient.getService().createAdminProduct(request);
+            ApiClient.getService()
+                    .createAdminProduct(request)
+                    .enqueue(createSaveCallback(context));
         }
-        call.enqueue(new Callback<BaseResponse<?>>() {
+    }
+
+    private <T> Callback<BaseResponse<T>> createSaveCallback(Context context) {
+        return new Callback<BaseResponse<T>>() {
             @Override
-            public void onResponse(Call<BaseResponse<?>> call, Response<BaseResponse<?>> response) {
+            public void onResponse(Call<BaseResponse<T>> call, Response<BaseResponse<T>> response) {
                 AdminProductEditContract.View view = getView();
                 if (view == null) {
                     return;
@@ -44,7 +50,7 @@ public class AdminProductEditPresenter extends BasePresenter<AdminProductEditCon
                     view.showError(context.getString(R.string.admin_product_save_failed));
                     return;
                 }
-                BaseResponse<?> body = response.body();
+                BaseResponse<T> body = response.body();
                 if (!body.isSuccess()) {
                     view.showError(body.getMessage());
                     return;
@@ -53,7 +59,7 @@ public class AdminProductEditPresenter extends BasePresenter<AdminProductEditCon
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<?>> call, Throwable t) {
+            public void onFailure(Call<BaseResponse<T>> call, Throwable t) {
                 AdminProductEditContract.View view = getView();
                 if (view == null) {
                     return;
@@ -62,7 +68,7 @@ public class AdminProductEditPresenter extends BasePresenter<AdminProductEditCon
                 view.showLoading(false);
                 view.showError(context.getString(R.string.error_network));
             }
-        });
+        };
     }
 
     public void loadProduct(Context context, long productId) {

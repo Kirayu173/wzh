@@ -20,6 +20,7 @@ import com.wzh.suyuan.backend.dto.OrderDetailResponse;
 import com.wzh.suyuan.backend.dto.OrderListResponse;
 import com.wzh.suyuan.backend.dto.OrderShipRequest;
 import com.wzh.suyuan.backend.model.ApiResponse;
+import com.wzh.suyuan.backend.controller.support.AdminAuthSupport;
 import com.wzh.suyuan.backend.security.JwtUserPrincipal;
 import com.wzh.suyuan.backend.service.OrderService;
 
@@ -40,12 +41,12 @@ public class AdminOrderController {
                                                                @RequestParam(defaultValue = "1") int page,
                                                                @RequestParam(defaultValue = "10") int size,
                                                                Authentication authentication) {
-        JwtUserPrincipal principal = requireAdmin(authentication);
+        JwtUserPrincipal principal = AdminAuthSupport.requireAdmin(authentication);
         String requestId = UUID.randomUUID().toString();
         int safePage = Math.max(page, 1);
         int safeSize = size <= 0 ? 10 : Math.min(size, 50);
         log.info("admin order list request: requestId={}, adminId={}, status={}, keyword={}, page={}, size={}",
-                requestId, maskUserId(principal.getId()), status, keyword, safePage, safeSize);
+                requestId, AdminAuthSupport.maskUserId(principal.getId()), status, keyword, safePage, safeSize);
         OrderListResponse response = orderService.listOrdersForAdmin(status, keyword, safePage, safeSize);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
@@ -53,10 +54,10 @@ public class AdminOrderController {
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<OrderDetailResponse>> detail(@PathVariable("id") Long id,
                                                                    Authentication authentication) {
-        JwtUserPrincipal principal = requireAdmin(authentication);
+        JwtUserPrincipal principal = AdminAuthSupport.requireAdmin(authentication);
         String requestId = UUID.randomUUID().toString();
         log.info("admin order detail request: requestId={}, adminId={}, orderId={}",
-                requestId, maskUserId(principal.getId()), id);
+                requestId, AdminAuthSupport.maskUserId(principal.getId()), id);
         OrderDetailResponse response = orderService.getOrderDetailForAdmin(id);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
@@ -65,40 +66,11 @@ public class AdminOrderController {
     public ResponseEntity<ApiResponse<OrderDetailResponse>> ship(@PathVariable("id") Long id,
                                                                  @Valid @RequestBody OrderShipRequest request,
                                                                  Authentication authentication) {
-        JwtUserPrincipal principal = requireAdmin(authentication);
+        JwtUserPrincipal principal = AdminAuthSupport.requireAdmin(authentication);
         String requestId = UUID.randomUUID().toString();
         log.info("admin order ship request: requestId={}, adminId={}, orderId={}, expressNo={}",
-                requestId, maskUserId(principal.getId()), id, request.getExpressNo());
+                requestId, AdminAuthSupport.maskUserId(principal.getId()), id, request.getExpressNo());
         OrderDetailResponse response = orderService.shipOrder(id, request);
         return ResponseEntity.ok(ApiResponse.success(response));
-    }
-
-    private JwtUserPrincipal requireAdmin(Authentication authentication) {
-        if (authentication == null || !(authentication.getPrincipal() instanceof JwtUserPrincipal)) {
-            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.UNAUTHORIZED,
-                    "Unauthorized");
-        }
-        JwtUserPrincipal principal = (JwtUserPrincipal) authentication.getPrincipal();
-        if (!isAdmin(principal)) {
-            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.FORBIDDEN,
-                    "Forbidden");
-        }
-        return principal;
-    }
-
-    private boolean isAdmin(JwtUserPrincipal principal) {
-        String role = principal.getRole();
-        return role != null && "admin".equalsIgnoreCase(role);
-    }
-
-    private String maskUserId(Long userId) {
-        if (userId == null) {
-            return "***";
-        }
-        String value = String.valueOf(userId);
-        if (value.length() <= 2) {
-            return "***" + value;
-        }
-        return "***" + value.substring(value.length() - 2);
     }
 }

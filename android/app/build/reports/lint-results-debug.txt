@@ -1,1 +1,219 @@
-No issues found.
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\java\com\wzh\suyuan\feature\admin\product\AdminProductEditActivity.java:34: Warning: Use SwitchCompat from AppCompat or SwitchMaterial from Material library [UseSwitchCompatOrMaterialCode from androidx.appcompat]
+    private Switch statusSwitch;
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "UseSwitchCompatOrMaterialCode":
+   Use SwitchCompat from AppCompat or SwitchMaterial from Material library
+
+   Vendor: Android Open Source Project
+   Identifier: androidx.appcompat
+   Feedback: https://issuetracker.google.com/issues/new?component=460343
+
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_product_edit.xml:76: Warning: Use SwitchCompat from AppCompat or SwitchMaterial from Material library [UseSwitchCompatOrMaterialXml from androidx.appcompat]
+            <Switch
+            ^
+
+   Explanation for issues of type "UseSwitchCompatOrMaterialXml":
+   Use SwitchCompat from AppCompat or SwitchMaterial from Material library
+
+   Vendor: Android Open Source Project
+   Identifier: androidx.appcompat
+   Feedback: https://issuetracker.google.com/issues/new?component=460343
+
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\item_admin_order.xml:7: Warning: Possible overdraw: Root element paints background @android:color/white with a theme that also paints a background (inferred theme is @style/Theme.Suyuan) [Overdraw]
+    android:background="@android:color/white"
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\item_admin_product.xml:7: Warning: Possible overdraw: Root element paints background @android:color/white with a theme that also paints a background (inferred theme is @style/Theme.Suyuan) [Overdraw]
+    android:background="@android:color/white"
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\item_admin_trace.xml:7: Warning: Possible overdraw: Root element paints background @android:color/white with a theme that also paints a background (inferred theme is @style/Theme.Suyuan) [Overdraw]
+    android:background="@android:color/white"
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "Overdraw":
+   If you set a background drawable on a root view, then you should use a
+   custom theme where the theme background is null. Otherwise, the theme
+   background will be painted first, only to have your custom background
+   completely cover it; this is called "overdraw".
+
+   NOTE: This detector relies on figuring out which layouts are associated
+   with which activities based on scanning the Java code, and it's currently
+   doing that using an inexact pattern matching algorithm. Therefore, it can
+   incorrectly conclude which activity the layout is associated with and then
+   wrongly complain that a background-theme is hidden.
+
+   If you want your custom background on multiple pages, then you should
+   consider making a custom theme with your custom background and just using
+   that theme instead of a root element background.
+
+   Of course it's possible that your custom drawable is translucent and you
+   want it to be mixed with the background. However, you will get better
+   performance if you pre-mix the background with your drawable and use that
+   resulting image or color as a custom theme background instead.
+
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\item_admin_order.xml:49: Warning: Buttons in button bars should be borderless; use style="?android:attr/buttonBarButtonStyle" (and ?android:attr/buttonBarStyle on the parent) [ButtonStyle]
+        <Button
+         ~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\item_admin_order.xml:55: Warning: Buttons in button bars should be borderless; use style="?android:attr/buttonBarButtonStyle" (and ?android:attr/buttonBarStyle on the parent) [ButtonStyle]
+        <Button
+         ~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\item_admin_product.xml:50: Warning: Buttons in button bars should be borderless; use style="?android:attr/buttonBarButtonStyle" (and ?android:attr/buttonBarStyle on the parent) [ButtonStyle]
+        <Button
+         ~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\item_admin_product.xml:56: Warning: Buttons in button bars should be borderless; use style="?android:attr/buttonBarButtonStyle" (and ?android:attr/buttonBarStyle on the parent) [ButtonStyle]
+        <Button
+         ~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\item_admin_product.xml:63: Warning: Buttons in button bars should be borderless; use style="?android:attr/buttonBarButtonStyle" (and ?android:attr/buttonBarStyle on the parent) [ButtonStyle]
+        <Button
+         ~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\item_admin_product.xml:70: Warning: Buttons in button bars should be borderless; use style="?android:attr/buttonBarButtonStyle" (and ?android:attr/buttonBarStyle on the parent) [ButtonStyle]
+        <Button
+         ~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\item_admin_trace.xml:42: Warning: Buttons in button bars should be borderless; use style="?android:attr/buttonBarButtonStyle" (and ?android:attr/buttonBarStyle on the parent) [ButtonStyle]
+        <Button
+         ~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\item_admin_trace.xml:48: Warning: Buttons in button bars should be borderless; use style="?android:attr/buttonBarButtonStyle" (and ?android:attr/buttonBarStyle on the parent) [ButtonStyle]
+        <Button
+         ~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\item_admin_trace.xml:55: Warning: Buttons in button bars should be borderless; use style="?android:attr/buttonBarButtonStyle" (and ?android:attr/buttonBarStyle on the parent) [ButtonStyle]
+        <Button
+         ~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\item_admin_trace.xml:62: Warning: Buttons in button bars should be borderless; use style="?android:attr/buttonBarButtonStyle" (and ?android:attr/buttonBarStyle on the parent) [ButtonStyle]
+        <Button
+         ~~~~~~
+
+   Explanation for issues of type "ButtonStyle":
+   Button bars typically use a borderless style for the buttons. Set the
+   style="?android:attr/buttonBarButtonStyle" attribute on each of the
+   buttons, and set style="?android:attr/buttonBarStyle" on the parent layout
+
+   https://d.android.com/r/studio-ui/designer/material/dialogs
+
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_product_edit.xml:22: Warning: Missing autofillHints attribute [Autofill]
+        <EditText
+         ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_product_edit.xml:30: Warning: Missing autofillHints attribute [Autofill]
+        <EditText
+         ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_product_edit.xml:38: Warning: Missing autofillHints attribute [Autofill]
+        <EditText
+         ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_product_edit.xml:46: Warning: Missing autofillHints attribute [Autofill]
+        <EditText
+         ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_product_edit.xml:54: Warning: Missing autofillHints attribute [Autofill]
+        <EditText
+         ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_product_edit.xml:84: Warning: Missing autofillHints attribute [Autofill]
+        <EditText
+         ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_trace_edit.xml:22: Warning: Missing autofillHints attribute [Autofill]
+        <EditText
+         ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_trace_edit.xml:30: Warning: Missing autofillHints attribute [Autofill]
+        <EditText
+         ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_trace_edit.xml:38: Warning: Missing autofillHints attribute [Autofill]
+        <EditText
+         ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_trace_edit.xml:46: Warning: Missing autofillHints attribute [Autofill]
+        <EditText
+         ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_trace_edit.xml:54: Warning: Missing autofillHints attribute [Autofill]
+        <EditText
+         ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_trace_edit.xml:62: Warning: Missing autofillHints attribute [Autofill]
+        <EditText
+         ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_trace_edit.xml:71: Warning: Missing autofillHints attribute [Autofill]
+        <EditText
+         ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_trace_edit.xml:79: Warning: Missing autofillHints attribute [Autofill]
+        <EditText
+         ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_trace_edit.xml:87: Warning: Missing autofillHints attribute [Autofill]
+        <EditText
+         ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_trace_edit.xml:95: Warning: Missing autofillHints attribute [Autofill]
+        <EditText
+         ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_trace_logistics.xml:18: Warning: Missing autofillHints attribute [Autofill]
+    <EditText
+     ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_trace_logistics.xml:26: Warning: Missing autofillHints attribute [Autofill]
+    <EditText
+     ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_trace_logistics.xml:34: Warning: Missing autofillHints attribute [Autofill]
+    <EditText
+     ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\dialog_admin_ship.xml:9: Warning: Missing autofillHints attribute [Autofill]
+    <EditText
+     ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\dialog_admin_ship.xml:16: Warning: Missing autofillHints attribute [Autofill]
+    <EditText
+     ~~~~~~~~
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\dialog_admin_stock.xml:9: Warning: Missing autofillHints attribute [Autofill]
+    <EditText
+     ~~~~~~~~
+
+   Explanation for issues of type "Autofill":
+   Specify an autofillHints attribute when targeting SDK version 26 or higher
+   or explicitly specify that the view is not important for autofill. Your app
+   can help an autofill service classify the data correctly by providing the
+   meaning of each view that could be autofillable, such as views representing
+   usernames, passwords, credit card fields, email addresses, etc.
+
+   The hints can have any value, but it is recommended to use predefined
+   values like 'username' for a username or 'creditCardNumber' for a credit
+   card number. For a list of all predefined autofill hint constants, see the
+   AUTOFILL_HINT_ constants in the View reference at
+   https://developer.android.com/reference/android/view/View.html.
+
+   You can mark a view unimportant for autofill by specifying an
+   importantForAutofill attribute on that view or a parent view. See
+   https://developer.android.com/reference/android/view/View.html#setImportant
+   ForAutofill(int).
+
+   https://developer.android.com/guide/topics/text/autofill.html
+
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\res\layout\activity_admin_trace_qrcode.xml:8: Warning: Missing contentDescription attribute on image [ContentDescription]
+    <ImageView
+     ~~~~~~~~~
+
+   Explanation for issues of type "ContentDescription":
+   Non-textual widgets like ImageViews and ImageButtons should use the
+   contentDescription attribute to specify a textual description of the widget
+   such that screen readers and other accessibility tools can adequately
+   describe the user interface.
+
+   Note that elements in application screens that are purely decorative and do
+   not provide any content or enable a user action should not have
+   accessibility content descriptions. In this case, set their descriptions to
+   @null. If your app's minSdkVersion is 16 or higher, you can instead set
+   these graphical elements' android:importantForAccessibility attributes to
+   no.
+
+   Note that for text fields, you should not set both the hint and the
+   contentDescription attributes since the hint will never be shown. Just set
+   the hint.
+
+   https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases
+
+D:\Work\wzh_graduation_design\wzh\android\app\src\main\java\com\wzh\suyuan\feature\admin\product\AdminProductAdapter.java:97: Warning: Do not concatenate text displayed with setText. Use resource string with placeholders. [SetTextI18n]
+            statusView.setText(itemView.getContext().getString(
+                               ^
+
+   Explanation for issues of type "SetTextI18n":
+   When calling TextView#setText
+   * Never call Number#toString() to format numbers; it will not handle
+   fraction separators and locale-specific digits properly. Consider using
+   String#format with proper format specifications (%d or %f) instead.
+   * Do not pass a string literal (e.g. "Hello") to display text. Hardcoded
+   text can not be properly translated to other languages. Consider using
+   Android resource strings instead.
+   * Do not build messages by concatenating text chunks. Such messages can not
+   be properly translated.
+
+   https://developer.android.com/guide/topics/resources/localization.html
+
+0 errors, 39 warnings

@@ -24,15 +24,21 @@ public class AdminTraceEditPresenter extends BasePresenter<AdminTraceEditContrac
         if (view != null) {
             view.showLoading(true);
         }
-        Call<BaseResponse<?>> call;
         if (batchId > 0) {
-            call = ApiClient.getService().updateAdminTraceBatch(batchId, request);
+            ApiClient.getService()
+                    .updateAdminTraceBatch(batchId, request)
+                    .enqueue(createSaveCallback(context));
         } else {
-            call = ApiClient.getService().createAdminTraceBatch(request);
+            ApiClient.getService()
+                    .createAdminTraceBatch(request)
+                    .enqueue(createSaveCallback(context));
         }
-        call.enqueue(new Callback<BaseResponse<?>>() {
+    }
+
+    private <T> Callback<BaseResponse<T>> createSaveCallback(Context context) {
+        return new Callback<BaseResponse<T>>() {
             @Override
-            public void onResponse(Call<BaseResponse<?>> call, Response<BaseResponse<?>> response) {
+            public void onResponse(Call<BaseResponse<T>> call, Response<BaseResponse<T>> response) {
                 AdminTraceEditContract.View view = getView();
                 if (view == null) {
                     return;
@@ -43,7 +49,7 @@ public class AdminTraceEditPresenter extends BasePresenter<AdminTraceEditContrac
                     view.showError(context.getString(R.string.admin_trace_save_failed));
                     return;
                 }
-                BaseResponse<?> body = response.body();
+                BaseResponse<T> body = response.body();
                 if (!body.isSuccess()) {
                     view.showError(body.getMessage());
                     return;
@@ -52,7 +58,7 @@ public class AdminTraceEditPresenter extends BasePresenter<AdminTraceEditContrac
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<?>> call, Throwable t) {
+            public void onFailure(Call<BaseResponse<T>> call, Throwable t) {
                 AdminTraceEditContract.View view = getView();
                 if (view == null) {
                     return;
@@ -61,6 +67,6 @@ public class AdminTraceEditPresenter extends BasePresenter<AdminTraceEditContrac
                 view.showLoading(false);
                 view.showError(context.getString(R.string.error_network));
             }
-        });
+        };
     }
 }

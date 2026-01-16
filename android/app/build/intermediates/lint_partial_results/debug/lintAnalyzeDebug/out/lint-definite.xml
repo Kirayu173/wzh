@@ -1,0 +1,1316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 8.13.2" type="incidents">
+
+    <incident
+        id="UseSwitchCompatOrMaterialCode"
+        severity="warning"
+        message="Use `SwitchCompat` from AppCompat or `SwitchMaterial` from Material library">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*javaDir*0}/com/wzh/suyuan/feature/admin/product/AdminProductEditActivity.java"
+            line="34"
+            column="5"
+            startOffset="1374"
+            endLine="34"
+            endColumn="33"
+            endOffset="1402"/>
+    </incident>
+
+    <incident
+        id="UseSwitchCompatOrMaterialXml"
+        severity="warning"
+        message="Use `SwitchCompat` from AppCompat or `SwitchMaterial` from Material library">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_product_edit.xml"
+            line="76"
+            column="13"
+            startOffset="2932"
+            endLine="81"
+            endColumn="70"
+            endOffset="3225"/>
+    </incident>
+
+    <incident
+        id="Overdraw"
+        severity="warning"
+        message="Possible overdraw: Root element paints background `@android:color/white` with a theme that also paints a background (inferred theme is `@style/Theme.Suyuan`)">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_order.xml"
+            line="7"
+            column="5"
+            startOffset="280"
+            endLine="7"
+            endColumn="46"
+            endOffset="321"/>
+    </incident>
+
+    <incident
+        id="Overdraw"
+        severity="warning"
+        message="Possible overdraw: Root element paints background `@android:color/white` with a theme that also paints a background (inferred theme is `@style/Theme.Suyuan`)">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+            line="7"
+            column="5"
+            startOffset="282"
+            endLine="7"
+            endColumn="46"
+            endOffset="323"/>
+    </incident>
+
+    <incident
+        id="Overdraw"
+        severity="warning"
+        message="Possible overdraw: Root element paints background `@android:color/white` with a theme that also paints a background (inferred theme is `@style/Theme.Suyuan`)">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+            line="7"
+            column="5"
+            startOffset="280"
+            endLine="7"
+            endColumn="46"
+            endOffset="321"/>
+    </incident>
+
+    <incident
+        id="ButtonStyle"
+        severity="warning"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)">
+        <fix-composite
+            description="Make borderless">
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_order.xml"
+                    startOffset="1456"
+                    endOffset="2171"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_order.xml"
+                    startOffset="1680"
+                    endOffset="1884"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_order.xml"
+                    startOffset="1894"
+                    endOffset="2151"/>
+            </fix-attribute>
+        </fix-composite>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_order.xml"
+            line="49"
+            column="10"
+            startOffset="1681"
+            endLine="49"
+            endColumn="16"
+            endOffset="1687"/>
+    </incident>
+
+    <incident
+        id="ButtonStyle"
+        severity="warning"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)">
+        <fix-composite
+            description="Make borderless">
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_order.xml"
+                    startOffset="1456"
+                    endOffset="2171"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_order.xml"
+                    startOffset="1680"
+                    endOffset="1884"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_order.xml"
+                    startOffset="1894"
+                    endOffset="2151"/>
+            </fix-attribute>
+        </fix-composite>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_order.xml"
+            line="55"
+            column="10"
+            startOffset="1895"
+            endLine="55"
+            endColumn="16"
+            endOffset="1901"/>
+    </incident>
+
+    <incident
+        id="ButtonStyle"
+        severity="warning"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)">
+        <fix-composite
+            description="Make borderless">
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="1479"
+                    endOffset="2734"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="1703"
+                    endOffset="1905"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="1915"
+                    endOffset="2180"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="2190"
+                    endOffset="2453"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="2463"
+                    endOffset="2714"/>
+            </fix-attribute>
+        </fix-composite>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+            line="50"
+            column="10"
+            startOffset="1704"
+            endLine="50"
+            endColumn="16"
+            endOffset="1710"/>
+    </incident>
+
+    <incident
+        id="ButtonStyle"
+        severity="warning"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)">
+        <fix-composite
+            description="Make borderless">
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="1479"
+                    endOffset="2734"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="1703"
+                    endOffset="1905"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="1915"
+                    endOffset="2180"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="2190"
+                    endOffset="2453"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="2463"
+                    endOffset="2714"/>
+            </fix-attribute>
+        </fix-composite>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+            line="56"
+            column="10"
+            startOffset="1916"
+            endLine="56"
+            endColumn="16"
+            endOffset="1922"/>
+    </incident>
+
+    <incident
+        id="ButtonStyle"
+        severity="warning"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)">
+        <fix-composite
+            description="Make borderless">
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="1479"
+                    endOffset="2734"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="1703"
+                    endOffset="1905"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="1915"
+                    endOffset="2180"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="2190"
+                    endOffset="2453"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="2463"
+                    endOffset="2714"/>
+            </fix-attribute>
+        </fix-composite>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+            line="63"
+            column="10"
+            startOffset="2191"
+            endLine="63"
+            endColumn="16"
+            endOffset="2197"/>
+    </incident>
+
+    <incident
+        id="ButtonStyle"
+        severity="warning"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)">
+        <fix-composite
+            description="Make borderless">
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="1479"
+                    endOffset="2734"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="1703"
+                    endOffset="1905"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="1915"
+                    endOffset="2180"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="2190"
+                    endOffset="2453"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+                    startOffset="2463"
+                    endOffset="2714"/>
+            </fix-attribute>
+        </fix-composite>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_product.xml"
+            line="70"
+            column="10"
+            startOffset="2464"
+            endLine="70"
+            endColumn="16"
+            endOffset="2470"/>
+    </incident>
+
+    <incident
+        id="ButtonStyle"
+        severity="warning"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)">
+        <fix-composite
+            description="Make borderless">
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="1200"
+                    endOffset="2451"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="1424"
+                    endOffset="1624"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="1634"
+                    endOffset="1895"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="1905"
+                    endOffset="2172"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="2182"
+                    endOffset="2431"/>
+            </fix-attribute>
+        </fix-composite>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+            line="42"
+            column="10"
+            startOffset="1425"
+            endLine="42"
+            endColumn="16"
+            endOffset="1431"/>
+    </incident>
+
+    <incident
+        id="ButtonStyle"
+        severity="warning"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)">
+        <fix-composite
+            description="Make borderless">
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="1200"
+                    endOffset="2451"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="1424"
+                    endOffset="1624"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="1634"
+                    endOffset="1895"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="1905"
+                    endOffset="2172"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="2182"
+                    endOffset="2431"/>
+            </fix-attribute>
+        </fix-composite>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+            line="48"
+            column="10"
+            startOffset="1635"
+            endLine="48"
+            endColumn="16"
+            endOffset="1641"/>
+    </incident>
+
+    <incident
+        id="ButtonStyle"
+        severity="warning"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)">
+        <fix-composite
+            description="Make borderless">
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="1200"
+                    endOffset="2451"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="1424"
+                    endOffset="1624"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="1634"
+                    endOffset="1895"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="1905"
+                    endOffset="2172"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="2182"
+                    endOffset="2431"/>
+            </fix-attribute>
+        </fix-composite>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+            line="55"
+            column="10"
+            startOffset="1906"
+            endLine="55"
+            endColumn="16"
+            endOffset="1912"/>
+    </incident>
+
+    <incident
+        id="ButtonStyle"
+        severity="warning"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)">
+        <fix-composite
+            description="Make borderless">
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="1200"
+                    endOffset="2451"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="1424"
+                    endOffset="1624"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="1634"
+                    endOffset="1895"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="1905"
+                    endOffset="2172"/>
+            </fix-attribute>
+            <fix-attribute
+                description="Set style=&quot;?android:attr/buttonBarButtonStyle&quot;"
+                attribute="style"
+                value="?android:attr/buttonBarButtonStyle">
+                <range
+                    file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+                    startOffset="2182"
+                    endOffset="2431"/>
+            </fix-attribute>
+        </fix-composite>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/item_admin_trace.xml"
+            line="62"
+            column="10"
+            startOffset="2183"
+            endLine="62"
+            endColumn="16"
+            endOffset="2189"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_product_edit.xml"
+            line="22"
+            column="10"
+            startOffset="786"
+            endLine="22"
+            endColumn="18"
+            endOffset="794"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_product_edit.xml"
+            line="30"
+            column="10"
+            startOffset="1100"
+            endLine="30"
+            endColumn="18"
+            endOffset="1108"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_product_edit.xml"
+            line="38"
+            column="10"
+            startOffset="1425"
+            endLine="38"
+            endColumn="18"
+            endOffset="1433"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_product_edit.xml"
+            line="46"
+            column="10"
+            startOffset="1743"
+            endLine="46"
+            endColumn="18"
+            endOffset="1751"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_product_edit.xml"
+            line="54"
+            column="10"
+            startOffset="2061"
+            endLine="54"
+            endColumn="18"
+            endOffset="2069"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_product_edit.xml"
+            line="84"
+            column="10"
+            startOffset="3260"
+            endLine="84"
+            endColumn="18"
+            endOffset="3268"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_trace_edit.xml"
+            line="22"
+            column="10"
+            startOffset="780"
+            endLine="22"
+            endColumn="18"
+            endOffset="788"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_trace_edit.xml"
+            line="30"
+            column="10"
+            startOffset="1104"
+            endLine="30"
+            endColumn="18"
+            endOffset="1112"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_trace_edit.xml"
+            line="38"
+            column="10"
+            startOffset="1422"
+            endLine="38"
+            endColumn="18"
+            endOffset="1430"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_trace_edit.xml"
+            line="46"
+            column="10"
+            startOffset="1736"
+            endLine="46"
+            endColumn="18"
+            endOffset="1744"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_trace_edit.xml"
+            line="54"
+            column="10"
+            startOffset="2054"
+            endLine="54"
+            endColumn="18"
+            endOffset="2062"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_trace_edit.xml"
+            line="62"
+            column="10"
+            startOffset="2375"
+            endLine="62"
+            endColumn="18"
+            endOffset="2383"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_trace_edit.xml"
+            line="71"
+            column="10"
+            startOffset="2733"
+            endLine="71"
+            endColumn="18"
+            endOffset="2741"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_trace_edit.xml"
+            line="79"
+            column="10"
+            startOffset="3051"
+            endLine="79"
+            endColumn="18"
+            endOffset="3059"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_trace_edit.xml"
+            line="87"
+            column="10"
+            startOffset="3371"
+            endLine="87"
+            endColumn="18"
+            endOffset="3379"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_trace_edit.xml"
+            line="95"
+            column="10"
+            startOffset="3695"
+            endLine="95"
+            endColumn="18"
+            endOffset="3703"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_trace_logistics.xml"
+            line="18"
+            column="6"
+            startOffset="644"
+            endLine="18"
+            endColumn="14"
+            endOffset="652"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_trace_logistics.xml"
+            line="26"
+            column="6"
+            startOffset="944"
+            endLine="26"
+            endColumn="14"
+            endOffset="952"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_trace_logistics.xml"
+            line="34"
+            column="6"
+            startOffset="1248"
+            endLine="34"
+            endColumn="14"
+            endOffset="1256"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/dialog_admin_ship.xml"
+            line="9"
+            column="6"
+            startOffset="307"
+            endLine="9"
+            endColumn="14"
+            endOffset="315"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/dialog_admin_ship.xml"
+            line="16"
+            column="6"
+            startOffset="547"
+            endLine="16"
+            endColumn="14"
+            endOffset="555"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/dialog_admin_stock.xml"
+            line="9"
+            column="6"
+            startOffset="308"
+            endLine="9"
+            endColumn="14"
+            endOffset="316"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_admin_trace_qrcode.xml"
+            line="8"
+            column="6"
+            startOffset="272"
+            endLine="8"
+            endColumn="15"
+            endOffset="281"/>
+    </incident>
+
+    <incident
+        id="SetTextI18n"
+        severity="warning"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders.">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*javaDir*0}/com/wzh/suyuan/feature/admin/product/AdminProductAdapter.java"
+            line="97"
+            column="32"
+            startOffset="3442"
+            endLine="98"
+            endColumn="77"
+            endOffset="3551"/>
+    </incident>
+
+</incidents>

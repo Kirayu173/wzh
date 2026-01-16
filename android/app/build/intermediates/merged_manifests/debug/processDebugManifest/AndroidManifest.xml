@@ -92,6 +92,33 @@
         <activity
             android:name="com.wzh.suyuan.feature.trace.TraceRecordActivity"
             android:exported="false" />
+        <activity
+            android:name="com.wzh.suyuan.feature.admin.AdminHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wzh.suyuan.feature.admin.product.AdminProductListActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wzh.suyuan.feature.admin.product.AdminProductEditActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wzh.suyuan.feature.admin.order.AdminOrderListActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wzh.suyuan.feature.admin.order.AdminOrderDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wzh.suyuan.feature.admin.trace.AdminTraceListActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wzh.suyuan.feature.admin.trace.AdminTraceEditActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wzh.suyuan.feature.admin.trace.AdminTraceLogisticsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wzh.suyuan.feature.admin.trace.AdminTraceQrCodeActivity"
+            android:exported="false" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"

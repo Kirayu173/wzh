@@ -25,6 +25,7 @@ import com.wzh.suyuan.backend.dto.AdminProductStatusRequest;
 import com.wzh.suyuan.backend.dto.AdminProductStockRequest;
 import com.wzh.suyuan.backend.dto.ProductListResponse;
 import com.wzh.suyuan.backend.model.ApiResponse;
+import com.wzh.suyuan.backend.controller.support.AdminAuthSupport;
 import com.wzh.suyuan.backend.security.JwtUserPrincipal;
 import com.wzh.suyuan.backend.service.ProductService;
 
@@ -45,12 +46,12 @@ public class AdminProductController {
                                                                  @RequestParam(required = false) String status,
                                                                  @RequestParam(required = false) String keyword,
                                                                  Authentication authentication) {
-        JwtUserPrincipal principal = requireAdmin(authentication);
+        JwtUserPrincipal principal = AdminAuthSupport.requireAdmin(authentication);
         String requestId = UUID.randomUUID().toString();
         int safePage = Math.max(page, 1);
         int safeSize = size <= 0 ? 10 : Math.min(size, 50);
         log.info("admin product list request: requestId={}, adminId={}, page={}, size={}, status={}, keyword={}",
-                requestId, maskUserId(principal.getId()), safePage, safeSize, status, keyword);
+                requestId, AdminAuthSupport.maskUserId(principal.getId()), safePage, safeSize, status, keyword);
         ProductListResponse response = productService.getAdminProducts(safePage, safeSize, status, keyword);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
@@ -58,10 +59,10 @@ public class AdminProductController {
     @PostMapping
     public ResponseEntity<ApiResponse<AdminProductCreateResponse>> create(@Valid @RequestBody AdminProductRequest request,
                                                                           Authentication authentication) {
-        JwtUserPrincipal principal = requireAdmin(authentication);
+        JwtUserPrincipal principal = AdminAuthSupport.requireAdmin(authentication);
         String requestId = UUID.randomUUID().toString();
         log.info("admin product create request: requestId={}, adminId={}, name={}",
-                requestId, maskUserId(principal.getId()), request.getName());
+                requestId, AdminAuthSupport.maskUserId(principal.getId()), request.getName());
         AdminProductCreateResponse response = productService.createProduct(request);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
@@ -70,10 +71,10 @@ public class AdminProductController {
     public ResponseEntity<ApiResponse<Object>> update(@PathVariable("id") Long id,
                                                       @Valid @RequestBody AdminProductRequest request,
                                                       Authentication authentication) {
-        JwtUserPrincipal principal = requireAdmin(authentication);
+        JwtUserPrincipal principal = AdminAuthSupport.requireAdmin(authentication);
         String requestId = UUID.randomUUID().toString();
         log.info("admin product update request: requestId={}, adminId={}, productId={}",
-                requestId, maskUserId(principal.getId()), id);
+                requestId, AdminAuthSupport.maskUserId(principal.getId()), id);
         productService.updateProduct(id, request);
         return ResponseEntity.ok(ApiResponse.success(null));
     }
@@ -82,10 +83,10 @@ public class AdminProductController {
     public ResponseEntity<ApiResponse<Object>> updateStatus(@PathVariable("id") Long id,
                                                             @Valid @RequestBody AdminProductStatusRequest request,
                                                             Authentication authentication) {
-        JwtUserPrincipal principal = requireAdmin(authentication);
+        JwtUserPrincipal principal = AdminAuthSupport.requireAdmin(authentication);
         String requestId = UUID.randomUUID().toString();
         log.info("admin product status request: requestId={}, adminId={}, productId={}, status={}",
-                requestId, maskUserId(principal.getId()), id, request.getStatus());
+                requestId, AdminAuthSupport.maskUserId(principal.getId()), id, request.getStatus());
         productService.updateProductStatus(id, request.getStatus());
         return ResponseEntity.ok(ApiResponse.success(null));
     }
@@ -94,10 +95,10 @@ public class AdminProductController {
     public ResponseEntity<ApiResponse<Object>> updateStock(@PathVariable("id") Long id,
                                                            @Valid @RequestBody AdminProductStockRequest request,
                                                            Authentication authentication) {
-        JwtUserPrincipal principal = requireAdmin(authentication);
+        JwtUserPrincipal principal = AdminAuthSupport.requireAdmin(authentication);
         String requestId = UUID.randomUUID().toString();
         log.info("admin product stock request: requestId={}, adminId={}, productId={}, stock={}",
-                requestId, maskUserId(principal.getId()), id, request.getStock());
+                requestId, AdminAuthSupport.maskUserId(principal.getId()), id, request.getStock());
         productService.updateProductStock(id, request.getStock());
         return ResponseEntity.ok(ApiResponse.success(null));
     }
@@ -105,40 +106,11 @@ public class AdminProductController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Object>> delete(@PathVariable("id") Long id,
                                                       Authentication authentication) {
-        JwtUserPrincipal principal = requireAdmin(authentication);
+        JwtUserPrincipal principal = AdminAuthSupport.requireAdmin(authentication);
         String requestId = UUID.randomUUID().toString();
         log.info("admin product delete request: requestId={}, adminId={}, productId={}",
-                requestId, maskUserId(principal.getId()), id);
+                requestId, AdminAuthSupport.maskUserId(principal.getId()), id);
         productService.deleteProduct(id);
         return ResponseEntity.ok(ApiResponse.success(null));
-    }
-
-    private JwtUserPrincipal requireAdmin(Authentication authentication) {
-        if (authentication == null || !(authentication.getPrincipal() instanceof JwtUserPrincipal)) {
-            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.UNAUTHORIZED,
-                    "Unauthorized");
-        }
-        JwtUserPrincipal principal = (JwtUserPrincipal) authentication.getPrincipal();
-        if (!isAdmin(principal)) {
-            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.FORBIDDEN,
-                    "Forbidden");
-        }
-        return principal;
-    }
-
-    private boolean isAdmin(JwtUserPrincipal principal) {
-        String role = principal.getRole();
-        return role != null && "admin".equalsIgnoreCase(role);
-    }
-
-    private String maskUserId(Long userId) {
-        if (userId == null) {
-            return "***";
-        }
-        String value = String.valueOf(userId);
-        if (value.length() <= 2) {
-            return "***" + value;
-        }
-        return "***" + value.substring(value.length() - 2);
     }
 }

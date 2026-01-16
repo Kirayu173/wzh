@@ -29,7 +29,8 @@ public class SecurityConfig {
                 .antMatchers("/auth/login", "/auth/register", "/health").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthenticationFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(new RequestLogFilter(), JwtAuthenticationFilter.class);
         return http.build();
     }
 

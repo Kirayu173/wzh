@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/admin_trace_logistics_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/admin_trace_logistics_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/admin_trace_logistics_title"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/admin_trace_logistics_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="@string/admin_trace_logistics_time_hint"
+        android:inputType="datetime" />
+
+    <EditText
+        android:id="@+id/admin_trace_logistics_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="@string/admin_trace_logistics_location_hint"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/admin_trace_logistics_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="@string/admin_trace_logistics_status_hint"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/admin_trace_logistics_save"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_primary_button"
+        android:text="@string/action_save"
+        android:textColor="@color/white" />
+</LinearLayout>
