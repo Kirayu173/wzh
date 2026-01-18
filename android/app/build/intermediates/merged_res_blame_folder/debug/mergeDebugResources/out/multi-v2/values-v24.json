@@ -4,7 +4,7 @@
             "outputFile": "com.wzh.suyuan.app-mergeDebugResources-31:/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Kirayu\\.gradle\\caches\\8.13\\transforms\\9751129cf9a082d51cb0234e0f752002\\transformed\\appcompat-1.6.1\\res\\values-v24\\values-v24.xml",
+                    "source": "D:\\Development\\Gradle\\caches\\8.13\\transforms\\9751129cf9a082d51cb0234e0f752002\\transformed\\appcompat-1.6.1\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

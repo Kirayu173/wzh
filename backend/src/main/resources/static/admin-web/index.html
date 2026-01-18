@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Suyuan Admin Console</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg">
+      <span class="orb orb-1"></span>
+      <span class="orb orb-2"></span>
+      <span class="orb orb-3"></span>
+      <span class="grid"></span>
+    </div>
+    <div class="notice" id="notice" aria-live="polite"></div>
+
+    <section class="login-screen" id="loginScreen">
+      <div class="login-card">
+        <div class="badge">Admin Access</div>
+        <h1>Trace Admin</h1>
+        <p class="subtitle">Sign in with an admin account to manage products, orders, and trace batches.</p>
+        <form id="loginForm">
+          <label>
+            <span>API Base URL</span>
+            <input type="url" id="baseUrlInput" placeholder="http://localhost:8080" required />
+          </label>
+          <label>
+            <span>Username</span>
+            <input type="text" id="usernameInput" autocomplete="username" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="password" id="passwordInput" autocomplete="current-password" required />
+          </label>
+          <button type="submit" class="primary">Sign in</button>
+        </form>
+        <div class="login-hint">
+          Admin role is required. Set the role to "admin" in the database if needed.
+        </div>
+      </div>
+    </section>
+
+    <section class="shell" id="adminShell" hidden>
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="logo">S</div>
+          <div>
+            <div class="brand-title">Suyuan</div>
+            <div class="brand-subtitle">Admin Console</div>
+          </div>
+        </div>
+        <div class="profile">
+          <div class="avatar" id="userAvatar">AD</div>
+          <div>
+            <div class="profile-name" id="userName">Admin</div>
+            <div class="profile-role" id="userRole">role</div>
+          </div>
+        </div>
+        <nav class="nav">
+          <button class="nav-item" data-nav="dashboard">Dashboard</button>
+          <button class="nav-item" data-nav="products">Products</button>
+          <button class="nav-item" data-nav="orders">Orders</button>
+          <button class="nav-item" data-nav="trace">Trace</button>
+          <button class="nav-item" data-nav="settings">Settings</button>
+        </nav>
+        <div class="sidebar-footer">
+          <button id="logoutBtn" class="ghost">Log out</button>
+        </div>
+      </aside>
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <div class="eyebrow">Web Admin</div>
+            <h2 id="viewTitle">Dashboard</h2>
+          </div>
+          <div class="top-actions">
+            <button id="refreshBtn" class="ghost">Refresh</button>
+          </div>
+        </header>
+
+        <section class="panel" data-view="dashboard">
+          <div class="grid-cards">
+            <div class="card stat">
+              <div class="stat-label">Products</div>
+              <div class="stat-value" id="statProducts">-</div>
+              <div class="stat-note">Total online + offline</div>
+            </div>
+            <div class="card stat">
+              <div class="stat-label">Orders</div>
+              <div class="stat-value" id="statOrders">-</div>
+              <div class="stat-note">All statuses</div>
+            </div>
+            <div class="card stat">
+              <div class="stat-label">Trace Batches</div>
+              <div class="stat-value" id="statTraces">-</div>
+              <div class="stat-note">Active batches</div>
+            </div>
+          </div>
+          <div class="card spotlight">
+            <div>
+              <h3>Quick Start</h3>
+              <p>Use the left navigation to manage products, ship orders, and create trace batches.</p>
+            </div>
+            <div class="spotlight-actions">
+              <button class="ghost" data-jump="products">Add product</button>
+              <button class="ghost" data-jump="orders">Ship orders</button>
+              <button class="ghost" data-jump="trace">Create batch</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" data-view="products" hidden>
+          <div class="panel-head">
+            <div>
+              <h3>Products</h3>
+              <p class="muted">Manage catalog items and inventory.</p>
+            </div>
+            <div class="filters">
+              <input type="text" id="productKeyword" placeholder="Search by name" />
+              <select id="productStatus">
+                <option value="">All status</option>
+                <option value="online">Online</option>
+                <option value="offline">Offline</option>
+              </select>
+              <button id="productSearchBtn" class="ghost">Search</button>
+              <button id="productResetBtn" class="ghost">Reset</button>
+            </div>
+          </div>
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>Status</th>
+                  <th>Origin</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="productTable"></tbody>
+            </table>
+            <div class="pagination">
+              <button id="productPrev" class="ghost">Prev</button>
+              <div id="productPageInfo">Page 1</div>
+              <button id="productNext" class="ghost">Next</button>
+            </div>
+          </div>
+          <div class="card form-card">
+            <div class="form-head">
+              <h4 id="productFormTitle">Create product</h4>
+              <button id="productFormCancel" class="ghost" hidden>Cancel</button>
+            </div>
+            <form id="productForm">
+              <div class="form-grid">
+                <label>
+                  <span>Name *</span>
+                  <input type="text" name="name" required />
+                </label>
+                <label>
+                  <span>Price *</span>
+                  <input type="number" name="price" min="0" step="0.01" required />
+                </label>
+                <label>
+                  <span>Stock *</span>
+                  <input type="number" name="stock" min="0" step="1" required />
+                </label>
+                <label>
+                  <span>Status</span>
+                  <select name="status">
+                    <option value="online">Online</option>
+                    <option value="offline">Offline</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Origin</span>
+                  <input type="text" name="origin" />
+                </label>
+                <label>
+                  <span>Cover URL</span>
+                  <input type="url" name="coverUrl" />
+                </label>
+              </div>
+              <label>
+                <span>Description</span>
+                <textarea name="description" rows="3"></textarea>
+              </label>
+              <button type="submit" class="primary">Save product</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="panel" data-view="orders" hidden>
+          <div class="panel-head">
+            <div>
+              <h3>Orders</h3>
+              <p class="muted">Review and ship paid orders.</p>
+            </div>
+            <div class="filters">
+              <input type="text" id="orderKeyword" placeholder="Order ID" />
+              <select id="orderStatus">
+                <option value="">All status</option>
+                <option value="PENDING_PAY">Pending pay</option>
+                <option value="PAID">Paid</option>
+                <option value="SHIPPED">Shipped</option>
+                <option value="COMPLETED">Completed</option>
+                <option value="CANCELED">Canceled</option>
+              </select>
+              <button id="orderSearchBtn" class="ghost">Search</button>
+              <button id="orderResetBtn" class="ghost">Reset</button>
+            </div>
+          </div>
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Status</th>
+                  <th>Total</th>
+                  <th>Receiver</th>
+                  <th>Address</th>
+                  <th>Items</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="orderTable"></tbody>
+            </table>
+            <div class="pagination">
+              <button id="orderPrev" class="ghost">Prev</button>
+              <div id="orderPageInfo">Page 1</div>
+              <button id="orderNext" class="ghost">Next</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" data-view="trace" hidden>
+          <div class="panel-head">
+            <div>
+              <h3>Trace batches</h3>
+              <p class="muted">Create trace batches and logistics nodes.</p>
+            </div>
+            <div class="filters">
+              <input type="text" id="traceKeyword" placeholder="Trace code keyword" />
+              <button id="traceSearchBtn" class="ghost">Search</button>
+              <button id="traceResetBtn" class="ghost">Reset</button>
+            </div>
+          </div>
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Trace Code</th>
+                  <th>Product</th>
+                  <th>Origin</th>
+                  <th>Producer</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="traceTable"></tbody>
+            </table>
+            <div class="pagination">
+              <button id="tracePrev" class="ghost">Prev</button>
+              <div id="tracePageInfo">Page 1</div>
+              <button id="traceNext" class="ghost">Next</button>
+            </div>
+          </div>
+
+          <div class="grid-two">
+            <div class="card form-card">
+              <div class="form-head">
+                <h4 id="traceFormTitle">Create trace batch</h4>
+                <button id="traceFormCancel" class="ghost" hidden>Cancel</button>
+              </div>
+              <form id="traceForm">
+                <div class="form-grid">
+                  <label>
+                    <span>Product ID *</span>
+                    <input type="number" name="productId" min="1" required />
+                  </label>
+                  <label>
+                    <span>Batch No</span>
+                    <input type="text" name="batchNo" />
+                  </label>
+                  <label>
+                    <span>Origin *</span>
+                    <input type="text" name="origin" required />
+                  </label>
+                  <label>
+                    <span>Producer *</span>
+                    <input type="text" name="producer" required />
+                  </label>
+                  <label>
+                    <span>Harvest date</span>
+                    <input type="date" name="harvestDate" />
+                  </label>
+                  <label>
+                    <span>Process info</span>
+                    <input type="text" name="processInfo" />
+                  </label>
+                  <label>
+                    <span>Test org</span>
+                    <input type="text" name="testOrg" />
+                  </label>
+                  <label>
+                    <span>Test date</span>
+                    <input type="date" name="testDate" />
+                  </label>
+                  <label>
+                    <span>Test result</span>
+                    <input type="text" name="testResult" />
+                  </label>
+                  <label>
+                    <span>Report URL</span>
+                    <input type="url" name="reportUrl" />
+                  </label>
+                </div>
+                <button type="submit" class="primary">Save batch</button>
+              </form>
+            </div>
+
+            <div class="card form-card">
+              <h4>Logistics node</h4>
+              <form id="logisticsForm">
+                <label>
+                  <span>Trace code *</span>
+                  <input type="text" name="traceCode" required />
+                </label>
+                <label>
+                  <span>Node time *</span>
+                  <input type="datetime-local" name="nodeTime" required />
+                </label>
+                <label>
+                  <span>Location *</span>
+                  <input type="text" name="location" required />
+                </label>
+                <label>
+                  <span>Status description *</span>
+                  <input type="text" name="statusDesc" required />
+                </label>
+                <div class="split-actions">
+                  <button type="submit" class="primary">Add node</button>
+                  <button type="button" id="traceQrBtn" class="ghost">Get QR</button>
+                </div>
+              </form>
+              <div id="qrResult" class="qr-result" hidden>
+                <img id="qrImage" alt="Trace QR" />
+                <a id="qrDownload" class="ghost" download="trace-qrcode.png">Download</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" data-view="settings" hidden>
+          <div class="card form-card">
+            <h3>Settings</h3>
+            <form id="settingsForm">
+              <label>
+                <span>API Base URL</span>
+                <input type="url" id="settingsBaseUrl" required />
+              </label>
+              <button type="submit" class="primary">Save settings</button>
+            </form>
+            <div class="muted small">
+              Serving from the backend at <code>/admin-web/</code> keeps requests same-origin.
+            </div>
+          </div>
+        </section>
+      </main>
+    </section>
+
+    <div class="modal" id="modal" hidden>
+      <div class="modal-backdrop" data-modal-close></div>
+      <div class="modal-card">
+        <div class="modal-head">
+          <h3 id="modalTitle">Modal</h3>
+          <button class="ghost" data-modal-close>Close</button>
+        </div>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+
+    <script src="./admin.js"></script>
+  </body>
+</html>

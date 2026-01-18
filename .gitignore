@@ -1,1 +1,5 @@
 items/
+# Build artifacts
+backend/target/
+android/.gradle/
+android/**/build/

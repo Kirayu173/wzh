@@ -4,7 +4,7 @@
             "outputFile": "com.wzh.suyuan.app-mergeDebugResources-31:/values-he/values-he.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Kirayu\\.gradle\\caches\\8.13\\transforms\\784103a80b8bfc22377175428c72406b\\transformed\\jetified-zxing-android-embedded-4.3.0\\res\\values-he\\values-he.xml",
+                    "source": "D:\\Development\\Gradle\\caches\\8.13\\transforms\\784103a80b8bfc22377175428c72406b\\transformed\\jetified-zxing-android-embedded-4.3.0\\res\\values-he\\values-he.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
