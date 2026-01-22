@@ -1,11 +1,15 @@
 package com.wzh.suyuan.backend.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,8 +18,10 @@ import com.wzh.suyuan.backend.dto.CartAddResponse;
 import com.wzh.suyuan.backend.dto.CartItemResponse;
 import com.wzh.suyuan.backend.entity.CartItem;
 import com.wzh.suyuan.backend.entity.Product;
+import com.wzh.suyuan.backend.model.CartConstants;
 import com.wzh.suyuan.backend.repository.CartItemRepository;
 import com.wzh.suyuan.backend.repository.ProductRepository;
+import com.wzh.suyuan.backend.util.SecurityUtils;
 
 @Service
 public class CartService {
@@ -31,8 +37,45 @@ public class CartService {
     }
 
     public List<CartItemResponse> getCartItems(Long userId) {
-        return cartItemRepository.findByUserIdOrderByIdDesc(userId)
+        List<CartItem> items = cartItemRepository.findByUserIdOrderByIdDesc(userId);
+        if (items.isEmpty()) {
+            return new ArrayList<>();
+        }
+        Map<Long, Product> productMap = productRepository.findAllById(items.stream()
+                        .map(CartItem::getProductId)
+                        .distinct()
+                        .collect(Collectors.toList()))
                 .stream()
+                .collect(Collectors.toMap(Product::getId, product -> product));
+        LocalDateTime now = LocalDateTime.now();
+        List<CartItem> updatedItems = new ArrayList<>();
+        for (CartItem item : items) {
+            Product product = productMap.get(item.getProductId());
+            if (product == null) {
+                continue;
+            }
+            boolean updated = false;
+            if (product.getPrice() != null && !product.getPrice().equals(item.getPriceSnapshot())) {
+                item.setPriceSnapshot(product.getPrice());
+                updated = true;
+            }
+            if (!Objects.equals(item.getProductName(), product.getName())) {
+                item.setProductName(product.getName());
+                updated = true;
+            }
+            if (!Objects.equals(item.getProductImage(), product.getCoverUrl())) {
+                item.setProductImage(product.getCoverUrl());
+                updated = true;
+            }
+            if (updated) {
+                item.setUpdateTime(now);
+                updatedItems.add(item);
+            }
+        }
+        if (!updatedItems.isEmpty()) {
+            cartItemRepository.saveAll(updatedItems);
+        }
+        return items.stream()
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }
@@ -46,6 +89,7 @@ public class CartService {
         if (item != null) {
             targetQuantity = item.getQuantity() + safeQuantity;
         }
+        ensureQuantityLimit(targetQuantity);
         ensureStock(product, targetQuantity, userId, productId);
         LocalDateTime now = LocalDateTime.now();
         if (item == null) {
@@ -67,9 +111,26 @@ public class CartService {
             item.setProductImage(product.getCoverUrl());
             item.setUpdateTime(now);
         }
-        CartItem saved = cartItemRepository.save(item);
+        CartItem saved;
+        try {
+            saved = cartItemRepository.save(item);
+        } catch (DataIntegrityViolationException ex) {
+            CartItem existing = cartItemRepository.findByUserIdAndProductId(userId, productId).orElse(null);
+            if (existing == null) {
+                throw ex;
+            }
+            int mergedQuantity = existing.getQuantity() + safeQuantity;
+            ensureQuantityLimit(mergedQuantity);
+            ensureStock(product, mergedQuantity, userId, productId);
+            existing.setQuantity(mergedQuantity);
+            existing.setPriceSnapshot(product.getPrice());
+            existing.setProductName(product.getName());
+            existing.setProductImage(product.getCoverUrl());
+            existing.setUpdateTime(now);
+            saved = cartItemRepository.save(existing);
+        }
         log.info("cart add success: userId={}, productId={}, cartId={}",
-                maskUserId(userId), productId, saved.getId());
+                SecurityUtils.maskUserId(userId), productId, saved.getId());
         return CartAddResponse.builder().id(saved.getId()).build();
     }
 
@@ -79,6 +140,7 @@ public class CartService {
         Product product = productRepository.findById(item.getProductId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "product not found"));
         int safeQuantity = Math.max(quantity, 1);
+        ensureQuantityLimit(safeQuantity);
         ensureStock(product, safeQuantity, userId, item.getProductId());
         item.setQuantity(safeQuantity);
         item.setPriceSnapshot(product.getPrice());
@@ -102,14 +164,20 @@ public class CartService {
         CartItem item = cartItemRepository.findByIdAndUserId(cartItemId, userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "cart item not found"));
         cartItemRepository.delete(item);
-        log.info("cart delete: userId={}, cartId={}", maskUserId(userId), cartItemId);
+        log.info("cart delete: userId={}, cartId={}", SecurityUtils.maskUserId(userId), cartItemId);
     }
 
     private void ensureStock(Product product, int targetQuantity, Long userId, Long productId) {
         if (product.getStock() != null && product.getStock() < targetQuantity) {
             log.warn("stock not enough: userId={}, productId={}, quantity={}, stock={}",
-                    maskUserId(userId), productId, targetQuantity, product.getStock());
+                    SecurityUtils.maskUserId(userId), productId, targetQuantity, product.getStock());
             throw new ResponseStatusException(HttpStatus.CONFLICT, "stock not enough");
+        }
+    }
+
+    private void ensureQuantityLimit(int targetQuantity) {
+        if (targetQuantity > CartConstants.MAX_ITEM_QUANTITY) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "quantity too large");
         }
     }
 
@@ -125,14 +193,4 @@ public class CartService {
                 .build();
     }
 
-    private String maskUserId(Long userId) {
-        if (userId == null) {
-            return "***";
-        }
-        String value = String.valueOf(userId);
-        if (value.length() <= 2) {
-            return "***" + value;
-        }
-        return "***" + value.substring(value.length() - 2);
-    }
 }

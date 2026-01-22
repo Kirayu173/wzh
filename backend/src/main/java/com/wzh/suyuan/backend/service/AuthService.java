@@ -15,6 +15,7 @@ import com.wzh.suyuan.backend.exception.InvalidCredentialsException;
 import com.wzh.suyuan.backend.exception.UserAlreadyExistsException;
 import com.wzh.suyuan.backend.repository.UserRepository;
 import com.wzh.suyuan.backend.security.JwtTokenProvider;
+import com.wzh.suyuan.backend.util.SecurityUtils;
 
 @Service
 public class AuthService {
@@ -44,7 +45,7 @@ public class AuthService {
         user.setRole("user");
         user.setCreateTime(LocalDateTime.now());
         User saved = userRepository.save(user);
-        log.info("register success: requestId={}, userId={}", requestId, maskUserId(saved.getId()));
+        log.info("register success: requestId={}, userId={}", requestId, SecurityUtils.maskUserId(saved.getId()));
         return RegisterResponse.builder()
                 .id(saved.getId())
                 .username(saved.getUsername())
@@ -58,11 +59,12 @@ public class AuthService {
             throw new InvalidCredentialsException("invalid credentials");
         }
         if (!passwordEncoder.matches(password, user.getPasswordHash())) {
-            log.warn("login failed: requestId={}, userId={}", requestId, maskUserId(user.getId()));
+            log.warn("login failed: requestId={}, userId={}", requestId, SecurityUtils.maskUserId(user.getId()));
             throw new InvalidCredentialsException("invalid credentials");
         }
         JwtTokenProvider.JwtToken jwtToken = tokenProvider.createToken(user);
-        log.info("login success: requestId={}, userId={}, expireAt={}", requestId, maskUserId(user.getId()), jwtToken.getExpireAt());
+        log.info("login success: requestId={}, userId={}, expireAt={}", requestId,
+                SecurityUtils.maskUserId(user.getId()), jwtToken.getExpireAt());
         return LoginResponse.builder()
                 .token(jwtToken.getToken())
                 .expireAt(jwtToken.getExpireAt())
@@ -82,17 +84,6 @@ public class AuthService {
                 .username(user.getUsername())
                 .role(user.getRole())
                 .build();
-    }
-
-    private String maskUserId(Long userId) {
-        if (userId == null) {
-            return "***";
-        }
-        String value = String.valueOf(userId);
-        if (value.length() <= 2) {
-            return "***" + value;
-        }
-        return "***" + value.substring(value.length() - 2);
     }
 
     private String maskUsername(String username) {

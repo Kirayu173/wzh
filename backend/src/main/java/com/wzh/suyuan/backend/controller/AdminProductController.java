@@ -25,6 +25,7 @@ import com.wzh.suyuan.backend.dto.AdminProductStatusRequest;
 import com.wzh.suyuan.backend.dto.AdminProductStockRequest;
 import com.wzh.suyuan.backend.dto.ProductListResponse;
 import com.wzh.suyuan.backend.model.ApiResponse;
+import com.wzh.suyuan.backend.model.PaginationConstants;
 import com.wzh.suyuan.backend.controller.support.AdminAuthSupport;
 import com.wzh.suyuan.backend.security.JwtUserPrincipal;
 import com.wzh.suyuan.backend.service.ProductService;
@@ -49,7 +50,8 @@ public class AdminProductController {
         JwtUserPrincipal principal = AdminAuthSupport.requireAdmin(authentication);
         String requestId = UUID.randomUUID().toString();
         int safePage = Math.max(page, 1);
-        int safeSize = size <= 0 ? 10 : Math.min(size, 50);
+        int safeSize = size <= 0 ? PaginationConstants.DEFAULT_PAGE_SIZE
+                : Math.min(size, PaginationConstants.MAX_PAGE_SIZE);
         log.info("admin product list request: requestId={}, adminId={}, page={}, size={}, status={}, keyword={}",
                 requestId, AdminAuthSupport.maskUserId(principal.getId()), safePage, safeSize, status, keyword);
         ProductListResponse response = productService.getAdminProducts(safePage, safeSize, status, keyword);

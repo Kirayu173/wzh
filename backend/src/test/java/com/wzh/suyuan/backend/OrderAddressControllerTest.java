@@ -69,6 +69,9 @@ class OrderAddressControllerTest {
     private CartItemRepository cartItemRepository;
 
     @Autowired
+    private TestDataCleaner dataCleaner;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -78,12 +81,7 @@ class OrderAddressControllerTest {
 
     @BeforeEach
     void setup() {
-        orderItemRepository.deleteAll();
-        orderRepository.deleteAll();
-        addressRepository.deleteAll();
-        cartItemRepository.deleteAll();
-        productRepository.deleteAll();
-        userRepository.deleteAll();
+        dataCleaner.reset();
         User user = new User();
         user.setUsername("tester");
         user.setPasswordHash(passwordEncoder.encode("pass1234"));

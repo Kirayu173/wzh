@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wzh.suyuan.backend.security.JwtUserPrincipal;
+import com.wzh.suyuan.backend.util.SecurityUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,19 +51,8 @@ public class RequestLogFilter extends OncePerRequestFilter {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof JwtUserPrincipal) {
             JwtUserPrincipal principal = (JwtUserPrincipal) authentication.getPrincipal();
-            return maskUserId(principal.getId());
+            return SecurityUtils.maskUserId(principal.getId());
         }
         return "-";
-    }
-
-    private String maskUserId(Long userId) {
-        if (userId == null) {
-            return "***";
-        }
-        String value = String.valueOf(userId);
-        if (value.length() <= 2) {
-            return "***" + value;
-        }
-        return "***" + value.substring(value.length() - 2);
     }
 }

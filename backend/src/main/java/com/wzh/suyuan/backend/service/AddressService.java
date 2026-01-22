@@ -15,6 +15,7 @@ import com.wzh.suyuan.backend.dto.AddressRequest;
 import com.wzh.suyuan.backend.dto.AddressResponse;
 import com.wzh.suyuan.backend.entity.Address;
 import com.wzh.suyuan.backend.repository.AddressRepository;
+import com.wzh.suyuan.backend.util.SecurityUtils;
 
 @Service
 public class AddressService {
@@ -54,7 +55,7 @@ public class AddressService {
                 .build();
         Address saved = addressRepository.save(address);
         log.info("address create: userId={}, addressId={}, default={}",
-                maskUserId(userId), saved.getId(), saved.getIsDefault());
+                SecurityUtils.maskUserId(userId), saved.getId(), saved.getIsDefault());
         return toResponse(saved);
     }
 
@@ -75,7 +76,7 @@ public class AddressService {
         address.setDetail(request.getDetail());
         Address saved = addressRepository.save(address);
         log.info("address update: userId={}, addressId={}, default={}",
-                maskUserId(userId), saved.getId(), saved.getIsDefault());
+                SecurityUtils.maskUserId(userId), saved.getId(), saved.getIsDefault());
         return toResponse(saved);
     }
 
@@ -84,7 +85,7 @@ public class AddressService {
         Address address = addressRepository.findByIdAndUserId(id, userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "address not found"));
         addressRepository.delete(address);
-        log.info("address delete: userId={}, addressId={}", maskUserId(userId), id);
+        log.info("address delete: userId={}, addressId={}", SecurityUtils.maskUserId(userId), id);
     }
 
     @Transactional
@@ -94,11 +95,12 @@ public class AddressService {
         clearDefault(userId, id);
         address.setIsDefault(true);
         Address saved = addressRepository.save(address);
-        log.info("address set default: userId={}, addressId={}", maskUserId(userId), id);
+        log.info("address set default: userId={}, addressId={}", SecurityUtils.maskUserId(userId), id);
         return toResponse(saved);
     }
 
     private void clearDefault(Long userId, Long keepId) {
+        addressRepository.findByUserIdForUpdate(userId);
         List<Address> defaults = addressRepository.findByUserIdAndIsDefaultTrue(userId);
         for (Address item : defaults) {
             if (keepId == null || !keepId.equals(item.getId())) {
@@ -122,14 +124,4 @@ public class AddressService {
                 .build();
     }
 
-    private String maskUserId(Long userId) {
-        if (userId == null) {
-            return "***";
-        }
-        String value = String.valueOf(userId);
-        if (value.length() <= 2) {
-            return "***" + value;
-        }
-        return "***" + value.substring(value.length() - 2);
-    }
 }

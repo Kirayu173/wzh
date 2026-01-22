@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -60,6 +61,9 @@ class TraceControllerTest {
     private LogisticsNodeRepository logisticsNodeRepository;
 
     @Autowired
+    private TestDataCleaner dataCleaner;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -71,10 +75,7 @@ class TraceControllerTest {
 
     @BeforeEach
     void setup() {
-        logisticsNodeRepository.deleteAll();
-        traceBatchRepository.deleteAll();
-        productRepository.deleteAll();
-        userRepository.deleteAll();
+        dataCleaner.reset();
 
         User admin = new User();
         admin.setUsername("admin");
@@ -110,6 +111,7 @@ class TraceControllerTest {
     @Test
     void shouldCreateTraceBatchAddLogisticsAndQueryDetail() throws Exception {
         String createResponse = mockMvc.perform(post("/admin/trace")
+                        .with(csrf())
                         .header("Authorization", "Bearer " + adminToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"productId\":" + product.getId()
@@ -124,6 +126,7 @@ class TraceControllerTest {
         String traceCode = createJson.path("data").path("traceCode").asText();
 
         mockMvc.perform(post("/admin/trace/" + traceCode + "/logistics")
+                        .with(csrf())
                         .header("Authorization", "Bearer " + adminToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"nodeTime\":\"2026-02-12T10:00:00\","
@@ -132,6 +135,7 @@ class TraceControllerTest {
                 .andExpect(jsonPath("$.code").value(0));
 
         mockMvc.perform(post("/admin/trace/" + traceCode + "/logistics")
+                        .with(csrf())
                         .header("Authorization", "Bearer " + adminToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"nodeTime\":\"2026-02-13T10:00:00\","
@@ -148,6 +152,7 @@ class TraceControllerTest {
                 .andExpect(jsonPath("$.data.logistics[0].nodeTime").value("2026-02-13T10:00:00"));
 
         mockMvc.perform(get("/admin/trace/" + traceCode + "/qrcode")
+                        .with(csrf())
                         .header("Authorization", "Bearer " + adminToken))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.IMAGE_PNG));

@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wzh.suyuan.backend.dto.AddressRequest;
 import com.wzh.suyuan.backend.dto.AddressResponse;
 import com.wzh.suyuan.backend.model.ApiResponse;
-import com.wzh.suyuan.backend.security.JwtUserPrincipal;
 import com.wzh.suyuan.backend.service.AddressService;
+import com.wzh.suyuan.backend.util.SecurityUtils;
 
 @RestController
 @RequestMapping("/addresses")
@@ -38,12 +38,12 @@ public class AddressController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<AddressResponse>>> list(Authentication authentication) {
-        Long userId = getUserId(authentication);
+        Long userId = SecurityUtils.getUserId(authentication);
         if (userId == null) {
             return ResponseEntity.status(401).body(ApiResponse.failure(401, "Unauthorized"));
         }
         String requestId = UUID.randomUUID().toString();
-        log.info("address list request: requestId={}, userId={}", requestId, maskUserId(userId));
+        log.info("address list request: requestId={}, userId={}", requestId, SecurityUtils.maskUserId(userId));
         List<AddressResponse> data = addressService.list(userId);
         return ResponseEntity.ok(ApiResponse.success(data));
     }
@@ -51,12 +51,12 @@ public class AddressController {
     @PostMapping
     public ResponseEntity<ApiResponse<AddressResponse>> create(@Valid @RequestBody AddressRequest request,
                                                               Authentication authentication) {
-        Long userId = getUserId(authentication);
+        Long userId = SecurityUtils.getUserId(authentication);
         if (userId == null) {
             return ResponseEntity.status(401).body(ApiResponse.failure(401, "Unauthorized"));
         }
         String requestId = UUID.randomUUID().toString();
-        log.info("address create request: requestId={}, userId={}", requestId, maskUserId(userId));
+        log.info("address create request: requestId={}, userId={}", requestId, SecurityUtils.maskUserId(userId));
         AddressResponse response = addressService.create(userId, request);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
@@ -65,13 +65,13 @@ public class AddressController {
     public ResponseEntity<ApiResponse<AddressResponse>> update(@PathVariable("id") Long id,
                                                               @Valid @RequestBody AddressRequest request,
                                                               Authentication authentication) {
-        Long userId = getUserId(authentication);
+        Long userId = SecurityUtils.getUserId(authentication);
         if (userId == null) {
             return ResponseEntity.status(401).body(ApiResponse.failure(401, "Unauthorized"));
         }
         String requestId = UUID.randomUUID().toString();
         log.info("address update request: requestId={}, userId={}, addressId={}",
-                requestId, maskUserId(userId), id);
+                requestId, SecurityUtils.maskUserId(userId), id);
         AddressResponse response = addressService.update(userId, id, request);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
@@ -79,13 +79,13 @@ public class AddressController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Object>> delete(@PathVariable("id") Long id,
                                                       Authentication authentication) {
-        Long userId = getUserId(authentication);
+        Long userId = SecurityUtils.getUserId(authentication);
         if (userId == null) {
             return ResponseEntity.status(401).body(ApiResponse.failure(401, "Unauthorized"));
         }
         String requestId = UUID.randomUUID().toString();
         log.info("address delete request: requestId={}, userId={}, addressId={}",
-                requestId, maskUserId(userId), id);
+                requestId, SecurityUtils.maskUserId(userId), id);
         addressService.delete(userId, id);
         return ResponseEntity.ok(ApiResponse.success(null));
     }
@@ -93,32 +93,14 @@ public class AddressController {
     @PatchMapping("/{id}/default")
     public ResponseEntity<ApiResponse<AddressResponse>> setDefault(@PathVariable("id") Long id,
                                                                    Authentication authentication) {
-        Long userId = getUserId(authentication);
+        Long userId = SecurityUtils.getUserId(authentication);
         if (userId == null) {
             return ResponseEntity.status(401).body(ApiResponse.failure(401, "Unauthorized"));
         }
         String requestId = UUID.randomUUID().toString();
         log.info("address default request: requestId={}, userId={}, addressId={}",
-                requestId, maskUserId(userId), id);
+                requestId, SecurityUtils.maskUserId(userId), id);
         AddressResponse response = addressService.setDefault(userId, id);
         return ResponseEntity.ok(ApiResponse.success(response));
-    }
-
-    private Long getUserId(Authentication authentication) {
-        if (authentication != null && authentication.getPrincipal() instanceof JwtUserPrincipal) {
-            return ((JwtUserPrincipal) authentication.getPrincipal()).getId();
-        }
-        return null;
-    }
-
-    private String maskUserId(Long userId) {
-        if (userId == null) {
-            return "***";
-        }
-        String value = String.valueOf(userId);
-        if (value.length() <= 2) {
-            return "***" + value;
-        }
-        return "***" + value.substring(value.length() - 2);
     }
 }

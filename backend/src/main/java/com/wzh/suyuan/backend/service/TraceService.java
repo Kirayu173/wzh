@@ -41,6 +41,8 @@ import com.wzh.suyuan.backend.entity.TraceBatch;
 import com.wzh.suyuan.backend.repository.LogisticsNodeRepository;
 import com.wzh.suyuan.backend.repository.ProductRepository;
 import com.wzh.suyuan.backend.repository.TraceBatchRepository;
+import com.wzh.suyuan.backend.util.SecurityUtils;
+import com.wzh.suyuan.backend.util.TextUtils;
 
 @Service
 public class TraceService {
@@ -71,20 +73,20 @@ public class TraceService {
         TraceBatch batch = TraceBatch.builder()
                 .productId(product.getId())
                 .traceCode(generateTraceCode())
-                .batchNo(trimToNull(request.getBatchNo()))
-                .origin(trimToNull(request.getOrigin()))
-                .producer(trimToNull(request.getProducer()))
+                .batchNo(TextUtils.trimToNull(request.getBatchNo()))
+                .origin(TextUtils.trimToNull(request.getOrigin()))
+                .producer(TextUtils.trimToNull(request.getProducer()))
                 .harvestDate(request.getHarvestDate())
-                .processInfo(trimToNull(request.getProcessInfo()))
-                .testOrg(trimToNull(request.getTestOrg()))
+                .processInfo(TextUtils.trimToNull(request.getProcessInfo()))
+                .testOrg(TextUtils.trimToNull(request.getTestOrg()))
                 .testDate(request.getTestDate())
-                .testResult(trimToNull(request.getTestResult()))
-                .reportUrl(trimToNull(request.getReportUrl()))
+                .testResult(TextUtils.trimToNull(request.getTestResult()))
+                .reportUrl(TextUtils.trimToNull(request.getReportUrl()))
                 .createTime(LocalDateTime.now())
                 .build();
         TraceBatch saved = saveWithRetry(batch);
         log.info("trace batch create success: adminId={}, traceCode={}, costMs={}",
-                maskUserId(adminId), saved.getTraceCode(), System.currentTimeMillis() - start);
+                SecurityUtils.maskUserId(adminId), saved.getTraceCode(), System.currentTimeMillis() - start);
         return TraceBatchCreateResponse.builder()
                 .id(saved.getId())
                 .traceCode(saved.getTraceCode())
@@ -132,7 +134,7 @@ public class TraceService {
     public TraceBatchListResponse listBatches(int page, int size, String keyword) {
         PageRequest pageable = PageRequest.of(Math.max(page - 1, 0), size, Sort.by(Sort.Direction.DESC, "id"));
         Page<TraceBatch> pageData;
-        String safeKeyword = trimToNull(keyword);
+        String safeKeyword = TextUtils.trimToNull(keyword);
         if (safeKeyword == null) {
             pageData = traceBatchRepository.findAll(pageable);
         } else {
@@ -166,15 +168,15 @@ public class TraceService {
         Product product = productRepository.findById(request.getProductId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "product not found"));
         batch.setProductId(product.getId());
-        batch.setBatchNo(trimToNull(request.getBatchNo()));
-        batch.setOrigin(trimToNull(request.getOrigin()));
-        batch.setProducer(trimToNull(request.getProducer()));
+        batch.setBatchNo(TextUtils.trimToNull(request.getBatchNo()));
+        batch.setOrigin(TextUtils.trimToNull(request.getOrigin()));
+        batch.setProducer(TextUtils.trimToNull(request.getProducer()));
         batch.setHarvestDate(request.getHarvestDate());
-        batch.setProcessInfo(trimToNull(request.getProcessInfo()));
-        batch.setTestOrg(trimToNull(request.getTestOrg()));
+        batch.setProcessInfo(TextUtils.trimToNull(request.getProcessInfo()));
+        batch.setTestOrg(TextUtils.trimToNull(request.getTestOrg()));
         batch.setTestDate(request.getTestDate());
-        batch.setTestResult(trimToNull(request.getTestResult()));
-        batch.setReportUrl(trimToNull(request.getReportUrl()));
+        batch.setTestResult(TextUtils.trimToNull(request.getTestResult()));
+        batch.setReportUrl(TextUtils.trimToNull(request.getReportUrl()));
         TraceBatch saved = traceBatchRepository.save(batch);
         return toBatchResponse(saved, product.getName());
     }
@@ -199,8 +201,8 @@ public class TraceService {
         LogisticsNode node = LogisticsNode.builder()
                 .traceCode(normalized)
                 .nodeTime(request.getNodeTime())
-                .location(trimToNull(request.getLocation()))
-                .statusDesc(trimToNull(request.getStatusDesc()))
+                .location(TextUtils.trimToNull(request.getLocation()))
+                .statusDesc(TextUtils.trimToNull(request.getStatusDesc()))
                 .build();
         LogisticsNode saved = logisticsNodeRepository.save(node);
         return TraceLogisticsCreateResponse.builder()
@@ -260,14 +262,6 @@ public class TraceService {
         return trimmed;
     }
 
-    private String trimToNull(String value) {
-        if (value == null) {
-            return null;
-        }
-        String trimmed = value.trim();
-        return trimmed.isEmpty() ? null : trimmed;
-    }
-
     private TraceBatchResponse toBatchResponse(TraceBatch batch, String productName) {
         return TraceBatchResponse.builder()
                 .id(batch.getId())
@@ -285,16 +279,5 @@ public class TraceService {
                 .reportUrl(batch.getReportUrl())
                 .createTime(batch.getCreateTime())
                 .build();
-    }
-
-    private String maskUserId(Long userId) {
-        if (userId == null) {
-            return "***";
-        }
-        String value = String.valueOf(userId);
-        if (value.length() <= 2) {
-            return "***" + value;
-        }
-        return "***" + value.substring(value.length() - 2);
     }
 }

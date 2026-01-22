@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wzh.suyuan.backend.dto.LoginRequest;
 import com.wzh.suyuan.backend.dto.RegisterRequest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -34,6 +35,14 @@ class AuthControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private TestDataCleaner dataCleaner;
+
+    @BeforeEach
+    void setup() {
+        dataCleaner.reset();
+    }
 
     @Test
     void registerLoginAndMeFlow() throws Exception {

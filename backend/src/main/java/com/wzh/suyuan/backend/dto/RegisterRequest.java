@@ -1,6 +1,7 @@
 package com.wzh.suyuan.backend.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
@@ -12,7 +13,9 @@ public class RegisterRequest {
     private String username;
 
     @NotBlank(message = "password required")
-    @Size(max = 128, message = "password too long")
+    @Size(min = 8, max = 128, message = "password length must be between 8 and 128")
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)\\S{8,128}$",
+            message = "password must contain letters and digits")
     private String password;
 
     @Size(max = 20, message = "phone too long")

@@ -3,8 +3,8 @@ package com.wzh.suyuan.backend.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -25,12 +25,16 @@ import com.wzh.suyuan.backend.dto.ProductListResponse;
 import com.wzh.suyuan.backend.dto.ProductSummary;
 import com.wzh.suyuan.backend.entity.Product;
 import com.wzh.suyuan.backend.entity.ProductImage;
+import com.wzh.suyuan.backend.model.ProductStatus;
 import com.wzh.suyuan.backend.repository.ProductImageRepository;
 import com.wzh.suyuan.backend.repository.ProductRepository;
+import com.wzh.suyuan.backend.util.TextUtils;
 
 @Service
 public class ProductService {
     private static final Logger log = LoggerFactory.getLogger(ProductService.class);
+    private static final Set<String> ALLOWED_SORT_FIELDS = Set.of(
+            "id", "name", "price", "stock", "origin", "status", "createTime");
 
     private final ProductRepository productRepository;
     private final ProductImageRepository productImageRepository;
@@ -74,7 +78,7 @@ public class ProductService {
         Pageable pageable = PageRequest.of(Math.max(page - 1, 0), size, Sort.by(Sort.Direction.DESC, "id"));
         Page<Product> productPage;
         String safeStatus = normalizeStatus(status);
-        String safeKeyword = trimToNull(keyword);
+        String safeKeyword = TextUtils.trimToNull(keyword);
         if (safeStatus != null && safeKeyword != null) {
             productPage = productRepository.findByStatusAndNameContainingIgnoreCase(safeStatus, safeKeyword, pageable);
         } else if (safeStatus != null) {
@@ -100,13 +104,13 @@ public class ProductService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "request required");
         }
         Product product = Product.builder()
-                .name(trimToNull(request.getName()))
+                .name(TextUtils.trimToNull(request.getName()))
                 .price(request.getPrice())
                 .stock(request.getStock())
-                .origin(trimToNull(request.getOrigin()))
-                .coverUrl(trimToNull(request.getCoverUrl()))
+                .origin(TextUtils.trimToNull(request.getOrigin()))
+                .coverUrl(TextUtils.trimToNull(request.getCoverUrl()))
                 .status(defaultStatus(request.getStatus()))
-                .description(trimToNull(request.getDescription()))
+                .description(TextUtils.trimToNull(request.getDescription()))
                 .createTime(LocalDateTime.now())
                 .build();
         validateProduct(product);
@@ -120,13 +124,13 @@ public class ProductService {
         }
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "product not found"));
-        product.setName(trimToNull(request.getName()));
+        product.setName(TextUtils.trimToNull(request.getName()));
         product.setPrice(request.getPrice());
         product.setStock(request.getStock());
-        product.setOrigin(trimToNull(request.getOrigin()));
-        product.setCoverUrl(trimToNull(request.getCoverUrl()));
+        product.setOrigin(TextUtils.trimToNull(request.getOrigin()));
+        product.setCoverUrl(TextUtils.trimToNull(request.getCoverUrl()));
         product.setStatus(defaultStatus(request.getStatus()));
-        product.setDescription(trimToNull(request.getDescription()));
+        product.setDescription(TextUtils.trimToNull(request.getDescription()));
         validateProduct(product);
         productRepository.save(product);
     }
@@ -199,9 +203,12 @@ public class ProductService {
         if (property.isEmpty()) {
             return Sort.by(Sort.Direction.DESC, "id");
         }
+        if (!ALLOWED_SORT_FIELDS.contains(property)) {
+            return Sort.by(Sort.Direction.DESC, "id");
+        }
         Sort.Direction direction = Sort.Direction.ASC;
         if (parts.length > 1) {
-            String dir = parts[1].trim().toLowerCase(Locale.ROOT);
+            String dir = parts[1].trim().toLowerCase();
             if ("desc".equals(dir)) {
                 direction = Sort.Direction.DESC;
             }
@@ -222,29 +229,13 @@ public class ProductService {
     }
 
     private String normalizeStatus(String status) {
-        if (status == null) {
-            return null;
-        }
-        String trimmed = status.trim().toLowerCase(Locale.ROOT);
-        if (trimmed.isEmpty()) {
-            return null;
-        }
-        if ("online".equals(trimmed) || "offline".equals(trimmed)) {
-            return trimmed;
-        }
-        return null;
+        ProductStatus normalized = ProductStatus.from(status);
+        return normalized == null ? null : normalized.getValue();
     }
 
     private String defaultStatus(String status) {
         String normalized = normalizeStatus(status);
-        return normalized == null ? "online" : normalized;
+        return normalized == null ? ProductStatus.ONLINE.getValue() : normalized;
     }
 
-    private String trimToNull(String value) {
-        if (value == null) {
-            return null;
-        }
-        String trimmed = value.trim();
-        return trimmed.isEmpty() ? null : trimmed;
-    }
 }

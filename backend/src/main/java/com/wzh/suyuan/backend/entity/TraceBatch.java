@@ -5,15 +5,21 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Builder
@@ -28,6 +34,13 @@ public class TraceBatch {
 
     @Column(name = "product_id", nullable = false)
     private Long productId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", insertable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "fk_trace_batch_product"))
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Product product;
 
     @Column(name = "trace_code", nullable = false, unique = true, length = 64)
     private String traceCode;

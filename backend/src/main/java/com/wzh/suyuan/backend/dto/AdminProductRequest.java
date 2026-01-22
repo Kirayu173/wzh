@@ -3,6 +3,7 @@ package com.wzh.suyuan.backend.dto;
 import java.math.BigDecimal;
 
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -22,6 +23,7 @@ public class AdminProductRequest {
     private BigDecimal price;
 
     @NotNull(message = "stock required")
+    @Min(value = 0, message = "stock must be >= 0")
     private Integer stock;
 
     private String origin;

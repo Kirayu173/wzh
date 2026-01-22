@@ -1,8 +1,12 @@
 package com.wzh.suyuan.backend.service;
 
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,11 +36,14 @@ import com.wzh.suyuan.backend.entity.OrderEntity;
 import com.wzh.suyuan.backend.entity.OrderItem;
 import com.wzh.suyuan.backend.entity.Product;
 import com.wzh.suyuan.backend.model.OrderStatus;
+import com.wzh.suyuan.backend.model.ProductStatus;
 import com.wzh.suyuan.backend.repository.AddressRepository;
 import com.wzh.suyuan.backend.repository.CartItemRepository;
 import com.wzh.suyuan.backend.repository.OrderItemRepository;
 import com.wzh.suyuan.backend.repository.OrderRepository;
 import com.wzh.suyuan.backend.repository.ProductRepository;
+import com.wzh.suyuan.backend.util.SecurityUtils;
+import com.wzh.suyuan.backend.util.TextUtils;
 
 @Service
 public class OrderService {
@@ -67,11 +74,14 @@ public class OrderService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "items required");
         }
         String requestId = normalizeRequestId(request.getRequestId());
+        if (requestId == null) {
+            requestId = buildFallbackRequestId(userId, request);
+        }
         if (requestId != null) {
             OrderEntity existing = orderRepository.findByUserIdAndRequestId(userId, requestId).orElse(null);
             if (existing != null) {
                 log.info("order create idempotent hit: userId={}, requestId={}, orderId={}",
-                        maskUserId(userId), requestId, existing.getId());
+                        SecurityUtils.maskUserId(userId), requestId, existing.getId());
                 return OrderCreateResponse.builder()
                         .id(existing.getId())
                         .status(existing.getStatus())
@@ -108,7 +118,7 @@ public class OrderService {
             reservedQuantity.put(product.getId(), reserved);
             BigDecimal price = product.getPrice();
             if (price == null) {
-                price = cartItem.getPriceSnapshot() == null ? BigDecimal.ZERO : cartItem.getPriceSnapshot();
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "product price invalid");
             }
             totalAmount = totalAmount.add(price.multiply(BigDecimal.valueOf(quantity)));
             orderItems.add(OrderItem.builder()
@@ -141,7 +151,7 @@ public class OrderService {
                 OrderEntity existing = orderRepository.findByUserIdAndRequestId(userId, requestId).orElse(null);
                 if (existing != null) {
                     log.info("order create idempotent conflict: userId={}, requestId={}, orderId={}",
-                            maskUserId(userId), requestId, existing.getId());
+                            SecurityUtils.maskUserId(userId), requestId, existing.getId());
                     return OrderCreateResponse.builder()
                             .id(existing.getId())
                             .status(existing.getStatus())
@@ -160,7 +170,7 @@ public class OrderService {
             cartItemRepository.deleteAllByIdInBatch(cartIds);
         }
         log.info("order create success: userId={}, orderId={}, amount={}, costMs={}",
-                maskUserId(userId), saved.getId(), totalAmount, System.currentTimeMillis() - start);
+                SecurityUtils.maskUserId(userId), saved.getId(), totalAmount, System.currentTimeMillis() - start);
         return OrderCreateResponse.builder()
                 .id(saved.getId())
                 .status(saved.getStatus())
@@ -171,10 +181,11 @@ public class OrderService {
     public OrderListResponse listOrders(Long userId, String status, int page, int size) {
         PageRequest pageable = PageRequest.of(Math.max(page - 1, 0), size, Sort.by(Sort.Direction.DESC, "id"));
         Page<OrderEntity> orderPage;
-        if (status == null || status.isEmpty()) {
+        String normalizedStatus = normalizeStatus(status);
+        if (normalizedStatus == null) {
             orderPage = orderRepository.findByUserId(userId, pageable);
         } else {
-            orderPage = orderRepository.findByUserIdAndStatus(userId, status, pageable);
+            orderPage = orderRepository.findByUserIdAndStatus(userId, normalizedStatus, pageable);
         }
         List<OrderEntity> orders = orderPage.getContent();
         List<OrderSummaryResponse> summaries = buildSummaries(orders);
@@ -251,7 +262,7 @@ public class OrderService {
         OrderEntity saved = orderRepository.save(order);
         List<OrderItemResponse> items = loadItemResponses(saved.getId());
         log.info("order pay success: userId={}, orderId={}, costMs={}",
-                maskUserId(userId), orderId, System.currentTimeMillis() - start);
+                SecurityUtils.maskUserId(userId), orderId, System.currentTimeMillis() - start);
         return toDetailResponse(saved, items);
     }
 
@@ -265,7 +276,7 @@ public class OrderService {
         rollbackStock(saved.getId());
         List<OrderItemResponse> items = loadItemResponses(saved.getId());
         log.info("order cancel success: userId={}, orderId={}, costMs={}",
-                maskUserId(userId), orderId, System.currentTimeMillis() - start);
+                SecurityUtils.maskUserId(userId), orderId, System.currentTimeMillis() - start);
         return toDetailResponse(saved, items);
     }
 
@@ -281,7 +292,7 @@ public class OrderService {
         OrderEntity saved = orderRepository.save(order);
         List<OrderItemResponse> items = loadItemResponses(saved.getId());
         log.info("order confirm success: userId={}, orderId={}, costMs={}",
-                maskUserId(userId), orderId, System.currentTimeMillis() - start);
+                SecurityUtils.maskUserId(userId), orderId, System.currentTimeMillis() - start);
         return toDetailResponse(saved, items);
     }
 
@@ -295,8 +306,8 @@ public class OrderService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "order not found"));
         ensureStatus(order, OrderStatus.PAID);
         order.setStatus(OrderStatus.SHIPPED.name());
-        order.setExpressNo(trimToNull(request.getExpressNo()));
-        order.setExpressCompany(trimToNull(request.getExpressCompany()));
+        order.setExpressNo(TextUtils.trimToNull(request.getExpressNo()));
+        order.setExpressCompany(TextUtils.trimToNull(request.getExpressCompany()));
         order.setShipTime(LocalDateTime.now());
         OrderEntity saved = orderRepository.save(order);
         List<OrderItemResponse> items = loadItemResponses(saved.getId());
@@ -309,19 +320,22 @@ public class OrderService {
         if (reservedQuantity.isEmpty()) {
             return;
         }
-        List<Product> updated = new ArrayList<>();
         for (Map.Entry<Long, Integer> entry : reservedQuantity.entrySet()) {
+            Integer quantity = entry.getValue();
+            if (quantity == null || quantity <= 0) {
+                continue;
+            }
             Product product = productCache.get(entry.getKey());
             if (product == null) {
                 continue;
             }
             if (product.getStock() != null) {
-                product.setStock(product.getStock() - entry.getValue());
-                updated.add(product);
+                int updated = productRepository.decreaseStock(entry.getKey(), quantity);
+                if (updated == 0) {
+                    log.warn("stock update conflict: productId={}, quantity={}", entry.getKey(), quantity);
+                    throw new ResponseStatusException(HttpStatus.CONFLICT, "stock not enough");
+                }
             }
-        }
-        if (!updated.isEmpty()) {
-            productRepository.saveAll(updated);
         }
     }
 
@@ -332,26 +346,33 @@ public class OrderService {
         }
         Map<Long, Integer> restore = new HashMap<>();
         for (OrderItem item : items) {
-            restore.put(item.getProductId(),
-                    restore.getOrDefault(item.getProductId(), 0) + (item.getQuantity() == null ? 0 : item.getQuantity()));
+            Integer quantity = item.getQuantity();
+            if (quantity == null || quantity <= 0) {
+                log.warn("order item quantity invalid for rollback: orderId={}, productId={}, quantity={}",
+                        orderId, item.getProductId(), quantity);
+                continue;
+            }
+            restore.put(item.getProductId(), restore.getOrDefault(item.getProductId(), 0) + quantity);
         }
-        List<Product> updated = new ArrayList<>();
         for (Map.Entry<Long, Integer> entry : restore.entrySet()) {
             Product product = productRepository.findById(entry.getKey()).orElse(null);
             if (product == null || product.getStock() == null) {
                 continue;
             }
-            product.setStock(product.getStock() + entry.getValue());
-            updated.add(product);
-        }
-        if (!updated.isEmpty()) {
-            productRepository.saveAll(updated);
+            int restored = productRepository.increaseStock(entry.getKey(), entry.getValue());
+            if (restored == 0) {
+                log.warn("stock restore skipped: productId={}, quantity={}", entry.getKey(), entry.getValue());
+            }
         }
     }
 
     private void ensureProductAvailable(Product product) {
-        String status = product.getStatus();
-        if (status != null && !"online".equalsIgnoreCase(status)) {
+        String rawStatus = product.getStatus();
+        ProductStatus status = ProductStatus.from(rawStatus);
+        if (rawStatus != null && !rawStatus.trim().isEmpty() && status == null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "product not available");
+        }
+        if (status != null && status != ProductStatus.ONLINE) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "product not available");
         }
     }
@@ -465,12 +486,58 @@ public class OrderService {
         return trimmed.isEmpty() ? null : trimmed;
     }
 
+    private String buildFallbackRequestId(Long userId, OrderCreateRequest request) {
+        List<OrderCreateRequest.Item> items = new ArrayList<>(request.getItems());
+        items.sort(Comparator
+                .comparing(OrderCreateRequest.Item::getCartId, Comparator.nullsLast(Long::compareTo))
+                .thenComparing(OrderCreateRequest.Item::getProductId, Comparator.nullsLast(Long::compareTo)));
+        String memo = TextUtils.trimToNull(request.getMemo());
+        StringBuilder payload = new StringBuilder();
+        payload.append("u=").append(userId == null ? "" : userId)
+                .append("|a=").append(request.getAddressId() == null ? "" : request.getAddressId())
+                .append("|m=").append(memo == null ? "" : memo)
+                .append("|");
+        for (OrderCreateRequest.Item item : items) {
+            payload.append(item.getCartId() == null ? "" : item.getCartId())
+                    .append(':')
+                    .append(item.getProductId() == null ? "" : item.getProductId())
+                    .append(':')
+                    .append(item.getQuantity() == null ? 0 : item.getQuantity())
+                    .append(';');
+        }
+        return sha256Hex(payload.toString());
+    }
+
+    private String sha256Hex(String value) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashed = digest.digest(value.getBytes(StandardCharsets.UTF_8));
+            char[] hex = new char[hashed.length * 2];
+            char[] digits = "0123456789abcdef".toCharArray();
+            for (int i = 0; i < hashed.length; i++) {
+                int v = hashed[i] & 0xFF;
+                hex[i * 2] = digits[v >>> 4];
+                hex[i * 2 + 1] = digits[v & 0x0F];
+            }
+            return new String(hex);
+        } catch (NoSuchAlgorithmException ex) {
+            throw new IllegalStateException("SHA-256 not available", ex);
+        }
+    }
+
     private String normalizeStatus(String status) {
         if (status == null) {
             return null;
         }
         String trimmed = status.trim();
-        return trimmed.isEmpty() ? null : trimmed.toUpperCase();
+        if (trimmed.isEmpty()) {
+            return null;
+        }
+        try {
+            return OrderStatus.valueOf(trimmed.toUpperCase()).name();
+        } catch (IllegalArgumentException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "status invalid");
+        }
     }
 
     private String normalizeKeyword(String keyword) {
@@ -490,22 +557,4 @@ public class OrderService {
         }
     }
 
-    private String trimToNull(String value) {
-        if (value == null) {
-            return null;
-        }
-        String trimmed = value.trim();
-        return trimmed.isEmpty() ? null : trimmed;
-    }
-
-    private String maskUserId(Long userId) {
-        if (userId == null) {
-            return "***";
-        }
-        String value = String.valueOf(userId);
-        if (value.length() <= 2) {
-            return "***" + value;
-        }
-        return "***" + value.substring(value.length() - 2);
-    }
 }

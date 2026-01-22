@@ -2,6 +2,7 @@ const state = {
   baseUrl: '',
   token: '',
   user: null,
+  sameOrigin: true,
   view: 'dashboard',
   products: { page: 1, size: 10, status: '', keyword: '', total: 0 },
   orders: { page: 1, size: 10, status: '', keyword: '', total: 0 },
@@ -227,6 +228,34 @@ function normalizeBaseUrl(value) {
   return value.replace(/\/+$/, '');
 }
 
+function isSameOrigin(baseUrl) {
+  if (!baseUrl) {
+    return false;
+  }
+  try {
+    const target = new URL(baseUrl, window.location.origin);
+    return target.origin === window.location.origin;
+  } catch (error) {
+    return false;
+  }
+}
+
+function getCookieValue(name) {
+  const cookies = document.cookie ? document.cookie.split(';') : [];
+  const prefix = `${name}=`;
+  for (const raw of cookies) {
+    const item = raw.trim();
+    if (item.startsWith(prefix)) {
+      return decodeURIComponent(item.slice(prefix.length));
+    }
+  }
+  return '';
+}
+
+function getCsrfToken() {
+  return getCookieValue('XSRF-TOKEN');
+}
+
 function showNotice(type, message) {
   if (!message) {
     return;
@@ -260,9 +289,13 @@ function setUser(user) {
 
 function setBaseUrl(value) {
   state.baseUrl = normalizeBaseUrl(value);
+  state.sameOrigin = isSameOrigin(state.baseUrl);
   localStorage.setItem('admin.baseUrl', state.baseUrl);
   el.baseUrlInput.value = state.baseUrl;
   el.settingsBaseUrl.value = state.baseUrl;
+  if (!state.sameOrigin) {
+    showNotice('warning', 'CSRF protection requires using the same origin as /admin-web/.');
+  }
 }
 
 async function apiRequest(path, options = {}) {
@@ -271,7 +304,12 @@ async function apiRequest(path, options = {}) {
   if (state.token) {
     headers.Authorization = `Bearer ${state.token}`;
   }
+  const csrfToken = getCsrfToken();
+  if (csrfToken) {
+    headers['X-XSRF-TOKEN'] = csrfToken;
+  }
   const config = { ...options, headers };
+  config.credentials = state.sameOrigin ? 'same-origin' : 'omit';
   if (config.body && typeof config.body !== 'string') {
     headers['Content-Type'] = 'application/json';
     config.body = JSON.stringify(config.body);
@@ -297,7 +335,11 @@ async function apiBlob(path) {
   if (state.token) {
     headers.Authorization = `Bearer ${state.token}`;
   }
-  const response = await fetch(url, { headers });
+  const csrfToken = getCsrfToken();
+  if (csrfToken) {
+    headers['X-XSRF-TOKEN'] = csrfToken;
+  }
+  const response = await fetch(url, { headers, credentials: state.sameOrigin ? 'same-origin' : 'omit' });
   const contentType = response.headers.get('content-type') || '';
   if (contentType.includes('application/json')) {
     const payload = await response.json();

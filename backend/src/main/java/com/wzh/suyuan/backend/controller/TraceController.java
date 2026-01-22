@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wzh.suyuan.backend.dto.TraceDetailResponse;
 import com.wzh.suyuan.backend.model.ApiResponse;
-import com.wzh.suyuan.backend.security.JwtUserPrincipal;
 import com.wzh.suyuan.backend.service.TraceService;
+import com.wzh.suyuan.backend.util.SecurityUtils;
 
 @RestController
 @RequestMapping("/trace")
@@ -32,26 +32,8 @@ public class TraceController {
                                                                      Authentication authentication) {
         String requestId = UUID.randomUUID().toString();
         log.info("trace detail request: requestId={}, userId={}, traceCode={}",
-                requestId, maskUserId(getUserId(authentication)), traceCode);
+                requestId, SecurityUtils.maskUserId(SecurityUtils.getUserId(authentication)), traceCode);
         TraceDetailResponse response = traceService.getTraceDetail(traceCode);
         return ResponseEntity.ok(ApiResponse.success(response));
-    }
-
-    private Long getUserId(Authentication authentication) {
-        if (authentication != null && authentication.getPrincipal() instanceof JwtUserPrincipal) {
-            return ((JwtUserPrincipal) authentication.getPrincipal()).getId();
-        }
-        return null;
-    }
-
-    private String maskUserId(Long userId) {
-        if (userId == null) {
-            return "***";
-        }
-        String value = String.valueOf(userId);
-        if (value.length() <= 2) {
-            return "***" + value;
-        }
-        return "***" + value.substring(value.length() - 2);
     }
 }

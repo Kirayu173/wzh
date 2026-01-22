@@ -1,10 +1,14 @@
 package com.wzh.suyuan.backend.controller.support;
 
+import java.util.Collection;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.wzh.suyuan.backend.security.JwtUserPrincipal;
+import com.wzh.suyuan.backend.util.SecurityUtils;
 
 public final class AdminAuthSupport {
     private AdminAuthSupport() {
@@ -15,21 +19,26 @@ public final class AdminAuthSupport {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
         }
         JwtUserPrincipal principal = (JwtUserPrincipal) authentication.getPrincipal();
-        String role = principal.getRole();
-        if (role == null || !"admin".equalsIgnoreCase(role)) {
+        if (!hasRole(authentication, "ROLE_ADMIN")) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Forbidden");
         }
         return principal;
     }
 
+    private static boolean hasRole(Authentication authentication, String role) {
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        if (authorities == null) {
+            return false;
+        }
+        for (GrantedAuthority authority : authorities) {
+            if (role.equals(authority.getAuthority())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static String maskUserId(Long userId) {
-        if (userId == null) {
-            return "***";
-        }
-        String value = String.valueOf(userId);
-        if (value.length() <= 2) {
-            return "***" + value;
-        }
-        return "***" + value.substring(value.length() - 2);
+        return SecurityUtils.maskUserId(userId);
     }
 }

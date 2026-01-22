@@ -20,9 +20,19 @@ public class JwtTokenProvider {
     private final Key key;
     private final long expirationSeconds;
 
-    public JwtTokenProvider(@Value("${security.jwt.secret}") String secret,
+    public JwtTokenProvider(@Value("${security.jwt.secret:}") String secret,
                             @Value("${security.jwt.expiration-seconds:7200}") long expirationSeconds) {
-        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        String safeSecret = secret == null ? "" : secret.trim();
+        if (safeSecret.isEmpty()) {
+            throw new IllegalStateException("security.jwt.secret is required");
+        }
+        if (safeSecret.length() < 32) {
+            throw new IllegalStateException("security.jwt.secret must be at least 32 characters");
+        }
+        if (expirationSeconds <= 0) {
+            throw new IllegalStateException("security.jwt.expiration-seconds must be positive");
+        }
+        this.key = Keys.hmacShaKeyFor(safeSecret.getBytes(StandardCharsets.UTF_8));
         this.expirationSeconds = expirationSeconds;
     }
 

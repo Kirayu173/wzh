@@ -20,6 +20,7 @@ import com.wzh.suyuan.backend.dto.OrderDetailResponse;
 import com.wzh.suyuan.backend.dto.OrderListResponse;
 import com.wzh.suyuan.backend.dto.OrderShipRequest;
 import com.wzh.suyuan.backend.model.ApiResponse;
+import com.wzh.suyuan.backend.model.PaginationConstants;
 import com.wzh.suyuan.backend.controller.support.AdminAuthSupport;
 import com.wzh.suyuan.backend.security.JwtUserPrincipal;
 import com.wzh.suyuan.backend.service.OrderService;
@@ -44,7 +45,8 @@ public class AdminOrderController {
         JwtUserPrincipal principal = AdminAuthSupport.requireAdmin(authentication);
         String requestId = UUID.randomUUID().toString();
         int safePage = Math.max(page, 1);
-        int safeSize = size <= 0 ? 10 : Math.min(size, 50);
+        int safeSize = size <= 0 ? PaginationConstants.DEFAULT_PAGE_SIZE
+                : Math.min(size, PaginationConstants.MAX_PAGE_SIZE);
         log.info("admin order list request: requestId={}, adminId={}, status={}, keyword={}, page={}, size={}",
                 requestId, AdminAuthSupport.maskUserId(principal.getId()), status, keyword, safePage, safeSize);
         OrderListResponse response = orderService.listOrdersForAdmin(status, keyword, safePage, safeSize);

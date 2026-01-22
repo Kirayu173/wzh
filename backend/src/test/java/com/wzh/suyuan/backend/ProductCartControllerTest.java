@@ -54,6 +54,9 @@ class ProductCartControllerTest {
     private UserRepository userRepository;
 
     @Autowired
+    private TestDataCleaner dataCleaner;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -63,8 +66,7 @@ class ProductCartControllerTest {
 
     @BeforeEach
     void setup() {
-        productRepository.deleteAll();
-        userRepository.deleteAll();
+        dataCleaner.reset();
         User user = new User();
         user.setUsername("tester");
         user.setPasswordHash(passwordEncoder.encode("pass1234"));

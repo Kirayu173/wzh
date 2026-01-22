@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wzh.suyuan.backend.dto.ProductDetailResponse;
 import com.wzh.suyuan.backend.dto.ProductListResponse;
 import com.wzh.suyuan.backend.model.ApiResponse;
-import com.wzh.suyuan.backend.security.JwtUserPrincipal;
+import com.wzh.suyuan.backend.model.PaginationConstants;
 import com.wzh.suyuan.backend.service.ProductService;
+import com.wzh.suyuan.backend.util.SecurityUtils;
 
 @RestController
 @RequestMapping("/products")
@@ -35,10 +36,11 @@ public class ProductController {
                                                                  @RequestParam(required = false) String sort,
                                                                  Authentication authentication) {
         int safePage = Math.max(page, 1);
-        int safeSize = size <= 0 ? 10 : Math.min(size, 50);
+        int safeSize = size <= 0 ? PaginationConstants.DEFAULT_PAGE_SIZE
+                : Math.min(size, PaginationConstants.MAX_PAGE_SIZE);
         String requestId = UUID.randomUUID().toString();
         log.info("products list request: requestId={}, userId={}, page={}, size={}, sort={}",
-                requestId, maskUserId(getUserId(authentication)), safePage, safeSize, sort);
+                requestId, SecurityUtils.maskUserId(SecurityUtils.getUserId(authentication)), safePage, safeSize, sort);
         ProductListResponse response = productService.getProducts(safePage, safeSize, sort);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
@@ -48,28 +50,10 @@ public class ProductController {
                                                                      Authentication authentication) {
         String requestId = UUID.randomUUID().toString();
         log.info("product detail request: requestId={}, userId={}, productId={}",
-                requestId, maskUserId(getUserId(authentication)), id);
+                requestId, SecurityUtils.maskUserId(SecurityUtils.getUserId(authentication)), id);
         return productService.getProductDetail(id)
                 .map(detail -> ResponseEntity.ok(ApiResponse.success(detail)))
                 .orElseGet(() -> ResponseEntity.status(404)
                         .body(ApiResponse.failure(404, "product not found")));
-    }
-
-    private Long getUserId(Authentication authentication) {
-        if (authentication != null && authentication.getPrincipal() instanceof JwtUserPrincipal) {
-            return ((JwtUserPrincipal) authentication.getPrincipal()).getId();
-        }
-        return null;
-    }
-
-    private String maskUserId(Long userId) {
-        if (userId == null) {
-            return "***";
-        }
-        String value = String.valueOf(userId);
-        if (value.length() <= 2) {
-            return "***" + value;
-        }
-        return "***" + value.substring(value.length() - 2);
     }
 }

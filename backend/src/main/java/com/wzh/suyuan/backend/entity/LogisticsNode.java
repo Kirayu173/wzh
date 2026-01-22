@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +20,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "logistics_node")
+@Table(name = "logistics_node",
+        indexes = {
+                @Index(name = "idx_logistics_trace_code", columnList = "trace_code")
+        })
 public class LogisticsNode {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

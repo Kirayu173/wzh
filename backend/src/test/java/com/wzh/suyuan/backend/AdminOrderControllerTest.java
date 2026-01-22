@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -47,6 +48,9 @@ class AdminOrderControllerTest {
     private OrderRepository orderRepository;
 
     @Autowired
+    private TestDataCleaner dataCleaner;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -58,8 +62,7 @@ class AdminOrderControllerTest {
 
     @BeforeEach
     void setup() {
-        orderRepository.deleteAll();
-        userRepository.deleteAll();
+        dataCleaner.reset();
 
         User admin = new User();
         admin.setUsername("admin");
@@ -95,6 +98,7 @@ class AdminOrderControllerTest {
     @Test
     void adminShouldShipPaidOrder() throws Exception {
         mockMvc.perform(post("/admin/orders/" + paidOrder.getId() + "/ship")
+                        .with(csrf())
                         .header("Authorization", "Bearer " + adminToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"expressNo\":\"SF123\",\"expressCompany\":\"顺丰\"}"))
