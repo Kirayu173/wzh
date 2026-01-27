@@ -39,6 +39,7 @@ public class AddressListActivity extends BaseActivity<AddressListContract.View, 
     @Override
     protected void initView(Bundle savedInstanceState) {
         refreshLayout = findViewById(R.id.address_refresh);
+        refreshLayout.setColorSchemeResources(R.color.color_primary);
         recyclerView = findViewById(R.id.address_list);
         stateContainer = findViewById(R.id.address_state_container);
         stateText = findViewById(R.id.address_state_text);

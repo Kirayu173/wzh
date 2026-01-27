@@ -3,3 +3,16 @@ items/
 backend/target/
 android/.gradle/
 android/**/build/
+
+# Android/Gradle outputs
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+*.log
+
+# IDE output
+.idea/
+.vscode/
+*.iml

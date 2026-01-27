@@ -39,6 +39,7 @@ public class AdminTraceListActivity extends BaseActivity<AdminTraceListContract.
     @Override
     protected void initView(Bundle savedInstanceState) {
         refreshLayout = findViewById(R.id.admin_trace_refresh);
+        refreshLayout.setColorSchemeResources(R.color.color_primary);
         recyclerView = findViewById(R.id.admin_trace_list);
         stateContainer = findViewById(R.id.admin_trace_state_container);
         stateText = findViewById(R.id.admin_trace_state_text);

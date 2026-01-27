@@ -1,128 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="@dimen/spacing_xxl">
 
         <TextView
             android:id="@+id/address_edit_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/address_edit"
-            android:textColor="@color/text_primary"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textAppearance="@style/TextAppearance.Suyuan.Title" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/spacing_l"
             android:labelFor="@id/input_receiver"
             android:text="@string/label_receiver"
             android:textColor="@color/text_secondary"
-            android:textSize="12sp" />
+            android:textSize="@dimen/text_caption" />
 
         <EditText
             android:id="@+id/input_receiver"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.Suyuan.EditText"
             android:autofillHints="personName"
             android:inputType="textPersonName"
             android:textColor="@color/text_primary"
-            android:textSize="15sp" />
+            android:textSize="@dimen/text_body" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/spacing_m"
             android:labelFor="@id/input_phone"
             android:text="@string/label_phone"
             android:textColor="@color/text_secondary"
-            android:textSize="12sp" />
+            android:textSize="@dimen/text_caption" />
 
         <EditText
             android:id="@+id/input_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.Suyuan.EditText"
             android:autofillHints="phone"
             android:inputType="phone"
             android:textColor="@color/text_primary"
-            android:textSize="15sp" />
+            android:textSize="@dimen/text_body" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/spacing_m"
             android:labelFor="@id/input_province"
             android:text="@string/label_province"
             android:textColor="@color/text_secondary"
-            android:textSize="12sp" />
+            android:textSize="@dimen/text_caption" />
 
         <EditText
             android:id="@+id/input_province"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.Suyuan.EditText"
             android:autofillHints="addressRegion"
             android:inputType="text"
             android:textColor="@color/text_primary"
-            android:textSize="15sp" />
+            android:textSize="@dimen/text_body" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/spacing_m"
             android:labelFor="@id/input_city"
             android:text="@string/label_city"
             android:textColor="@color/text_secondary"
-            android:textSize="12sp" />
+            android:textSize="@dimen/text_caption" />
 
         <EditText
             android:id="@+id/input_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.Suyuan.EditText"
             android:autofillHints="addressLocality"
             android:inputType="text"
             android:textColor="@color/text_primary"
-            android:textSize="15sp" />
+            android:textSize="@dimen/text_body" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/spacing_m"
             android:labelFor="@id/input_detail"
             android:text="@string/label_detail"
             android:textColor="@color/text_secondary"
-            android:textSize="12sp" />
+            android:textSize="@dimen/text_caption" />
 
         <EditText
             android:id="@+id/input_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.Suyuan.EditText"
             android:autofillHints="streetAddress"
             android:inputType="textMultiLine"
             android:minLines="2"
             android:textColor="@color/text_primary"
-            android:textSize="15sp" />
+            android:textSize="@dimen/text_body" />
 
         <CheckBox
             android:id="@+id/input_default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/spacing_l"
             android:text="@string/address_set_default" />
 
         <Button
             android:id="@+id/button_save_address"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/color_primary"
-            android:text="@string/address_save"
-            android:textColor="@color/white" />
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/spacing_xl"
+            android:text="@string/address_save" />
     </LinearLayout>
 </ScrollView>

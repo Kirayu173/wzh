@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="@dimen/spacing_l">
 
     <EditText
         android:id="@+id/admin_stock_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/Widget.Suyuan.EditText"
         android:hint="@string/admin_product_stock_hint"
         android:inputType="number" />
 </LinearLayout>

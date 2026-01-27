@@ -1,130 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="@dimen/spacing_xxl">
 
         <TextView
             android:id="@+id/text_profile_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/profile_title"
-            android:textColor="@color/text_primary"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textAppearance="@style/TextAppearance.Suyuan.Title" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/label_username"
-            android:textColor="@color/text_secondary"
-            android:textSize="12sp" />
+            android:layout_marginTop="@dimen/spacing_l"
+            android:background="@drawable/bg_card"
+            android:elevation="@dimen/elevation_s"
+            android:orientation="vertical"
+            android:padding="@dimen/card_padding">
 
-        <TextView
-            android:id="@+id/text_user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/text_primary"
-            android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_username"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_caption" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/label_user_id"
-            android:textColor="@color/text_secondary"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/text_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xs"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_subtitle" />
 
-        <TextView
-            android:id="@+id/text_user_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/text_primary"
-            android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_m"
+                android:text="@string/label_user_id"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_caption" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/label_user_role"
-            android:textColor="@color/text_secondary"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/text_user_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xs"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_subtitle" />
 
-        <TextView
-            android:id="@+id/text_user_role"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/text_primary"
-            android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_m"
+                android:text="@string/label_user_role"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_caption" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/label_version"
-            android:textColor="@color/text_secondary"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/text_user_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xs"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_subtitle" />
 
-        <TextView
-            android:id="@+id/text_version"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/text_primary"
-            android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_m"
+                android:text="@string/label_version"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_caption" />
+
+            <TextView
+                android:id="@+id/text_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xs"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_subtitle" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/button_orders"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="@color/color_primary"
-            android:text="@string/action_orders"
-            android:textColor="@color/white" />
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/spacing_xl"
+            style="@style/Widget.Suyuan.Button.Secondary"
+            android:text="@string/action_orders" />
 
         <Button
             android:id="@+id/button_addresses"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/color_primary"
-            android:text="@string/action_addresses"
-            android:textColor="@color/white" />
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.Button.Secondary"
+            android:text="@string/action_addresses" />
 
         <Button
             android:id="@+id/button_trace_scan"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/color_primary"
-            android:text="@string/action_trace_scan"
-            android:textColor="@color/white" />
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.Button.Secondary"
+            android:text="@string/action_trace_scan" />
 
         <Button
             android:id="@+id/button_trace_record"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/color_primary"
-            android:text="@string/action_trace_record"
-            android:textColor="@color/white" />
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.Button.Secondary"
+            android:text="@string/action_trace_record" />
 
         <Button
             android:id="@+id/button_logout"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/color_accent"
-            android:text="@string/action_logout"
-            android:textColor="@color/white" />
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.Button.Danger"
+            android:text="@string/action_logout" />
     </LinearLayout>
 </ScrollView>

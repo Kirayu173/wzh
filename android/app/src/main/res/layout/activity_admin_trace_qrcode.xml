@@ -3,7 +3,8 @@
     android:id="@+id/admin_trace_qrcode_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@color/background"
+    android:padding="@dimen/spacing_l">
 
     <ImageView
         android:id="@+id/admin_trace_qrcode_image"
@@ -16,10 +17,10 @@
         android:id="@+id/admin_trace_qrcode_state"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
+        android:background="@color/surface"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="24dp"
+        android:padding="@dimen/spacing_xxl"
         android:visibility="gone">
 
         <TextView
@@ -28,13 +29,14 @@
             android:layout_height="wrap_content"
             android:text="@string/admin_trace_qrcode_error"
             android:textColor="@color/text_secondary"
-            android:textSize="15sp" />
+            android:textSize="@dimen/text_body" />
 
         <Button
             android:id="@+id/admin_trace_qrcode_state_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.Button.Outline"
             android:text="@string/action_retry" />
     </LinearLayout>
 </FrameLayout>

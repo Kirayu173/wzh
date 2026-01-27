@@ -3,75 +3,80 @@
     android:id="@+id/admin_product_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    android:background="@android:color/white"
+    android:layout_marginBottom="@dimen/spacing_m"
+    android:background="@drawable/bg_card"
+    android:elevation="@dimen/elevation_s"
     android:orientation="vertical"
-    android:padding="12dp">
+    android:padding="@dimen/card_padding">
 
     <TextView
         android:id="@+id/admin_product_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/text_primary"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_subtitle"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/admin_product_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/spacing_xs"
         android:textColor="@color/color_primary"
-        android:textSize="13sp" />
+        android:textSize="@dimen/text_caption" />
 
     <TextView
         android:id="@+id/admin_product_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="@dimen/spacing_s"
         android:textColor="@color/text_secondary"
-        android:textSize="13sp" />
+        android:textSize="@dimen/text_caption" />
 
     <TextView
         android:id="@+id/admin_product_stock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="@dimen/spacing_xs"
         android:textColor="@color/text_secondary"
-        android:textSize="13sp" />
+        android:textSize="@dimen/text_caption" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/spacing_m"
         android:gravity="end"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/admin_product_action_edit"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
+            android:layout_height="@dimen/touch_target"
+            style="@style/Widget.Suyuan.Button.Outline"
             android:text="@string/action_edit" />
 
         <Button
             android:id="@+id/admin_product_action_status"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_marginStart="6dp"
+            android:layout_height="@dimen/touch_target"
+            android:layout_marginStart="@dimen/spacing_s"
+            style="@style/Widget.Suyuan.Button.Outline"
             android:text="@string/admin_product_toggle_status" />
 
         <Button
             android:id="@+id/admin_product_action_stock"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_marginStart="6dp"
+            android:layout_height="@dimen/touch_target"
+            android:layout_marginStart="@dimen/spacing_s"
+            style="@style/Widget.Suyuan.Button.Outline"
             android:text="@string/admin_product_update_stock" />
 
         <Button
             android:id="@+id/admin_product_action_delete"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_marginStart="6dp"
+            android:layout_height="@dimen/touch_target"
+            android:layout_marginStart="@dimen/spacing_s"
+            style="@style/Widget.Suyuan.Button.Danger"
             android:text="@string/action_delete" />
     </LinearLayout>
 </LinearLayout>

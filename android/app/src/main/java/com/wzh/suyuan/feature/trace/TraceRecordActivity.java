@@ -37,6 +37,7 @@ public class TraceRecordActivity extends BaseActivity<TraceRecordContract.View, 
     @Override
     protected void initView(Bundle savedInstanceState) {
         refreshLayout = findViewById(R.id.trace_record_refresh);
+        refreshLayout.setColorSchemeResources(R.color.color_primary);
         recyclerView = findViewById(R.id.trace_record_list);
         stateContainer = findViewById(R.id.trace_record_state);
         stateText = findViewById(R.id.trace_record_state_text);

@@ -42,6 +42,7 @@ public class OrderListActivity extends BaseActivity<OrderListContract.View, Orde
     @Override
     protected void initView(Bundle savedInstanceState) {
         refreshLayout = findViewById(R.id.order_refresh);
+        refreshLayout.setColorSchemeResources(R.color.color_primary);
         recyclerView = findViewById(R.id.order_list);
         stateContainer = findViewById(R.id.order_state_container);
         stateText = findViewById(R.id.order_state_text);
@@ -139,8 +140,6 @@ public class OrderListActivity extends BaseActivity<OrderListContract.View, Orde
             return;
         }
         tab.setSelected(selected);
-        tab.setBackgroundResource(selected ? R.drawable.bg_primary_button : android.R.color.transparent);
-        tab.setTextColor(getResources().getColor(selected ? android.R.color.white : R.color.text_secondary));
     }
 
     private void showState(boolean show, String message) {

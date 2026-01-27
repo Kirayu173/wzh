@@ -2,14 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/spacing_s"
+    android:background="@drawable/bg_card"
+    android:elevation="@dimen/elevation_s"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:padding="@dimen/card_padding">
 
     <ImageView
         android:id="@+id/order_item_image"
         android:layout_width="64dp"
         android:layout_height="64dp"
+        android:background="@drawable/bg_image_placeholder"
+        android:clipToOutline="true"
         android:contentDescription="@null"
+        android:outlineProvider="background"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher" />
 
@@ -25,23 +31,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/text_primary"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_body"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/order_item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/spacing_s"
             android:textColor="@color/color_primary"
-            android:textSize="14sp" />
+            android:textSize="@dimen/text_body" />
 
         <TextView
             android:id="@+id/order_item_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/spacing_xs"
             android:textColor="@color/text_secondary"
-            android:textSize="12sp" />
+            android:textSize="@dimen/text_caption" />
     </LinearLayout>
 </LinearLayout>

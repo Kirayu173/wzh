@@ -1,7 +1,92 @@
-﻿<resources>
+<resources>
     <style name="Theme.Suyuan" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
+        <item name="colorControlActivated">@color/color_primary</item>
+        <item name="colorControlHighlight">@color/primary_alpha_12</item>
+
+        <item name="android:statusBarColor">@color/color_primary_dark</item>
+        <item name="android:navigationBarColor">@color/surface_nav</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+
+        <item name="android:buttonStyle">@style/Widget.Suyuan.Button</item>
+        <item name="android:editTextStyle">@style/Widget.Suyuan.EditText</item>
+        <item name="android:checkboxStyle">@style/Widget.Suyuan.CheckBox</item>
+        <item name="android:radioButtonStyle">@style/Widget.Suyuan.RadioButton</item>
+    </style>
+
+    <style name="TextAppearance.Suyuan.Title" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.Suyuan.Subtitle" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">@dimen/text_subtitle</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.Suyuan.Body" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">@dimen/text_body</item>
+    </style>
+
+    <style name="TextAppearance.Suyuan.Caption" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">@dimen/text_caption</item>
+    </style>
+
+    <style name="Widget.Suyuan.Button" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/bg_primary_button</item>
+        <item name="android:textColor">@color/button_text_selector</item>
+        <item name="android:minHeight">@dimen/touch_target</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:paddingStart">@dimen/spacing_l</item>
+        <item name="android:paddingEnd">@dimen/spacing_l</item>
+    </style>
+
+    <style name="Widget.Suyuan.Button.Outline" parent="Widget.Suyuan.Button">
+        <item name="android:background">@drawable/bg_outline_button</item>
+        <item name="android:textColor">@color/color_primary</item>
+    </style>
+
+    <style name="Widget.Suyuan.Button.Secondary" parent="Widget.Suyuan.Button">
+        <item name="android:background">@drawable/bg_secondary_button</item>
+        <item name="android:textColor">@color/color_primary_dark</item>
+    </style>
+
+    <style name="Widget.Suyuan.Button.Danger" parent="Widget.Suyuan.Button">
+        <item name="android:background">@drawable/bg_danger_button</item>
+        <item name="android:textColor">@color/text_on_primary</item>
+    </style>
+
+    <style name="Widget.Suyuan.EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/bg_input</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorHint">@color/text_tertiary</item>
+        <item name="android:minHeight">@dimen/input_height</item>
+        <item name="android:paddingStart">@dimen/spacing_l</item>
+        <item name="android:paddingEnd">@dimen/spacing_l</item>
+        <item name="android:paddingTop">@dimen/spacing_s</item>
+        <item name="android:paddingBottom">@dimen/spacing_s</item>
+    </style>
+
+    <style name="Widget.Suyuan.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:buttonTint">@color/color_primary</item>
+    </style>
+
+    <style name="Widget.Suyuan.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:buttonTint">@color/color_primary</item>
+    </style>
+
+    <style name="Widget.Suyuan.TabText" parent="TextAppearance.Suyuan.Caption">
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 </resources>

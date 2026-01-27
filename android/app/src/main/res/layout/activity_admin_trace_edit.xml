@@ -2,28 +2,28 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/admin_trace_edit_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/spacing_l">
 
         <TextView
             android:id="@+id/admin_trace_edit_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/admin_trace_edit_title"
-            android:textColor="@color/text_primary"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textAppearance="@style/TextAppearance.Suyuan.Title" />
 
         <EditText
             android:id="@+id/admin_trace_input_product_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.EditText"
             android:hint="@string/admin_trace_product_id_hint"
             android:inputType="number" />
 
@@ -31,7 +31,8 @@
             android:id="@+id/admin_trace_input_batch_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.EditText"
             android:hint="@string/admin_trace_batch_no_hint"
             android:inputType="text" />
 
@@ -39,7 +40,8 @@
             android:id="@+id/admin_trace_input_origin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.EditText"
             android:hint="@string/admin_trace_origin_hint"
             android:inputType="text" />
 
@@ -47,7 +49,8 @@
             android:id="@+id/admin_trace_input_producer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.EditText"
             android:hint="@string/admin_trace_producer_hint"
             android:inputType="text" />
 
@@ -55,7 +58,8 @@
             android:id="@+id/admin_trace_input_harvest_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.EditText"
             android:hint="@string/admin_trace_harvest_hint"
             android:inputType="date" />
 
@@ -63,7 +67,8 @@
             android:id="@+id/admin_trace_input_process"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.EditText"
             android:hint="@string/admin_trace_process_hint"
             android:inputType="textMultiLine"
             android:minLines="3" />
@@ -72,7 +77,8 @@
             android:id="@+id/admin_trace_input_test_org"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.EditText"
             android:hint="@string/admin_trace_test_org_hint"
             android:inputType="text" />
 
@@ -80,7 +86,8 @@
             android:id="@+id/admin_trace_input_test_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.EditText"
             android:hint="@string/admin_trace_test_date_hint"
             android:inputType="date" />
 
@@ -88,7 +95,8 @@
             android:id="@+id/admin_trace_input_test_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.EditText"
             android:hint="@string/admin_trace_test_result_hint"
             android:inputType="text" />
 
@@ -96,17 +104,16 @@
             android:id="@+id/admin_trace_input_report"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.EditText"
             android:hint="@string/admin_trace_report_hint"
             android:inputType="textUri" />
 
         <Button
             android:id="@+id/admin_trace_save"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_primary_button"
-            android:text="@string/action_save"
-            android:textColor="@color/white" />
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/spacing_l"
+            android:text="@string/action_save" />
     </LinearLayout>
 </ScrollView>

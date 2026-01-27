@@ -2,16 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
+    android:layout_marginBottom="@dimen/spacing_m"
+    android:background="@drawable/bg_card"
+    android:elevation="@dimen/elevation_s"
+    android:foreground="?attr/selectableItemBackground"
     android:orientation="horizontal"
-    android:padding="12dp">
+    android:padding="@dimen/card_padding">
 
     <ImageView
         android:id="@+id/product_image"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:background="@color/color_primary_dark"
+        android:background="@drawable/bg_image_placeholder"
+        android:clipToOutline="true"
         android:contentDescription="@null"
+        android:outlineProvider="background"
         android:scaleType="centerCrop" />
 
     <LinearLayout
@@ -27,30 +32,30 @@
             android:layout_height="wrap_content"
             android:maxLines="2"
             android:textColor="@color/text_primary"
-            android:textSize="15sp" />
+            android:textSize="@dimen/text_body" />
 
         <TextView
             android:id="@+id/product_origin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/spacing_xs"
             android:textColor="@color/text_secondary"
-            android:textSize="13sp" />
+            android:textSize="@dimen/text_caption" />
 
         <TextView
             android:id="@+id/product_stock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="@dimen/spacing_xs"
             android:textColor="@color/text_secondary"
-            android:textSize="13sp" />
+            android:textSize="@dimen/text_caption" />
 
         <TextView
             android:id="@+id/product_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/spacing_s"
             android:textColor="@color/color_primary"
-            android:textSize="15sp" />
+            android:textSize="@dimen/text_subtitle" />
     </LinearLayout>
 </LinearLayout>

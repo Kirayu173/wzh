@@ -40,6 +40,7 @@ public class AdminProductListActivity extends BaseActivity<AdminProductListContr
     @Override
     protected void initView(Bundle savedInstanceState) {
         refreshLayout = findViewById(R.id.admin_product_refresh);
+        refreshLayout.setColorSchemeResources(R.color.color_primary);
         recyclerView = findViewById(R.id.admin_product_list);
         stateContainer = findViewById(R.id.admin_product_state_container);
         stateText = findViewById(R.id.admin_product_state_text);

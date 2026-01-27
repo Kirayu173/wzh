@@ -1,61 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="@dimen/spacing_xxl">
 
         <TextView
             android:id="@+id/trace_scan_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/trace_scan_title"
-            android:textColor="@color/text_primary"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textAppearance="@style/TextAppearance.Suyuan.Title" />
 
         <Button
             android:id="@+id/trace_scan_button"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/color_primary"
-            android:text="@string/trace_action_scan"
-            android:textColor="@color/white" />
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/spacing_xl"
+            android:text="@string/trace_action_scan" />
 
         <EditText
             android:id="@+id/trace_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@android:drawable/edit_text"
+            android:layout_marginTop="@dimen/spacing_l"
+            style="@style/Widget.Suyuan.EditText"
             android:hint="@string/trace_input_hint"
             android:importantForAutofill="no"
             android:inputType="text"
-            android:padding="12dp"
             android:textColor="@color/text_primary"
-            android:textSize="14sp" />
+            android:textSize="@dimen/text_body" />
 
         <Button
             android:id="@+id/trace_query_button"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/color_primary"
-            android:text="@string/trace_action_query"
-            android:textColor="@color/white" />
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/spacing_m"
+            android:text="@string/trace_action_query" />
 
         <Button
             android:id="@+id/trace_record_button"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/color_primary"
-            android:text="@string/trace_action_record"
-            android:textColor="@color/white" />
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.Button.Outline"
+            android:text="@string/trace_action_record" />
     </LinearLayout>
 </ScrollView>

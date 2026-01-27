@@ -4,7 +4,7 @@
             "outputFile": "com.wzh.suyuan.app-mergeDebugResources-31:/values-pl/values-pl.xml",
             "map": [
                 {
-                    "source": "D:\\Development\\Gradle\\caches\\8.13\\transforms\\784103a80b8bfc22377175428c72406b\\transformed\\jetified-zxing-android-embedded-4.3.0\\res\\values-pl\\values-pl.xml",
+                    "source": "C:\\Users\\Kirayu\\.gradle\\caches\\8.13\\transforms\\784103a80b8bfc22377175428c72406b\\transformed\\jetified-zxing-android-embedded-4.3.0\\res\\values-pl\\values-pl.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "D:\\Development\\Gradle\\caches\\8.13\\transforms\\9751129cf9a082d51cb0234e0f752002\\transformed\\appcompat-1.6.1\\res\\values-pl\\values-pl.xml",
+                    "source": "C:\\Users\\Kirayu\\.gradle\\caches\\8.13\\transforms\\9751129cf9a082d51cb0234e0f752002\\transformed\\appcompat-1.6.1\\res\\values-pl\\values-pl.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "D:\\Development\\Gradle\\caches\\8.13\\transforms\\2a73b9be6d4f291b9bd93ba4a78e16cf\\transformed\\core-1.13.1\\res\\values-pl\\values-pl.xml",
+                    "source": "C:\\Users\\Kirayu\\.gradle\\caches\\8.13\\transforms\\2a73b9be6d4f291b9bd93ba4a78e16cf\\transformed\\core-1.13.1\\res\\values-pl\\values-pl.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",

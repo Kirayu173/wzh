@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <ScrollView
         android:id="@+id/trace_detail_scroll"
@@ -12,130 +13,128 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="@dimen/spacing_xxl">
 
             <TextView
                 android:id="@+id/trace_detail_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/trace_detail_title"
-                android:textColor="@color/text_primary"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextAppearance.Suyuan.Title" />
 
             <TextView
                 android:id="@+id/trace_detail_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/spacing_m"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_body" />
 
             <TextView
                 android:id="@+id/trace_detail_product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/spacing_s"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_body" />
 
             <TextView
                 android:id="@+id/trace_detail_origin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/spacing_s"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_body" />
 
             <TextView
                 android:id="@+id/trace_detail_producer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/spacing_s"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_body" />
 
             <TextView
                 android:id="@+id/trace_detail_batch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/spacing_s"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_body" />
 
             <TextView
                 android:id="@+id/trace_detail_harvest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/spacing_s"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_body" />
 
             <TextView
                 android:id="@+id/trace_detail_process"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/spacing_s"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_body" />
 
             <TextView
                 android:id="@+id/trace_detail_test_org"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/spacing_s"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_body" />
 
             <TextView
                 android:id="@+id/trace_detail_test_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/spacing_s"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_body" />
 
             <TextView
                 android:id="@+id/trace_detail_test_result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/spacing_s"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_body" />
 
             <TextView
                 android:id="@+id/trace_detail_report"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/spacing_s"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_body" />
 
             <TextView
                 android:id="@+id/trace_detail_logistics_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/spacing_l"
                 android:text="@string/trace_logistics_title"
                 android:textColor="@color/text_primary"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_subtitle"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/trace_detail_logistics_empty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/spacing_s"
                 android:text="@string/trace_logistics_empty"
                 android:textColor="@color/text_secondary"
-                android:textSize="14sp"
+                android:textSize="@dimen/text_body"
                 android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trace_detail_logistics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/spacing_s"
                 android:nestedScrollingEnabled="false" />
         </LinearLayout>
     </ScrollView>
@@ -144,10 +143,10 @@
         android:id="@+id/trace_detail_state"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
+        android:background="@color/surface"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="24dp"
+        android:padding="@dimen/spacing_xxl"
         android:visibility="gone">
 
         <TextView
@@ -156,13 +155,14 @@
             android:layout_height="wrap_content"
             android:text="@string/trace_detail_error"
             android:textColor="@color/text_secondary"
-            android:textSize="15sp" />
+            android:textSize="@dimen/text_body" />
 
         <Button
             android:id="@+id/trace_detail_state_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.Button.Outline"
             android:text="@string/action_retry" />
     </LinearLayout>
 </FrameLayout>

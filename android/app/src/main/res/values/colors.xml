@@ -1,8 +1,32 @@
 <resources>
-    <color name="color_primary">#2F6D62</color>
-    <color name="color_primary_dark">#24564E</color>
-    <color name="color_accent">#F29F05</color>
+    <!-- Brand palette -->
+    <color name="color_primary">#1F8A70</color>
+    <color name="color_primary_dark">#116052</color>
+    <color name="color_accent">#F4A261</color>
+    <color name="color_secondary">#E76F51</color>
+    <color name="primary_soft">#D9F2EA</color>
+    <color name="primary_alpha_12">#1F1F8A70</color>
+
+    <!-- Neutrals -->
+    <color name="background">#F5F7FA</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_alt">#EEF2F6</color>
+    <color name="surface_nav">#FFFFFF</color>
+    <color name="border">#DDE3EA</color>
+
+    <!-- Text -->
+    <color name="text_primary">#1B2A35</color>
+    <color name="text_secondary">#5B6770</color>
+    <color name="text_tertiary">#8A95A3</color>
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_on_dark">#FFFFFF</color>
+
+    <!-- States -->
+    <color name="success">#2E7D32</color>
+    <color name="warning">#F9A825</color>
+    <color name="error">#D32F2F</color>
+    <color name="info">#0288D1</color>
+
     <color name="white">#FFFFFF</color>
-    <color name="text_primary">#1F2933</color>
-    <color name="text_secondary">#52606D</color>
+    <color name="transparent">#00000000</color>
 </resources>

@@ -3,32 +3,31 @@
     android:id="@+id/order_pay_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="@dimen/spacing_xxl">
 
     <TextView
         android:id="@+id/order_pay_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/order_pay_title"
-        android:textColor="@color/text_primary"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textAppearance="@style/TextAppearance.Suyuan.Title" />
 
     <TextView
         android:id="@+id/order_pay_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/spacing_l"
         android:textColor="@color/text_secondary"
-        android:textSize="14sp" />
+        android:textSize="@dimen/text_body" />
 
     <TextView
         android:id="@+id/order_pay_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/spacing_s"
         android:textColor="@color/color_primary"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -36,9 +35,7 @@
     <Button
         android:id="@+id/order_pay_action"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/bg_primary_button"
-        android:text="@string/order_pay_action"
-        android:textColor="@color/white" />
+        android:layout_height="@dimen/input_height"
+        android:layout_marginTop="@dimen/spacing_xl"
+        android:text="@string/order_pay_action" />
 </LinearLayout>

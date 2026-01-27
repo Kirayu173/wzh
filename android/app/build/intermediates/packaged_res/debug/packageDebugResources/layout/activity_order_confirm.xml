@@ -3,6 +3,7 @@
     android:id="@+id/order_confirm_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical">
 
     <FrameLayout
@@ -19,24 +20,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/spacing_l">
 
                 <TextView
                     android:id="@+id/order_confirm_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/order_confirm_title"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textAppearance="@style/TextAppearance.Suyuan.Title" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:background="@android:color/white"
+                    android:layout_marginTop="@dimen/spacing_m"
+                    android:background="@drawable/bg_card"
+                    android:elevation="@dimen/elevation_s"
                     android:orientation="vertical"
-                    android:padding="12dp">
+                    android:padding="@dimen/card_padding">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -49,13 +49,14 @@
                             android:layout_weight="1"
                             android:text="@string/label_address"
                             android:textColor="@color/text_primary"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/text_body"
                             android:textStyle="bold" />
 
                         <Button
                             android:id="@+id/order_manage_address"
                             android:layout_width="wrap_content"
-                            android:layout_height="32dp"
+                            android:layout_height="@dimen/touch_target"
+                            style="@style/Widget.Suyuan.Button.Outline"
                             android:text="@string/action_manage_address" />
                     </LinearLayout>
 
@@ -63,56 +64,55 @@
                         android:id="@+id/order_address_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/spacing_s"
                         android:textColor="@color/text_primary"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/text_body" />
 
                     <TextView
                         android:id="@+id/order_address_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/spacing_xs"
                         android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
+                        android:textSize="@dimen/text_caption" />
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/spacing_l"
                     android:text="@string/order_goods_title"
                     android:textColor="@color/text_primary"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/text_body"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/order_confirm_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="@dimen/spacing_s"
                     android:nestedScrollingEnabled="false" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/spacing_l"
                     android:text="@string/order_memo_title"
                     android:textColor="@color/text_primary"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/text_body"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/order_memo_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@android:color/white"
+                    android:layout_marginTop="@dimen/spacing_s"
+                    style="@style/Widget.Suyuan.EditText"
                     android:hint="@string/order_memo_hint"
                     android:importantForAutofill="no"
                     android:inputType="textMultiLine"
                     android:minLines="2"
-                    android:padding="10dp"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/text_body" />
             </LinearLayout>
         </ScrollView>
 
@@ -120,10 +120,10 @@
             android:id="@+id/order_confirm_state"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
+            android:background="@color/surface"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="24dp"
+            android:padding="@dimen/spacing_xxl"
             android:visibility="gone">
 
             <TextView
@@ -132,13 +132,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/order_confirm_empty"
                 android:textColor="@color/text_secondary"
-                android:textSize="15sp" />
+                android:textSize="@dimen/text_body" />
 
             <Button
                 android:id="@+id/order_confirm_state_action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/spacing_m"
+                style="@style/Widget.Suyuan.Button.Outline"
                 android:text="@string/action_retry" />
         </LinearLayout>
     </FrameLayout>
@@ -146,35 +147,34 @@
     <LinearLayout
         android:id="@+id/order_confirm_bottom"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@android:color/white"
+        android:layout_height="@dimen/nav_height"
+        android:background="@color/surface"
+        android:elevation="@dimen/elevation_m"
         android:gravity="center_vertical"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:paddingStart="@dimen/spacing_l"
+        android:paddingEnd="@dimen/spacing_l">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_total"
             android:textColor="@color/text_primary"
-            android:textSize="15sp" />
+            android:textSize="@dimen/text_body" />
 
         <TextView
             android:id="@+id/order_confirm_total"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/spacing_s"
             android:layout_weight="1"
             android:text="@string/price_default"
             android:textColor="@color/color_primary"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_subtitle" />
 
         <Button
             android:id="@+id/order_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_primary_button"
-            android:text="@string/order_submit"
-            android:textColor="@color/white" />
+            android:text="@string/order_submit" />
     </LinearLayout>
 </LinearLayout>

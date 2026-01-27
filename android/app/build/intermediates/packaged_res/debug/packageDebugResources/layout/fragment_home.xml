@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/home_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/home_refresh"
@@ -14,17 +15,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:padding="12dp" />
+            android:padding="@dimen/spacing_l" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
         android:id="@+id/home_state_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
+        android:background="@color/surface"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="24dp"
+        android:padding="@dimen/spacing_xxl"
         android:visibility="gone">
 
         <TextView
@@ -33,13 +34,14 @@
             android:layout_height="wrap_content"
             android:text="@string/home_empty"
             android:textColor="@color/text_secondary"
-            android:textSize="15sp" />
+            android:textSize="@dimen/text_body" />
 
         <Button
             android:id="@+id/home_state_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.Button.Outline"
             android:text="@string/action_retry" />
     </LinearLayout>
 

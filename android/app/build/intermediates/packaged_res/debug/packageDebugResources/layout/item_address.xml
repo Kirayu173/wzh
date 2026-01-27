@@ -2,8 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/spacing_m"
+    android:background="@drawable/bg_card"
+    android:elevation="@dimen/elevation_s"
     android:orientation="vertical"
-    android:padding="12dp">
+    android:padding="@dimen/card_padding">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,19 +19,21 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/text_primary"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_subtitle"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/address_default_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_primary_button"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
+            android:background="@drawable/bg_chip"
+            android:paddingStart="@dimen/spacing_s"
+            android:paddingEnd="@dimen/spacing_s"
+            android:paddingTop="@dimen/spacing_xs"
+            android:paddingBottom="@dimen/spacing_xs"
             android:text="@string/address_default"
-            android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textColor="@color/color_primary_dark"
+            android:textSize="@dimen/text_caption"
             android:visibility="gone" />
     </LinearLayout>
 
@@ -36,46 +41,46 @@
         android:id="@+id/address_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/spacing_xs"
         android:textColor="@color/text_secondary"
-        android:textSize="13sp" />
+        android:textSize="@dimen/text_caption" />
 
     <TextView
         android:id="@+id/address_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="@dimen/spacing_s"
         android:textColor="@color/text_primary"
-        android:textSize="14sp" />
+        android:textSize="@dimen/text_body" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/spacing_m"
         android:gravity="end"
         style="?android:attr/buttonBarStyle">
 
         <Button
             android:id="@+id/address_set_default"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_marginEnd="8dp"
-            style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="@dimen/touch_target"
+            android:layout_marginEnd="@dimen/spacing_s"
+            style="@style/Widget.Suyuan.Button.Outline"
             android:text="@string/address_set_default" />
 
         <Button
             android:id="@+id/address_edit"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_marginEnd="8dp"
-            style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="@dimen/touch_target"
+            android:layout_marginEnd="@dimen/spacing_s"
+            style="@style/Widget.Suyuan.Button.Outline"
             android:text="@string/action_edit" />
 
         <Button
             android:id="@+id/address_delete"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="@dimen/touch_target"
+            style="@style/Widget.Suyuan.Button.Danger"
             android:text="@string/action_delete" />
     </LinearLayout>
 </LinearLayout>

@@ -44,6 +44,7 @@ public class AdminOrderListActivity extends BaseActivity<AdminOrderListContract.
     @Override
     protected void initView(Bundle savedInstanceState) {
         refreshLayout = findViewById(R.id.admin_order_refresh);
+        refreshLayout.setColorSchemeResources(R.color.color_primary);
         recyclerView = findViewById(R.id.admin_order_list);
         stateContainer = findViewById(R.id.admin_order_state_container);
         stateText = findViewById(R.id.admin_order_state_text);

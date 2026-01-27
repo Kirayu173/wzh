@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="@dimen/spacing_xxl">
 
         <TextView
             android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/auth_title"
-            android:textColor="@color/text_primary"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textAppearance="@style/TextAppearance.Suyuan.Title" />
 
         <RadioGroup
             android:id="@+id/auth_mode_group"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="@dimen/touch_target"
+            android:layout_marginTop="@dimen/spacing_xl"
+            android:background="@drawable/bg_card"
             android:checkedButton="@id/tab_login"
             android:orientation="horizontal">
 
@@ -36,7 +36,7 @@
                 android:gravity="center"
                 android:text="@string/tab_login"
                 android:textColor="@color/auth_tab_text_selector"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text_subtitle" />
 
             <RadioButton
                 android:id="@+id/tab_register"
@@ -48,67 +48,56 @@
                 android:gravity="center"
                 android:text="@string/tab_register"
                 android:textColor="@color/auth_tab_text_selector"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text_subtitle" />
         </RadioGroup>
 
         <EditText
             android:id="@+id/input_username"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="24dp"
-            android:background="@android:drawable/edit_text"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/spacing_xxl"
+            style="@style/Widget.Suyuan.EditText"
             android:hint="@string/hint_username"
             android:inputType="text"
             android:autofillHints="username"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
+            android:importantForAutofill="yes" />
 
         <EditText
             android:id="@+id/input_password"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="12dp"
-            android:background="@android:drawable/edit_text"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.EditText"
             android:hint="@string/hint_password"
             android:inputType="textPassword"
             android:autofillHints="password"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
+            android:importantForAutofill="yes" />
 
         <EditText
             android:id="@+id/input_phone"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="12dp"
-            android:background="@android:drawable/edit_text"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/spacing_m"
+            style="@style/Widget.Suyuan.EditText"
             android:hint="@string/hint_phone"
             android:inputType="phone"
             android:autofillHints="phone"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary"
             android:visibility="gone" />
 
         <Button
             android:id="@+id/button_submit"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/color_primary"
-            android:text="@string/action_login"
-            android:textColor="@color/white" />
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/spacing_xl"
+            android:text="@string/action_login" />
 
         <ProgressBar
             android:id="@+id/progress_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            android:indeterminateTint="@color/color_primary"
             android:visibility="gone" />
     </LinearLayout>
 </ScrollView>

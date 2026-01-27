@@ -44,6 +44,7 @@ public class HomeFragment extends BaseFragment<HomeContract.View, HomePresenter>
     @Override
     protected void initView(View rootView, @Nullable Bundle savedInstanceState) {
         refreshLayout = rootView.findViewById(R.id.home_refresh);
+        refreshLayout.setColorSchemeResources(R.color.color_primary);
         recyclerView = rootView.findViewById(R.id.home_list);
         stateContainer = rootView.findViewById(R.id.home_state_container);
         stateText = rootView.findViewById(R.id.home_state_text);

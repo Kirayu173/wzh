@@ -3,17 +3,16 @@
     android:id="@+id/order_list_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/order_list_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="@dimen/spacing_l"
         android:text="@string/order_list_title"
-        android:textColor="@color/text_primary"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textAppearance="@style/TextAppearance.Suyuan.Title" />
 
     <LinearLayout
         android:id="@+id/order_status_tabs"
@@ -21,39 +20,58 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp">
+        android:paddingStart="@dimen/spacing_l"
+        android:paddingEnd="@dimen/spacing_l">
 
         <TextView
             android:id="@+id/order_tab_pending"
             android:layout_width="0dp"
-            android:layout_height="36dp"
+            android:layout_height="@dimen/touch_target"
             android:layout_weight="1"
+            android:background="@drawable/bg_tab_selector"
             android:gravity="center"
+            android:textColor="@color/tab_text_selector"
+            android:textSize="@dimen/text_caption"
+            android:textStyle="bold"
             android:text="@string/order_status_pending" />
 
         <TextView
             android:id="@+id/order_tab_paid"
             android:layout_width="0dp"
-            android:layout_height="36dp"
+            android:layout_height="@dimen/touch_target"
             android:layout_weight="1"
+            android:layout_marginStart="@dimen/spacing_s"
+            android:background="@drawable/bg_tab_selector"
             android:gravity="center"
+            android:textColor="@color/tab_text_selector"
+            android:textSize="@dimen/text_caption"
+            android:textStyle="bold"
             android:text="@string/order_status_paid" />
 
         <TextView
             android:id="@+id/order_tab_shipped"
             android:layout_width="0dp"
-            android:layout_height="36dp"
+            android:layout_height="@dimen/touch_target"
             android:layout_weight="1"
+            android:layout_marginStart="@dimen/spacing_s"
+            android:background="@drawable/bg_tab_selector"
             android:gravity="center"
+            android:textColor="@color/tab_text_selector"
+            android:textSize="@dimen/text_caption"
+            android:textStyle="bold"
             android:text="@string/order_status_shipped" />
 
         <TextView
             android:id="@+id/order_tab_completed"
             android:layout_width="0dp"
-            android:layout_height="36dp"
+            android:layout_height="@dimen/touch_target"
             android:layout_weight="1"
+            android:layout_marginStart="@dimen/spacing_s"
+            android:background="@drawable/bg_tab_selector"
             android:gravity="center"
+            android:textColor="@color/tab_text_selector"
+            android:textSize="@dimen/text_caption"
+            android:textStyle="bold"
             android:text="@string/order_status_completed" />
     </LinearLayout>
 
@@ -72,17 +90,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:padding="12dp" />
+                android:padding="@dimen/spacing_l" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <LinearLayout
             android:id="@+id/order_state_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
+            android:background="@color/surface"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="24dp"
+            android:padding="@dimen/spacing_xxl"
             android:visibility="gone">
 
             <TextView
@@ -91,13 +109,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/order_empty"
                 android:textColor="@color/text_secondary"
-                android:textSize="15sp" />
+                android:textSize="@dimen/text_body" />
 
             <Button
                 android:id="@+id/order_state_action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/spacing_m"
+                style="@style/Widget.Suyuan.Button.Outline"
                 android:text="@string/action_retry" />
         </LinearLayout>
     </FrameLayout>

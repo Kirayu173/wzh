@@ -43,6 +43,7 @@ public class CartFragment extends BaseFragment<CartContract.View, CartPresenter>
     @Override
     protected void initView(View rootView, @Nullable Bundle savedInstanceState) {
         refreshLayout = rootView.findViewById(R.id.cart_refresh);
+        refreshLayout.setColorSchemeResources(R.color.color_primary);
         recyclerView = rootView.findViewById(R.id.cart_list);
         stateContainer = rootView.findViewById(R.id.cart_state_container);
         stateText = rootView.findViewById(R.id.cart_state_text);

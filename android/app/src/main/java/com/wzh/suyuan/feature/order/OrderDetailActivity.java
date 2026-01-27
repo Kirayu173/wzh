@@ -121,8 +121,9 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailContract.View, 
         addressNameView.setText(getString(R.string.address_name_phone,
                 safeText(detail.getReceiver()), safeText(detail.getPhone())));
         addressDetailView.setText(safeText(detail.getAddress()));
-        totalView.setText(getString(R.string.order_total_value,
-                "гд" + FormatUtils.formatPrice(detail.getTotalAmount())));
+        String totalAmount = getString(R.string.price_value,
+                FormatUtils.formatPrice(detail.getTotalAmount()));
+        totalView.setText(getString(R.string.order_total_value, totalAmount));
         adapter.setItems(detail.getItems());
         updateActions(detail.getStatus());
     }

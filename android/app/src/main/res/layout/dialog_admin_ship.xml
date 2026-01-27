@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="@dimen/spacing_l">
 
     <EditText
         android:id="@+id/admin_ship_company"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/Widget.Suyuan.EditText"
         android:hint="@string/admin_ship_company_hint"
         android:inputType="text" />
 
@@ -17,7 +18,8 @@
         android:id="@+id/admin_ship_no"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/spacing_m"
+        style="@style/Widget.Suyuan.EditText"
         android:hint="@string/admin_ship_no_hint"
         android:inputType="text" />
 </LinearLayout>
