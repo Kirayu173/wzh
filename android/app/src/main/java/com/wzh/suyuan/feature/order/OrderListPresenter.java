@@ -3,6 +3,7 @@ package com.wzh.suyuan.feature.order;
 import android.content.Context;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class OrderListPresenter extends BasePresenter<OrderListContract.View> {
 
     private final Map<String, List<OrderSummary>> cachedOrders = new HashMap<>();
 
-    public void loadOrders(Context context, String status) {
+    public void loadOrders(Context context, String status, int page, int size) {
         if (context == null) {
             return;
         }
@@ -31,8 +32,9 @@ public class OrderListPresenter extends BasePresenter<OrderListContract.View> {
         if (view != null) {
             view.showLoading(true);
         }
-        String cacheKey = status == null || status.isEmpty() ? CACHE_ALL : status;
-        ApiClient.getService().getOrders(status, 1, 20).enqueue(new Callback<BaseResponse<OrderPage>>() {
+        String statusKey = status == null || status.isEmpty() ? CACHE_ALL : status;
+        String cacheKey = statusKey + "_" + page;
+        ApiClient.getService().getOrders(status, page, size).enqueue(new Callback<BaseResponse<OrderPage>>() {
             @Override
             public void onResponse(Call<BaseResponse<OrderPage>> call,
                                    Response<BaseResponse<OrderPage>> response) {
@@ -51,13 +53,18 @@ public class OrderListPresenter extends BasePresenter<OrderListContract.View> {
                     showCacheOrError(view, cacheKey, body.getMessage());
                     return;
                 }
-                List<OrderSummary> items = body.getData().getItems();
-                if (items == null || items.isEmpty()) {
+                OrderPage pageData = body.getData();
+                List<OrderSummary> items = pageData == null ? null : pageData.getItems();
+                if (items == null) {
+                    items = new ArrayList<>();
+                }
+                if (items.isEmpty() && page == 1) {
                     view.showEmpty("暂无订单");
                     return;
                 }
                 cachedOrders.put(cacheKey, items);
-                view.showOrders(items);
+                long total = pageData == null ? 0 : pageData.getTotal();
+                view.showOrders(items, page, size, total);
             }
 
             @Override

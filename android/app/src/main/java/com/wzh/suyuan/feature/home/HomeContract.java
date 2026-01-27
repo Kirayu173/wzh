@@ -7,7 +7,7 @@ import com.wzh.suyuan.ui.mvp.BaseView;
 
 public interface HomeContract {
     interface View extends BaseView {
-        void onProductsLoaded(List<Product> products, boolean isRefresh, boolean hasMore);
+        void onProductsLoaded(List<Product> products, int page, int size, long total);
 
         void onProductsLoadFailed(String message, boolean isRefresh);
 

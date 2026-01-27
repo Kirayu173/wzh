@@ -30,9 +30,16 @@ public class OrderListActivity extends BaseActivity<OrderListContract.View, Orde
     private TextView tabPaid;
     private TextView tabShipped;
     private TextView tabCompleted;
+    private LinearLayout pagerContainer;
+    private TextView pageInfo;
+    private Button prevButton;
+    private Button nextButton;
 
     private OrderListAdapter adapter;
     private String currentStatus = OrderStatus.PENDING_PAY;
+    private int currentPage = 1;
+    private int totalPages = 1;
+    private static final int PAGE_SIZE = 10;
 
     @Override
     protected int getLayoutResId() {
@@ -51,6 +58,10 @@ public class OrderListActivity extends BaseActivity<OrderListContract.View, Orde
         tabPaid = findViewById(R.id.order_tab_paid);
         tabShipped = findViewById(R.id.order_tab_shipped);
         tabCompleted = findViewById(R.id.order_tab_completed);
+        pagerContainer = findViewById(R.id.order_pager);
+        pageInfo = findViewById(R.id.order_page_info);
+        prevButton = findViewById(R.id.order_page_prev);
+        nextButton = findViewById(R.id.order_page_next);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new OrderListAdapter();
@@ -68,14 +79,24 @@ public class OrderListActivity extends BaseActivity<OrderListContract.View, Orde
         tabPaid.setOnClickListener(v -> switchTab(OrderStatus.PAID, tabPaid));
         tabShipped.setOnClickListener(v -> switchTab(OrderStatus.SHIPPED, tabShipped));
         tabCompleted.setOnClickListener(v -> switchTab(OrderStatus.COMPLETED, tabCompleted));
-        refreshLayout.setOnRefreshListener(this::loadOrders);
-        stateAction.setOnClickListener(v -> loadOrders());
+        refreshLayout.setOnRefreshListener(() -> loadOrders(1));
+        stateAction.setOnClickListener(v -> loadOrders(1));
+        prevButton.setOnClickListener(v -> {
+            if (currentPage > 1) {
+                loadOrders(currentPage - 1);
+            }
+        });
+        nextButton.setOnClickListener(v -> {
+            if (currentPage < totalPages) {
+                loadOrders(currentPage + 1);
+            }
+        });
     }
 
     @Override
     protected void initData() {
         updateTabState(tabPending);
-        loadOrders();
+        loadOrders(1);
     }
 
     @Override
@@ -89,27 +110,38 @@ public class OrderListActivity extends BaseActivity<OrderListContract.View, Orde
     }
 
     @Override
-    public void showOrders(List<OrderSummary> orders) {
+    public void showOrders(List<OrderSummary> orders, int page, int size, long total) {
         adapter.setItems(orders);
+        currentPage = page;
+        totalPages = Math.max(1, (int) Math.ceil(total / (double) size));
         showState(false, null);
+        updatePager(total > 0);
     }
 
     @Override
     public void showCachedOrders(List<OrderSummary> orders) {
         adapter.setItems(orders);
         showState(false, null);
+        currentPage = 1;
+        totalPages = 1;
+        updatePager(!orders.isEmpty());
     }
 
     @Override
     public void showEmpty(String message) {
         adapter.setItems(null);
         showState(true, message);
+        updatePager(false);
     }
 
     @Override
     public void showError(String message) {
         if (message != null && !message.isEmpty()) {
             ToastUtils.showToast(message);
+        }
+        if (adapter.getItemCount() == 0) {
+            showState(true, message);
+            updatePager(false);
         }
     }
 
@@ -118,13 +150,14 @@ public class OrderListActivity extends BaseActivity<OrderListContract.View, Orde
             return;
         }
         currentStatus = status;
+        currentPage = 1;
         updateTabState(target);
-        loadOrders();
+        loadOrders(1);
     }
 
-    private void loadOrders() {
+    private void loadOrders(int page) {
         if (presenter != null) {
-            presenter.loadOrders(this, currentStatus);
+            presenter.loadOrders(this, currentStatus, page, PAGE_SIZE);
         }
     }
 
@@ -146,6 +179,15 @@ public class OrderListActivity extends BaseActivity<OrderListContract.View, Orde
         stateContainer.setVisibility(show ? View.VISIBLE : View.GONE);
         if (message != null) {
             stateText.setText(message);
+        }
+    }
+
+    private void updatePager(boolean visible) {
+        pagerContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
+        if (visible) {
+            pageInfo.setText(getString(R.string.page_info, currentPage, totalPages));
+            prevButton.setEnabled(currentPage > 1);
+            nextButton.setEnabled(currentPage < totalPages);
         }
     }
 }

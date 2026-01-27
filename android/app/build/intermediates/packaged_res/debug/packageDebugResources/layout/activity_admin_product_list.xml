@@ -9,23 +9,66 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:orientation="vertical"
         android:padding="@dimen/spacing_l">
 
-        <TextView
-            android:id="@+id/admin_product_title"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/admin_product_title"
-            android:textAppearance="@style/TextAppearance.Suyuan.Title" />
+            android:gravity="center_vertical">
 
-        <Button
-            android:id="@+id/admin_product_add"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/touch_target"
-            style="@style/Widget.Suyuan.Button"
-            android:text="@string/admin_product_add" />
+            <ImageButton
+                android:id="@+id/admin_product_back"
+                android:layout_width="@dimen/touch_target"
+                android:layout_height="@dimen/touch_target"
+                android:contentDescription="@string/action_back"
+                android:onClick="onBackClick"
+                android:src="@drawable/ic_back"
+                style="@style/Widget.Suyuan.IconButton" />
+
+            <TextView
+                android:id="@+id/admin_product_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/spacing_s"
+                android:text="@string/admin_product_title"
+                android:textAppearance="@style/TextAppearance.Suyuan.Title" />
+
+            <Button
+                android:id="@+id/admin_product_add"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/touch_target"
+                style="@style/Widget.Suyuan.Button"
+                android:text="@string/admin_product_add" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/admin_product_search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_m"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/admin_product_search_input"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/input_height"
+                android:layout_weight="1"
+                style="@style/Widget.Suyuan.EditText"
+                android:hint="@string/product_search_hint"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:importantForAutofill="no" />
+
+            <Button
+                android:id="@+id/admin_product_search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginStart="@dimen/spacing_s"
+                style="@style/Widget.Suyuan.Button.Outline"
+                android:text="@string/action_search" />
+        </LinearLayout>
     </LinearLayout>
 
     <FrameLayout
@@ -70,7 +113,41 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_m"
                 style="@style/Widget.Suyuan.Button.Outline"
-                android:text="@string/action_retry" />
+                android:text="@string/action_retry"
+                android:visibility="gone" />
         </LinearLayout>
     </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/admin_product_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/spacing_s"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/admin_product_page_prev"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/touch_target"
+            style="@style/Widget.Suyuan.Button.Outline"
+            android:text="@string/page_prev" />
+
+        <TextView
+            android:id="@+id/admin_product_page_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_m"
+            android:layout_marginEnd="@dimen/spacing_m"
+            android:text="@string/page_info"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_caption" />
+
+        <Button
+            android:id="@+id/admin_product_page_next"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/touch_target"
+            style="@style/Widget.Suyuan.Button.Outline"
+            android:text="@string/page_next" />
+    </LinearLayout>
 </LinearLayout>

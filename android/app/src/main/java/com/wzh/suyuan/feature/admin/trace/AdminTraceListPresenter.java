@@ -20,7 +20,7 @@ import retrofit2.Response;
 public class AdminTraceListPresenter extends BasePresenter<AdminTraceListContract.View> {
     private static final String TAG = "AdminTraceList";
 
-    public void loadBatches(Context context) {
+    public void loadBatches(Context context, int page, int size) {
         if (context == null) {
             return;
         }
@@ -28,7 +28,7 @@ public class AdminTraceListPresenter extends BasePresenter<AdminTraceListContrac
         if (view != null) {
             view.showLoading(true);
         }
-        ApiClient.getService().getAdminTraceBatches(1, 50, null)
+        ApiClient.getService().getAdminTraceBatches(page, size, null)
                 .enqueue(new Callback<BaseResponse<TraceBatchPage>>() {
                     @Override
                     public void onResponse(Call<BaseResponse<TraceBatchPage>> call,
@@ -48,15 +48,16 @@ public class AdminTraceListPresenter extends BasePresenter<AdminTraceListContrac
                             view.showError(body.getMessage());
                             return;
                         }
-                        TraceBatchPage page = body.getData();
-                        List<TraceBatch> items = page == null ? new ArrayList<>() : page.getItems();
+                        TraceBatchPage pageData = body.getData();
+                        List<TraceBatch> items = pageData == null ? new ArrayList<>() : pageData.getItems();
                         if (items == null) {
                             items = new ArrayList<>();
                         }
-                        if (items.isEmpty()) {
+                        long total = pageData == null ? 0 : pageData.getTotal();
+                        if (items.isEmpty() && page == 1) {
                             view.showEmpty(context.getString(R.string.admin_trace_empty));
                         } else {
-                            view.showBatches(items);
+                            view.showBatches(items, page, size, total);
                         }
                     }
 
@@ -73,7 +74,7 @@ public class AdminTraceListPresenter extends BasePresenter<AdminTraceListContrac
                 });
     }
 
-    public void deleteBatch(Context context, TraceBatch batch) {
+    public void deleteBatch(Context context, TraceBatch batch, int page, int size) {
         if (context == null || batch == null || batch.getId() == null) {
             return;
         }
@@ -95,7 +96,7 @@ public class AdminTraceListPresenter extends BasePresenter<AdminTraceListContrac
                             view.showError(body.getMessage());
                             return;
                         }
-                        loadBatches(context);
+                        loadBatches(context, page, size);
                     }
 
                     @Override

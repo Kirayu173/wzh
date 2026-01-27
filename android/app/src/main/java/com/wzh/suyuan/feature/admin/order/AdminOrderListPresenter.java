@@ -22,7 +22,7 @@ import retrofit2.Response;
 public class AdminOrderListPresenter extends BasePresenter<AdminOrderListContract.View> {
     private static final String TAG = "AdminOrderList";
 
-    public void loadOrders(Context context, String status) {
+    public void loadOrders(Context context, String status, int page, int size) {
         if (context == null) {
             return;
         }
@@ -30,7 +30,7 @@ public class AdminOrderListPresenter extends BasePresenter<AdminOrderListContrac
         if (view != null) {
             view.showLoading(true);
         }
-        ApiClient.getService().getAdminOrders(status, null, 1, 50)
+        ApiClient.getService().getAdminOrders(status, null, page, size)
                 .enqueue(new Callback<BaseResponse<OrderPage>>() {
                     @Override
                     public void onResponse(Call<BaseResponse<OrderPage>> call,
@@ -50,15 +50,16 @@ public class AdminOrderListPresenter extends BasePresenter<AdminOrderListContrac
                             view.showError(body.getMessage());
                             return;
                         }
-                        OrderPage page = body.getData();
-                        List<OrderSummary> items = page == null ? new ArrayList<>() : page.getItems();
+                        OrderPage pageData = body.getData();
+                        List<OrderSummary> items = pageData == null ? new ArrayList<>() : pageData.getItems();
                         if (items == null) {
                             items = new ArrayList<>();
                         }
-                        if (items.isEmpty()) {
+                        long total = pageData == null ? 0 : pageData.getTotal();
+                        if (items.isEmpty() && page == 1) {
                             view.showEmpty(context.getString(R.string.admin_order_empty));
                         } else {
-                            view.showOrders(items);
+                            view.showOrders(items, page, size, total);
                         }
                     }
 
@@ -75,7 +76,8 @@ public class AdminOrderListPresenter extends BasePresenter<AdminOrderListContrac
                 });
     }
 
-    public void shipOrder(Context context, long orderId, String company, String expressNo, String reloadStatus) {
+    public void shipOrder(Context context, long orderId, String company, String expressNo,
+                          String reloadStatus, int page, int size) {
         if (context == null || orderId <= 0) {
             return;
         }
@@ -100,7 +102,7 @@ public class AdminOrderListPresenter extends BasePresenter<AdminOrderListContrac
                             view.showError(body.getMessage());
                             return;
                         }
-                        loadOrders(context, reloadStatus);
+                        loadOrders(context, reloadStatus, page, size);
                     }
 
                     @Override

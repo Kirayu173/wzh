@@ -13,6 +13,16 @@
         android:adjustViewBounds="true"
         android:scaleType="fitCenter" />
 
+    <ImageButton
+        android:id="@+id/admin_trace_qrcode_back"
+        android:layout_width="@dimen/touch_target"
+        android:layout_height="@dimen/touch_target"
+        android:layout_gravity="top|start"
+        android:contentDescription="@string/action_back"
+        android:onClick="onBackClick"
+        android:src="@drawable/ic_back"
+        style="@style/Widget.Suyuan.IconButton" />
+
     <LinearLayout
         android:id="@+id/admin_trace_qrcode_state"
         android:layout_width="match_parent"
@@ -37,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_m"
             style="@style/Widget.Suyuan.Button.Outline"
-            android:text="@string/action_retry" />
+            android:text="@string/action_retry"
+            android:visibility="gone" />
     </LinearLayout>
 </FrameLayout>

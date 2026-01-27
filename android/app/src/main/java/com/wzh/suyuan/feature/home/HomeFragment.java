@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,11 +31,18 @@ public class HomeFragment extends BaseFragment<HomeContract.View, HomePresenter>
     private LinearLayout stateContainer;
     private TextView stateText;
     private Button stateAction;
+    private LinearLayout pagerContainer;
+    private TextView pageInfo;
+    private Button prevButton;
+    private Button nextButton;
+    private EditText searchInput;
+    private Button searchButton;
     private ProductAdapter adapter;
 
     private int currentPage = 1;
-    private boolean hasMore = true;
+    private int totalPages = 1;
     private boolean isLoading = false;
+    private String currentKeyword = "";
 
     @Override
     protected int getLayoutResId() {
@@ -49,32 +57,39 @@ public class HomeFragment extends BaseFragment<HomeContract.View, HomePresenter>
         stateContainer = rootView.findViewById(R.id.home_state_container);
         stateText = rootView.findViewById(R.id.home_state_text);
         stateAction = rootView.findViewById(R.id.home_state_action);
+        pagerContainer = rootView.findViewById(R.id.home_pager);
+        pageInfo = rootView.findViewById(R.id.home_page_info);
+        prevButton = rootView.findViewById(R.id.home_page_prev);
+        nextButton = rootView.findViewById(R.id.home_page_next);
+        searchInput = rootView.findViewById(R.id.home_search_input);
+        searchButton = rootView.findViewById(R.id.home_search_button);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ProductAdapter();
         adapter.setOnProductClickListener(this::openDetail);
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@androidx.annotation.NonNull RecyclerView recyclerView, int dx, int dy) {
-                if (dy <= 0) {
-                    return;
-                }
-                int lastVisible = layoutManager.findLastVisibleItemPosition();
-                if (!isLoading && hasMore && lastVisible >= adapter.getItemCount() - 2) {
-                    loadProducts(false);
-                }
+
+        refreshLayout.setOnRefreshListener(() -> loadProducts(1, true));
+        stateAction.setOnClickListener(v -> loadProducts(1, true));
+        searchButton.setOnClickListener(v -> {
+            currentKeyword = searchInput.getText().toString().trim();
+            loadProducts(1, true);
+        });
+        prevButton.setOnClickListener(v -> {
+            if (!isLoading && currentPage > 1) {
+                loadProducts(currentPage - 1, false);
             }
         });
-
-        refreshLayout.setOnRefreshListener(() -> loadProducts(true));
-        stateAction.setOnClickListener(v -> loadProducts(true));
+        nextButton.setOnClickListener(v -> {
+            if (!isLoading && currentPage < totalPages) {
+                loadProducts(currentPage + 1, false);
+            }
+        });
     }
 
     @Override
     protected void initData() {
-        loadProducts(true);
+        loadProducts(1, true);
     }
 
     @Override
@@ -83,22 +98,22 @@ public class HomeFragment extends BaseFragment<HomeContract.View, HomePresenter>
     }
 
     @Override
-    public void onProductsLoaded(List<Product> products, boolean isRefresh, boolean hasMore) {
-        this.hasMore = hasMore;
+    public void onProductsLoaded(List<Product> products, int page, int size, long total) {
         isLoading = false;
         refreshLayout.setRefreshing(false);
-        adapter.setItems(products, !isRefresh);
-        if (isRefresh) {
-            currentPage = 1;
-        }
-        if (!products.isEmpty()) {
+        currentPage = page;
+        totalPages = Math.max(1, (int) Math.ceil(total / (double) size));
+        adapter.setItems(products, false);
+        if (products == null || products.isEmpty()) {
+            if (total == 0) {
+                showState(true, getString(R.string.home_empty));
+            } else {
+                showState(false, null);
+            }
+        } else {
             showState(false, null);
-            currentPage++;
-            return;
         }
-        if (adapter.getItemCount() == 0) {
-            showState(true, getString(R.string.home_empty));
-        }
+        updatePager(total > 0);
     }
 
     @Override
@@ -107,6 +122,7 @@ public class HomeFragment extends BaseFragment<HomeContract.View, HomePresenter>
         refreshLayout.setRefreshing(false);
         if (adapter.getItemCount() == 0) {
             showState(true, getString(R.string.home_error));
+            updatePager(false);
         }
         if (message != null && !message.isEmpty()) {
             ToastUtils.showToast(message);
@@ -119,30 +135,35 @@ public class HomeFragment extends BaseFragment<HomeContract.View, HomePresenter>
             return;
         }
         adapter.setItems(products, false);
+        currentPage = 1;
+        totalPages = 1;
         showState(false, null);
+        updatePager(false);
         ToastUtils.showToast(getString(R.string.toast_cache_used));
     }
 
-    private void loadProducts(boolean refresh) {
+    private void loadProducts(int page, boolean refresh) {
         if (presenter == null || getContext() == null) {
             return;
         }
-        if (refresh) {
-            currentPage = 1;
-            hasMore = true;
-        }
-        if (!hasMore && !refresh) {
-            return;
-        }
         isLoading = true;
-        refreshLayout.setRefreshing(refresh);
-        presenter.loadProducts(getContext(), currentPage, PAGE_SIZE, refresh);
+        refreshLayout.setRefreshing(true);
+        presenter.loadProducts(getContext(), page, PAGE_SIZE, currentKeyword, refresh);
     }
 
     private void showState(boolean show, String message) {
         stateContainer.setVisibility(show ? View.VISIBLE : View.GONE);
         if (message != null) {
             stateText.setText(message);
+        }
+    }
+
+    private void updatePager(boolean visible) {
+        pagerContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
+        if (visible) {
+            pageInfo.setText(getString(R.string.page_info, currentPage, totalPages));
+            prevButton.setEnabled(currentPage > 1);
+            nextButton.setEnabled(currentPage < totalPages);
         }
     }
 

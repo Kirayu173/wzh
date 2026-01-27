@@ -29,7 +29,15 @@ public class AdminTraceListActivity extends BaseActivity<AdminTraceListContract.
     private TextView stateText;
     private Button stateAction;
     private Button addButton;
+    private LinearLayout pagerContainer;
+    private TextView pageInfo;
+    private Button prevButton;
+    private Button nextButton;
     private AdminTraceAdapter adapter;
+
+    private static final int PAGE_SIZE = 10;
+    private int currentPage = 1;
+    private int totalPages = 1;
 
     @Override
     protected int getLayoutResId() {
@@ -45,6 +53,10 @@ public class AdminTraceListActivity extends BaseActivity<AdminTraceListContract.
         stateText = findViewById(R.id.admin_trace_state_text);
         stateAction = findViewById(R.id.admin_trace_state_action);
         addButton = findViewById(R.id.admin_trace_add);
+        pagerContainer = findViewById(R.id.admin_trace_pager);
+        pageInfo = findViewById(R.id.admin_trace_page_info);
+        prevButton = findViewById(R.id.admin_trace_page_prev);
+        nextButton = findViewById(R.id.admin_trace_page_next);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new AdminTraceAdapter();
@@ -85,7 +97,8 @@ public class AdminTraceListActivity extends BaseActivity<AdminTraceListContract.
                         .setNegativeButton(R.string.action_cancel, null)
                         .setPositiveButton(R.string.action_delete, (dialog, which) -> {
                             if (presenter != null) {
-                                presenter.deleteBatch(AdminTraceListActivity.this, batch);
+                                presenter.deleteBatch(AdminTraceListActivity.this, batch,
+                                        currentPage, PAGE_SIZE);
                             }
                         })
                         .show();
@@ -94,13 +107,23 @@ public class AdminTraceListActivity extends BaseActivity<AdminTraceListContract.
         recyclerView.setAdapter(adapter);
 
         addButton.setOnClickListener(v -> openEdit(null));
-        refreshLayout.setOnRefreshListener(this::loadBatches);
-        stateAction.setOnClickListener(v -> loadBatches());
+        refreshLayout.setOnRefreshListener(() -> loadBatches(1));
+        stateAction.setOnClickListener(v -> loadBatches(1));
+        prevButton.setOnClickListener(v -> {
+            if (currentPage > 1) {
+                loadBatches(currentPage - 1);
+            }
+        });
+        nextButton.setOnClickListener(v -> {
+            if (currentPage < totalPages) {
+                loadBatches(currentPage + 1);
+            }
+        });
     }
 
     @Override
     protected void initData() {
-        loadBatches();
+        loadBatches(1);
     }
 
     @Override
@@ -111,7 +134,7 @@ public class AdminTraceListActivity extends BaseActivity<AdminTraceListContract.
     @Override
     protected void onResume() {
         super.onResume();
-        loadBatches();
+        loadBatches(currentPage);
     }
 
     @Override
@@ -120,15 +143,19 @@ public class AdminTraceListActivity extends BaseActivity<AdminTraceListContract.
     }
 
     @Override
-    public void showBatches(List<TraceBatch> batches) {
+    public void showBatches(List<TraceBatch> batches, int page, int size, long total) {
         adapter.setItems(batches);
+        currentPage = page;
+        totalPages = Math.max(1, (int) Math.ceil(total / (double) size));
         showState(false, null);
+        updatePager(total > 0);
     }
 
     @Override
     public void showEmpty(String message) {
         adapter.setItems(null);
         showState(true, message);
+        updatePager(false);
     }
 
     @Override
@@ -138,6 +165,7 @@ public class AdminTraceListActivity extends BaseActivity<AdminTraceListContract.
         }
         if (adapter != null && adapter.getItemCount() == 0) {
             showState(true, message);
+            updatePager(false);
         }
     }
 
@@ -148,9 +176,18 @@ public class AdminTraceListActivity extends BaseActivity<AdminTraceListContract.
         }
     }
 
-    private void loadBatches() {
+    private void loadBatches(int page) {
         if (presenter != null) {
-            presenter.loadBatches(this);
+            presenter.loadBatches(this, page, PAGE_SIZE);
+        }
+    }
+
+    private void updatePager(boolean visible) {
+        pagerContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
+        if (visible) {
+            pageInfo.setText(getString(R.string.page_info, currentPage, totalPages));
+            prevButton.setEnabled(currentPage > 1);
+            nextButton.setEnabled(currentPage < totalPages);
         }
     }
 

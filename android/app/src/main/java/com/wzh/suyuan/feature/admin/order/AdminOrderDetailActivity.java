@@ -138,22 +138,26 @@ public class AdminOrderDetailActivity extends BaseActivity<AdminOrderDetailContr
         View view = getLayoutInflater().inflate(R.layout.dialog_admin_ship, null);
         EditText companyInput = view.findViewById(R.id.admin_ship_company);
         EditText noInput = view.findViewById(R.id.admin_ship_no);
-        new AlertDialog.Builder(this)
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(R.string.admin_order_action_ship)
                 .setView(view)
-                .setNegativeButton(R.string.action_cancel, null)
-                .setPositiveButton(R.string.action_save, (dialog, which) -> {
-                    String company = companyInput.getText().toString().trim();
-                    String expressNo = noInput.getText().toString().trim();
-                    if (company.isEmpty() || expressNo.isEmpty()) {
-                        ToastUtils.showToast(getString(R.string.admin_order_ship_required));
-                        return;
-                    }
-                    if (presenter != null) {
-                        presenter.shipOrder(this, currentOrder.getId(), company, expressNo);
-                    }
-                })
-                .show();
+                .create();
+        Button cancelButton = view.findViewById(R.id.admin_ship_cancel);
+        Button confirmButton = view.findViewById(R.id.admin_ship_confirm);
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
+        confirmButton.setOnClickListener(v -> {
+            String company = companyInput.getText().toString().trim();
+            String expressNo = noInput.getText().toString().trim();
+            if (company.isEmpty() || expressNo.isEmpty()) {
+                ToastUtils.showToast(getString(R.string.admin_order_ship_required));
+                return;
+            }
+            if (presenter != null) {
+                presenter.shipOrder(this, currentOrder.getId(), company, expressNo);
+            }
+            dialog.dismiss();
+        });
+        dialog.show();
     }
 
     private void showState(boolean show, String message) {

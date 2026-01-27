@@ -34,14 +34,16 @@ public class ProductController {
     public ResponseEntity<ApiResponse<ProductListResponse>> list(@RequestParam(defaultValue = "1") int page,
                                                                  @RequestParam(defaultValue = "10") int size,
                                                                  @RequestParam(required = false) String sort,
+                                                                 @RequestParam(required = false) String keyword,
                                                                  Authentication authentication) {
         int safePage = Math.max(page, 1);
         int safeSize = size <= 0 ? PaginationConstants.DEFAULT_PAGE_SIZE
                 : Math.min(size, PaginationConstants.MAX_PAGE_SIZE);
         String requestId = UUID.randomUUID().toString();
-        log.info("products list request: requestId={}, userId={}, page={}, size={}, sort={}",
-                requestId, SecurityUtils.maskUserId(SecurityUtils.getUserId(authentication)), safePage, safeSize, sort);
-        ProductListResponse response = productService.getProducts(safePage, safeSize, sort);
+        log.info("products list request: requestId={}, userId={}, page={}, size={}, sort={}, keyword={}",
+                requestId, SecurityUtils.maskUserId(SecurityUtils.getUserId(authentication)),
+                safePage, safeSize, sort, keyword);
+        ProductListResponse response = productService.getProducts(safePage, safeSize, sort, keyword);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 

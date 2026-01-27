@@ -22,7 +22,7 @@ import retrofit2.Response;
 public class AdminProductListPresenter extends BasePresenter<AdminProductListContract.View> {
     private static final String TAG = "AdminProductPresenter";
 
-    public void loadProducts(Context context) {
+    public void loadProducts(Context context, int page, int size, String keyword) {
         if (context == null) {
             return;
         }
@@ -30,7 +30,7 @@ public class AdminProductListPresenter extends BasePresenter<AdminProductListCon
         if (view != null) {
             view.showLoading(true);
         }
-        ApiClient.getService().getAdminProducts(1, 50, null, null)
+        ApiClient.getService().getAdminProducts(page, size, null, keyword)
                 .enqueue(new Callback<BaseResponse<ProductPage>>() {
                     @Override
                     public void onResponse(Call<BaseResponse<ProductPage>> call,
@@ -50,15 +50,16 @@ public class AdminProductListPresenter extends BasePresenter<AdminProductListCon
                             view.showError(body.getMessage());
                             return;
                         }
-                        ProductPage page = body.getData();
-                        List<Product> items = page == null ? new ArrayList<>() : page.getItems();
+                        ProductPage pageData = body.getData();
+                        List<Product> items = pageData == null ? new ArrayList<>() : pageData.getItems();
                         if (items == null) {
                             items = new ArrayList<>();
                         }
-                        if (items.isEmpty()) {
+                        long total = pageData == null ? 0 : pageData.getTotal();
+                        if (items.isEmpty() && page == 1) {
                             view.showEmpty(context.getString(R.string.admin_product_empty));
                         } else {
-                            view.showProducts(items);
+                            view.showProducts(items, page, size, total);
                         }
                     }
 
@@ -75,7 +76,8 @@ public class AdminProductListPresenter extends BasePresenter<AdminProductListCon
                 });
     }
 
-    public void updateStatus(Context context, Product product, String status) {
+    public void updateStatus(Context context, Product product, String status,
+                             int page, int size, String keyword) {
         if (context == null || product == null || product.getId() == null) {
             return;
         }
@@ -99,7 +101,7 @@ public class AdminProductListPresenter extends BasePresenter<AdminProductListCon
                             view.showError(body.getMessage());
                             return;
                         }
-                        loadProducts(context);
+                        loadProducts(context, page, size, keyword);
                     }
 
                     @Override
@@ -112,7 +114,8 @@ public class AdminProductListPresenter extends BasePresenter<AdminProductListCon
                 });
     }
 
-    public void updateStock(Context context, Product product, int stock) {
+    public void updateStock(Context context, Product product, int stock,
+                            int page, int size, String keyword) {
         if (context == null || product == null || product.getId() == null) {
             return;
         }
@@ -136,7 +139,7 @@ public class AdminProductListPresenter extends BasePresenter<AdminProductListCon
                             view.showError(body.getMessage());
                             return;
                         }
-                        loadProducts(context);
+                        loadProducts(context, page, size, keyword);
                     }
 
                     @Override
@@ -149,7 +152,8 @@ public class AdminProductListPresenter extends BasePresenter<AdminProductListCon
                 });
     }
 
-    public void deleteProduct(Context context, Product product) {
+    public void deleteProduct(Context context, Product product,
+                              int page, int size, String keyword) {
         if (context == null || product == null || product.getId() == null) {
             return;
         }
@@ -171,7 +175,7 @@ public class AdminProductListPresenter extends BasePresenter<AdminProductListCon
                             view.showError(body.getMessage());
                             return;
                         }
-                        loadProducts(context);
+                        loadProducts(context, page, size, keyword);
                     }
 
                     @Override

@@ -1,6 +1,7 @@
 package com.wzh.suyuan.feature.home;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -23,8 +24,8 @@ import retrofit2.Response;
 public class HomePresenter extends BasePresenter<HomeContract.View> {
     private static final String TAG = "HomePresenter";
 
-    public void loadProducts(Context context, int page, int size, boolean isRefresh) {
-        ApiClient.getService().getProducts(page, size)
+    public void loadProducts(Context context, int page, int size, String keyword, boolean isRefresh) {
+        ApiClient.getService().getProducts(page, size, keyword)
                 .enqueue(new Callback<BaseResponse<ProductPage>>() {
                     @Override
                     public void onResponse(Call<BaseResponse<ProductPage>> call,
@@ -36,20 +37,26 @@ public class HomePresenter extends BasePresenter<HomeContract.View> {
                         if (!response.isSuccessful() || response.body() == null) {
                             Log.w(TAG, "products failed http=" + response.code());
                             view.onProductsLoadFailed("商品加载失败", isRefresh);
-                            loadCachedProducts(context, page, size);
+                            if (TextUtils.isEmpty(keyword)) {
+                                loadCachedProducts(context, page, size);
+                            }
                             return;
                         }
                         BaseResponse<ProductPage> body = response.body();
                         if (!body.isSuccess() || body.getData() == null) {
                             view.onProductsLoadFailed(body.getMessage(), isRefresh);
-                            loadCachedProducts(context, page, size);
+                            if (TextUtils.isEmpty(keyword)) {
+                                loadCachedProducts(context, page, size);
+                            }
                             return;
                         }
                         ProductPage pageData = body.getData();
                         List<Product> items = pageData.getItems();
-                        boolean hasMore = page * size < pageData.getTotal();
-                        view.onProductsLoaded(items == null ? new ArrayList<>() : items, isRefresh, hasMore);
-                        cacheProducts(context, items);
+                        view.onProductsLoaded(items == null ? new ArrayList<>() : items,
+                                page, size, pageData.getTotal());
+                        if (TextUtils.isEmpty(keyword)) {
+                            cacheProducts(context, items);
+                        }
                     }
 
                     @Override
@@ -60,7 +67,9 @@ public class HomePresenter extends BasePresenter<HomeContract.View> {
                         }
                         Log.w(TAG, "products error", t);
                         view.onProductsLoadFailed("网络异常，请稍后重试", isRefresh);
-                        loadCachedProducts(context, page, size);
+                        if (TextUtils.isEmpty(keyword)) {
+                            loadCachedProducts(context, page, size);
+                        }
                     }
                 });
     }

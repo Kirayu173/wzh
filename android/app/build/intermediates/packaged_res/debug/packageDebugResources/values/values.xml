@@ -44,9 +44,11 @@
     <dimen name="touch_target">48dp</dimen>
     <string name="action_add_cart">加入购物车</string>
     <string name="action_addresses">地址管理</string>
+    <string name="action_back">返回</string>
     <string name="action_cancel">取消</string>
     <string name="action_checkout">去结算</string>
     <string name="action_confirm">确认收货</string>
+    <string name="action_confirm_generic">确认</string>
     <string name="action_delete">删除</string>
     <string name="action_detail">详情</string>
     <string name="action_edit">编辑</string>
@@ -58,6 +60,7 @@
     <string name="action_register">注册</string>
     <string name="action_retry">重试</string>
     <string name="action_save">保存</string>
+    <string name="action_search">搜索</string>
     <string name="action_trace_record">扫码记录</string>
     <string name="action_trace_scan">溯源扫码</string>
     <string name="address_add">新增地址</string>
@@ -210,8 +213,13 @@
     <string name="order_submit">提交订单</string>
     <string name="order_time_value">下单时间：%1$s</string>
     <string name="order_total_value">订单金额：%1$s</string>
+    <string name="page_info">第%1$d/%2$d页</string>
+    <string name="page_next">下一页</string>
+    <string name="page_prev">上一页</string>
     <string name="price_default">¥0.00</string>
     <string name="price_value">¥%1$s</string>
+    <string name="product_detail_title">商品详情</string>
+    <string name="product_search_hint">输入商品名称</string>
     <string name="profile_title">个人中心</string>
     <string name="quantity_default">1</string>
     <string name="symbol_minus">-</string>
@@ -301,7 +309,7 @@
     </style>
     <style name="Widget.Suyuan.Button.Secondary" parent="Widget.Suyuan.Button">
         <item name="android:background">@drawable/bg_secondary_button</item>
-        <item name="android:textColor">@color/color_primary_dark</item>
+        <item name="android:textColor">@color/button_text_selector</item>
     </style>
     <style name="Widget.Suyuan.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:buttonTint">@color/color_primary</item>
@@ -315,6 +323,11 @@
         <item name="android:paddingEnd">@dimen/spacing_l</item>
         <item name="android:paddingTop">@dimen/spacing_s</item>
         <item name="android:paddingBottom">@dimen/spacing_s</item>
+    </style>
+    <style name="Widget.Suyuan.IconButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:tint">@color/text_primary</item>
+        <item name="android:padding">@dimen/spacing_s</item>
     </style>
     <style name="Widget.Suyuan.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:buttonTint">@color/color_primary</item>

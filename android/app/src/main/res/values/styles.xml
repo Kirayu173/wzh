@@ -58,12 +58,18 @@
 
     <style name="Widget.Suyuan.Button.Secondary" parent="Widget.Suyuan.Button">
         <item name="android:background">@drawable/bg_secondary_button</item>
-        <item name="android:textColor">@color/color_primary_dark</item>
+        <item name="android:textColor">@color/button_text_selector</item>
     </style>
 
     <style name="Widget.Suyuan.Button.Danger" parent="Widget.Suyuan.Button">
         <item name="android:background">@drawable/bg_danger_button</item>
         <item name="android:textColor">@color/text_on_primary</item>
+    </style>
+
+    <style name="Widget.Suyuan.IconButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:tint">@color/text_primary</item>
+        <item name="android:padding">@dimen/spacing_s</item>
     </style>
 
     <style name="Widget.Suyuan.EditText" parent="Widget.AppCompat.EditText">

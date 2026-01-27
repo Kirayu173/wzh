@@ -59,7 +59,9 @@ public interface ApiService {
     Call<BaseResponse<AuthUser>> me();
 
     @GET("products")
-    Call<BaseResponse<ProductPage>> getProducts(@Query("page") int page, @Query("size") int size);
+    Call<BaseResponse<ProductPage>> getProducts(@Query("page") int page,
+                                                @Query("size") int size,
+                                                @Query("keyword") String keyword);
 
     @GET("products/{id}")
     Call<BaseResponse<Product>> getProductDetail(@Path("id") long id);

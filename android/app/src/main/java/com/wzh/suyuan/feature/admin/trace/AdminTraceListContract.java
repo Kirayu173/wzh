@@ -9,7 +9,7 @@ public interface AdminTraceListContract {
     interface View extends BaseView {
         void showLoading(boolean loading);
 
-        void showBatches(List<TraceBatch> batches);
+        void showBatches(List<TraceBatch> batches, int page, int size, long total);
 
         void showEmpty(String message);
 

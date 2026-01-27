@@ -45,9 +45,15 @@ public class ProductService {
         this.productImageRepository = productImageRepository;
     }
 
-    public ProductListResponse getProducts(int page, int size, String sort) {
+    public ProductListResponse getProducts(int page, int size, String sort, String keyword) {
         Pageable pageable = PageRequest.of(Math.max(page - 1, 0), size, parseSort(sort));
-        Page<Product> productPage = productRepository.findAll(pageable);
+        Page<Product> productPage;
+        String safeKeyword = TextUtils.trimToNull(keyword);
+        if (safeKeyword != null) {
+            productPage = productRepository.findByNameContainingIgnoreCase(safeKeyword, pageable);
+        } else {
+            productPage = productRepository.findAll(pageable);
+        }
         List<ProductSummary> items = productPage.getContent().stream()
                 .map(this::toSummary)
                 .collect(Collectors.toList());

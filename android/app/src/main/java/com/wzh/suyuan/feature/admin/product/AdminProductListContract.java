@@ -9,7 +9,7 @@ public interface AdminProductListContract {
     interface View extends BaseView {
         void showLoading(boolean loading);
 
-        void showProducts(List<Product> products);
+        void showProducts(List<Product> products, int page, int size, long total);
 
         void showEmpty(String message);
 

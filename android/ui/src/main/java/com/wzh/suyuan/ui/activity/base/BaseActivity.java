@@ -1,6 +1,7 @@
 package com.wzh.suyuan.ui.activity.base;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -54,5 +55,9 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
 
     @Override
     public void showError(String message) {
+    }
+
+    public void onBackClick(View view) {
+        onBackPressed();
     }
 }

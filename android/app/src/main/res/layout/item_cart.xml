@@ -89,6 +89,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/spacing_s"
+        android:background="@drawable/bg_danger_outline_button"
+        android:paddingStart="@dimen/spacing_m"
+        android:paddingEnd="@dimen/spacing_m"
+        android:paddingTop="@dimen/spacing_xs"
+        android:paddingBottom="@dimen/spacing_xs"
         android:text="@string/action_delete"
         android:textColor="@color/error"
         android:textSize="@dimen/text_caption" />

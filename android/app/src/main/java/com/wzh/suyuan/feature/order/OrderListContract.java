@@ -9,7 +9,7 @@ public interface OrderListContract {
     interface View extends BaseView {
         void showLoading(boolean loading);
 
-        void showOrders(List<OrderSummary> orders);
+        void showOrders(List<OrderSummary> orders, int page, int size, long total);
 
         void showCachedOrders(List<OrderSummary> orders);
 

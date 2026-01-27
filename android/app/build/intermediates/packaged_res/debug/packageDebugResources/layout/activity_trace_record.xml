@@ -5,13 +5,29 @@
     android:background="@color/background"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/trace_record_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_l"
-        android:text="@string/trace_record_title"
-        android:textAppearance="@style/TextAppearance.Suyuan.Title" />
+        android:gravity="center_vertical"
+        android:padding="@dimen/spacing_l">
+
+        <ImageButton
+            android:id="@+id/trace_record_back"
+            android:layout_width="@dimen/touch_target"
+            android:layout_height="@dimen/touch_target"
+            android:contentDescription="@string/action_back"
+            android:onClick="onBackClick"
+            android:src="@drawable/ic_back"
+            style="@style/Widget.Suyuan.IconButton" />
+
+        <TextView
+            android:id="@+id/trace_record_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_s"
+            android:text="@string/trace_record_title"
+            android:textAppearance="@style/TextAppearance.Suyuan.Title" />
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -55,7 +71,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_m"
                 style="@style/Widget.Suyuan.Button.Outline"
-                android:text="@string/action_retry" />
+                android:text="@string/action_retry"
+                android:visibility="gone" />
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>

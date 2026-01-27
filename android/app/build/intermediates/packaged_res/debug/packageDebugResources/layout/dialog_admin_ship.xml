@@ -22,4 +22,28 @@
         style="@style/Widget.Suyuan.EditText"
         android:hint="@string/admin_ship_no_hint"
         android:inputType="text" />
+
+    <LinearLayout
+        android:id="@+id/admin_ship_actions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_l"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/admin_ship_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/touch_target"
+            style="@style/Widget.Suyuan.Button.Outline"
+            android:text="@string/action_cancel" />
+
+        <Button
+            android:id="@+id/admin_ship_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/touch_target"
+            android:layout_marginStart="@dimen/spacing_s"
+            style="@style/Widget.Suyuan.Button"
+            android:text="@string/action_confirm_generic" />
+    </LinearLayout>
 </LinearLayout>

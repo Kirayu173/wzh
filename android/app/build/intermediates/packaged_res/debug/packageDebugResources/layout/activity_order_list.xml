@@ -6,13 +6,30 @@
     android:background="@color/background"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/order_list_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_l"
-        android:text="@string/order_list_title"
-        android:textAppearance="@style/TextAppearance.Suyuan.Title" />
+        android:gravity="center_vertical"
+        android:padding="@dimen/spacing_l">
+
+        <ImageButton
+            android:id="@+id/order_list_back"
+            android:layout_width="@dimen/touch_target"
+            android:layout_height="@dimen/touch_target"
+            android:contentDescription="@string/action_back"
+            android:onClick="onBackClick"
+            android:src="@drawable/ic_back"
+            style="@style/Widget.Suyuan.IconButton" />
+
+        <TextView
+            android:id="@+id/order_list_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_s"
+            android:layout_weight="1"
+            android:text="@string/order_list_title"
+            android:textAppearance="@style/TextAppearance.Suyuan.Title" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/order_status_tabs"
@@ -117,7 +134,41 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_m"
                 style="@style/Widget.Suyuan.Button.Outline"
-                android:text="@string/action_retry" />
+                android:text="@string/action_retry"
+                android:visibility="gone" />
         </LinearLayout>
     </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/order_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/spacing_s"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/order_page_prev"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/touch_target"
+            style="@style/Widget.Suyuan.Button.Outline"
+            android:text="@string/page_prev" />
+
+        <TextView
+            android:id="@+id/order_page_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_m"
+            android:layout_marginEnd="@dimen/spacing_m"
+            android:text="@string/page_info"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_caption" />
+
+        <Button
+            android:id="@+id/order_page_next"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/touch_target"
+            style="@style/Widget.Suyuan.Button.Outline"
+            android:text="@string/page_next" />
+    </LinearLayout>
 </LinearLayout>

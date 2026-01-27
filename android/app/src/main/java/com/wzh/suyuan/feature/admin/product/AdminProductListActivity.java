@@ -30,7 +30,18 @@ public class AdminProductListActivity extends BaseActivity<AdminProductListContr
     private TextView stateText;
     private Button stateAction;
     private Button addButton;
+    private LinearLayout pagerContainer;
+    private TextView pageInfo;
+    private Button prevButton;
+    private Button nextButton;
+    private EditText searchInput;
+    private Button searchButton;
     private AdminProductAdapter adapter;
+
+    private static final int PAGE_SIZE = 10;
+    private int currentPage = 1;
+    private int totalPages = 1;
+    private String currentKeyword = "";
 
     @Override
     protected int getLayoutResId() {
@@ -46,6 +57,12 @@ public class AdminProductListActivity extends BaseActivity<AdminProductListContr
         stateText = findViewById(R.id.admin_product_state_text);
         stateAction = findViewById(R.id.admin_product_state_action);
         addButton = findViewById(R.id.admin_product_add);
+        pagerContainer = findViewById(R.id.admin_product_pager);
+        pageInfo = findViewById(R.id.admin_product_page_info);
+        prevButton = findViewById(R.id.admin_product_page_prev);
+        nextButton = findViewById(R.id.admin_product_page_next);
+        searchInput = findViewById(R.id.admin_product_search_input);
+        searchButton = findViewById(R.id.admin_product_search_button);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new AdminProductAdapter();
@@ -62,7 +79,8 @@ public class AdminProductListActivity extends BaseActivity<AdminProductListContr
                 }
                 String status = product.getStatus();
                 String next = "online".equalsIgnoreCase(status) ? "offline" : "online";
-                presenter.updateStatus(AdminProductListActivity.this, product, next);
+                presenter.updateStatus(AdminProductListActivity.this, product, next,
+                        currentPage, PAGE_SIZE, currentKeyword);
             }
 
             @Override
@@ -81,7 +99,8 @@ public class AdminProductListActivity extends BaseActivity<AdminProductListContr
                         .setNegativeButton(R.string.action_cancel, null)
                         .setPositiveButton(R.string.action_delete, (dialog, which) -> {
                             if (presenter != null) {
-                                presenter.deleteProduct(AdminProductListActivity.this, product);
+                                presenter.deleteProduct(AdminProductListActivity.this, product,
+                                        currentPage, PAGE_SIZE, currentKeyword);
                             }
                         })
                         .show();
@@ -90,13 +109,27 @@ public class AdminProductListActivity extends BaseActivity<AdminProductListContr
         recyclerView.setAdapter(adapter);
 
         addButton.setOnClickListener(v -> openEdit(null));
-        refreshLayout.setOnRefreshListener(this::loadProducts);
-        stateAction.setOnClickListener(v -> loadProducts());
+        refreshLayout.setOnRefreshListener(() -> loadProducts(1));
+        stateAction.setOnClickListener(v -> loadProducts(1));
+        searchButton.setOnClickListener(v -> {
+            currentKeyword = searchInput.getText().toString().trim();
+            loadProducts(1);
+        });
+        prevButton.setOnClickListener(v -> {
+            if (currentPage > 1) {
+                loadProducts(currentPage - 1);
+            }
+        });
+        nextButton.setOnClickListener(v -> {
+            if (currentPage < totalPages) {
+                loadProducts(currentPage + 1);
+            }
+        });
     }
 
     @Override
     protected void initData() {
-        loadProducts();
+        loadProducts(1);
     }
 
     @Override
@@ -107,7 +140,7 @@ public class AdminProductListActivity extends BaseActivity<AdminProductListContr
     @Override
     protected void onResume() {
         super.onResume();
-        loadProducts();
+        loadProducts(currentPage);
     }
 
     @Override
@@ -116,15 +149,19 @@ public class AdminProductListActivity extends BaseActivity<AdminProductListContr
     }
 
     @Override
-    public void showProducts(List<Product> products) {
+    public void showProducts(List<Product> products, int page, int size, long total) {
         adapter.setItems(products);
+        currentPage = page;
+        totalPages = Math.max(1, (int) Math.ceil(total / (double) size));
         showState(false, null);
+        updatePager(total > 0);
     }
 
     @Override
     public void showEmpty(String message) {
         adapter.setItems(null);
         showState(true, message);
+        updatePager(false);
     }
 
     @Override
@@ -134,6 +171,7 @@ public class AdminProductListActivity extends BaseActivity<AdminProductListContr
         }
         if (adapter != null && adapter.getItemCount() == 0) {
             showState(true, message);
+            updatePager(false);
         }
     }
 
@@ -144,9 +182,9 @@ public class AdminProductListActivity extends BaseActivity<AdminProductListContr
         }
     }
 
-    private void loadProducts() {
+    private void loadProducts(int page) {
         if (presenter != null) {
-            presenter.loadProducts(this);
+            presenter.loadProducts(this, page, PAGE_SIZE, currentKeyword);
         }
     }
 
@@ -172,30 +210,44 @@ public class AdminProductListActivity extends BaseActivity<AdminProductListContr
         View view = getLayoutInflater().inflate(R.layout.dialog_admin_stock, null);
         EditText input = view.findViewById(R.id.admin_stock_input);
         input.setText(String.valueOf(product.getStock() == null ? 0 : product.getStock()));
-        new AlertDialog.Builder(this)
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(R.string.admin_product_update_stock)
                 .setView(view)
-                .setNegativeButton(R.string.action_cancel, null)
-                .setPositiveButton(R.string.action_save, (dialog, which) -> {
-                    if (presenter == null) {
-                        return;
-                    }
-                    String text = input.getText().toString().trim();
-                    if (text.isEmpty()) {
-                        ToastUtils.showToast(getString(R.string.admin_product_stock_required));
-                        return;
-                    }
-                    try {
-                        int stock = Integer.parseInt(text);
-                        if (stock < 0) {
-                            ToastUtils.showToast(getString(R.string.admin_product_stock_negative));
-                            return;
-                        }
-                        presenter.updateStock(AdminProductListActivity.this, product, stock);
-                    } catch (NumberFormatException ex) {
-                        ToastUtils.showToast(getString(R.string.admin_product_stock_format_error));
-                    }
-                })
-                .show();
+                .create();
+        Button cancelButton = view.findViewById(R.id.admin_stock_cancel);
+        Button confirmButton = view.findViewById(R.id.admin_stock_confirm);
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
+        confirmButton.setOnClickListener(v -> {
+            if (presenter == null) {
+                return;
+            }
+            String text = input.getText().toString().trim();
+            if (text.isEmpty()) {
+                ToastUtils.showToast(getString(R.string.admin_product_stock_required));
+                return;
+            }
+            try {
+                int stock = Integer.parseInt(text);
+                if (stock < 0) {
+                    ToastUtils.showToast(getString(R.string.admin_product_stock_negative));
+                    return;
+                }
+                presenter.updateStock(AdminProductListActivity.this, product, stock,
+                        currentPage, PAGE_SIZE, currentKeyword);
+                dialog.dismiss();
+            } catch (NumberFormatException ex) {
+                ToastUtils.showToast(getString(R.string.admin_product_stock_format_error));
+            }
+        });
+        dialog.show();
+    }
+
+    private void updatePager(boolean visible) {
+        pagerContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
+        if (visible) {
+            pageInfo.setText(getString(R.string.page_info, currentPage, totalPages));
+            prevButton.setEnabled(currentPage > 1);
+            nextButton.setEnabled(currentPage < totalPages);
+        }
     }
 }
