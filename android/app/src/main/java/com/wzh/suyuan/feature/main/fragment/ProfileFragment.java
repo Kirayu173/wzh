@@ -123,18 +123,22 @@ public class ProfileFragment extends Fragment {
         if (getContext() == null) {
             return;
         }
-        new AlertDialog.Builder(getContext())
-                .setTitle("确认退出登录")
-                .setMessage("退出后需要重新登录")
-                .setNegativeButton("取消", null)
-                .setPositiveButton("确认", (dialog, which) -> {
-                    AuthManager.clearSession(getContext());
-                    Intent intent = new Intent(getContext(), AuthActivity.class);
-                    startActivity(intent);
-                    if (getActivity() != null) {
-                        getActivity().finish();
-                    }
-                })
-                .show();
+        View content = LayoutInflater.from(getContext()).inflate(R.layout.dialog_logout_confirm, null);
+        Button cancelButton = content.findViewById(R.id.logout_cancel);
+        Button confirmButton = content.findViewById(R.id.logout_confirm);
+        AlertDialog dialog = new AlertDialog.Builder(getContext())
+                .setView(content)
+                .create();
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
+        confirmButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            AuthManager.clearSession(getContext());
+            Intent intent = new Intent(getContext(), AuthActivity.class);
+            startActivity(intent);
+            if (getActivity() != null) {
+                getActivity().finish();
+            }
+        });
+        dialog.show();
     }
 }

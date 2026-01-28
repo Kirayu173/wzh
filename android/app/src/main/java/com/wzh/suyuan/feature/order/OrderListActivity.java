@@ -100,6 +100,14 @@ public class OrderListActivity extends BaseActivity<OrderListContract.View, Orde
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (refreshLayout != null && !refreshLayout.isRefreshing()) {
+            loadOrders(currentPage);
+        }
+    }
+
+    @Override
     protected OrderListPresenter createPresenter() {
         return new OrderListPresenter();
     }

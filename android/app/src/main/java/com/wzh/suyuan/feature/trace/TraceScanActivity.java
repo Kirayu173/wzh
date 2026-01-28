@@ -94,6 +94,7 @@ public class TraceScanActivity extends BaseActivity<TraceScanContract.View, Trac
         options.setPrompt(getString(R.string.trace_scan_prompt));
         options.setBeepEnabled(true);
         options.setOrientationLocked(true);
+        options.setCaptureActivity(TraceCaptureActivity.class);
         scanLauncher.launch(options);
     }
 

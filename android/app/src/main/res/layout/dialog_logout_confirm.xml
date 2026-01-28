@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/logout_dialog_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_l">
+
+    <TextView
+        android:id="@+id/logout_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logout_confirm_title"
+        android:textAppearance="@style/TextAppearance.Suyuan.Subtitle" />
+
+    <TextView
+        android:id="@+id/logout_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_s"
+        android:text="@string/logout_confirm_message"
+        android:textColor="@color/text_secondary"
+        android:textSize="@dimen/text_body" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_l"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/logout_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/touch_target"
+            style="@style/Widget.Suyuan.Button.Outline"
+            android:text="@string/action_cancel" />
+
+        <Button
+            android:id="@+id/logout_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/touch_target"
+            android:layout_marginStart="@dimen/spacing_s"
+            style="@style/Widget.Suyuan.Button"
+            android:text="@string/action_confirm_generic" />
+    </LinearLayout>
+</LinearLayout>

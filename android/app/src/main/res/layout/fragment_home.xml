@@ -37,19 +37,52 @@
                 android:text="@string/action_search" />
         </LinearLayout>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/home_refresh"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/home_list"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/home_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:padding="@dimen/spacing_l" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <LinearLayout
+                android:id="@+id/home_state_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:padding="@dimen/spacing_l" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                android:background="@color/surface"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_xxl"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/home_state_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_empty"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_body" />
+
+                <Button
+                    android:id="@+id/home_state_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_m"
+                    style="@style/Widget.Suyuan.Button.Outline"
+                    android:text="@string/action_retry"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/home_pager"
@@ -83,34 +116,6 @@
                 style="@style/Widget.Suyuan.Button.Outline"
                 android:text="@string/page_next" />
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/home_state_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/surface"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/spacing_xxl"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/home_state_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/home_empty"
-            android:textColor="@color/text_secondary"
-            android:textSize="@dimen/text_body" />
-
-        <Button
-            android:id="@+id/home_state_action"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_m"
-            style="@style/Widget.Suyuan.Button.Outline"
-            android:text="@string/action_retry"
-            android:visibility="gone" />
     </LinearLayout>
 
 </FrameLayout>

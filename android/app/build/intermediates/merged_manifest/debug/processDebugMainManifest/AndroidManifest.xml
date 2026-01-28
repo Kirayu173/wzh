@@ -87,6 +87,10 @@
             android:name="com.wzh.suyuan.feature.trace.TraceScanActivity"
             android:exported="false" />
         <activity
+            android:name="com.wzh.suyuan.feature.trace.TraceCaptureActivity"
+            android:exported="false"
+            android:theme="@style/zxing_CaptureTheme" />
+        <activity
             android:name="com.wzh.suyuan.feature.trace.TraceDetailActivity"
             android:exported="false" />
         <activity

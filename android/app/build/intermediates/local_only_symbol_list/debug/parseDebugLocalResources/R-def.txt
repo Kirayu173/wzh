@@ -302,6 +302,11 @@ id input_phone
 id input_province
 id input_receiver
 id input_username
+id logout_cancel
+id logout_confirm
+id logout_dialog_root
+id logout_message
+id logout_title
 id main_content
 id main_nav_group
 id nav_cart
@@ -391,6 +396,7 @@ id text_user_id
 id text_user_name
 id text_user_role
 id text_version
+id trace_capture_close
 id trace_detail_back
 id trace_detail_batch
 id trace_detail_code
@@ -430,6 +436,7 @@ id trace_record_title
 id trace_scan_back
 id trace_scan_button
 id trace_scan_title
+id zxing_barcode_scanner
 layout activity_address_edit
 layout activity_address_list
 layout activity_admin_home
@@ -448,11 +455,13 @@ layout activity_order_detail
 layout activity_order_list
 layout activity_order_pay
 layout activity_product_detail
+layout activity_trace_capture
 layout activity_trace_detail
 layout activity_trace_record
 layout activity_trace_scan
 layout dialog_admin_ship
 layout dialog_admin_stock
+layout dialog_logout_confirm
 layout fragment_cart
 layout fragment_home
 layout fragment_profile
@@ -609,6 +618,8 @@ string label_user_id
 string label_user_role
 string label_username
 string label_version
+string logout_confirm_message
+string logout_confirm_title
 string nav_cart
 string nav_home
 string nav_profile

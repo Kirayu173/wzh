@@ -102,6 +102,14 @@ public class CartFragment extends BaseFragment<CartContract.View, CartPresenter>
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (refreshLayout != null && !refreshLayout.isRefreshing()) {
+            refreshCart();
+        }
+    }
+
+    @Override
     protected CartPresenter createPresenter() {
         return new CartPresenter();
     }

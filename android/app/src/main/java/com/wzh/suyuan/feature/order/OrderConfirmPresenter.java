@@ -6,7 +6,9 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.wzh.suyuan.AppExecutors;
 import com.wzh.suyuan.R;
+import com.wzh.suyuan.data.db.AppDatabase;
 import com.wzh.suyuan.network.ApiClient;
 import com.wzh.suyuan.network.model.Address;
 import com.wzh.suyuan.network.model.BaseResponse;
@@ -151,6 +153,7 @@ public class OrderConfirmPresenter extends BasePresenter<OrderConfirmContract.Vi
                     view.showError(body.getMessage());
                     return;
                 }
+                clearLocalCart(context, items);
                 view.onOrderCreated(body.getData());
             }
 
@@ -162,6 +165,20 @@ public class OrderConfirmPresenter extends BasePresenter<OrderConfirmContract.Vi
                     view.showLoading(false);
                     view.showError("网络异常，请稍后重试");
                 }
+            }
+        });
+    }
+
+    private void clearLocalCart(Context context, List<CartItem> items) {
+        if (context == null || items == null || items.isEmpty()) {
+            return;
+        }
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            for (CartItem item : items) {
+                if (item == null || item.getId() == null || item.getId() <= 0) {
+                    continue;
+                }
+                AppDatabase.getInstance(context).cartDao().deleteById(item.getId());
             }
         });
     }

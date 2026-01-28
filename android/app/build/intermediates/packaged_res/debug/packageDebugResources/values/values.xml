@@ -183,6 +183,8 @@
     <string name="label_user_role">角色</string>
     <string name="label_username">用户名</string>
     <string name="label_version">版本信息</string>
+    <string name="logout_confirm_message">退出后需要重新登录</string>
+    <string name="logout_confirm_title">确认退出登录</string>
     <string name="nav_cart">购物车</string>
     <string name="nav_home">首页</string>
     <string name="nav_profile">个人中心</string>

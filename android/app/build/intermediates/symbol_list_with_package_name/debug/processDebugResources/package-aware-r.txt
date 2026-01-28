@@ -1438,6 +1438,11 @@ id line3
 id linear
 id listMode
 id list_item
+id logout_cancel
+id logout_confirm
+id logout_dialog_root
+id logout_message
+id logout_title
 id main_content
 id main_nav_group
 id match_constraint
@@ -1638,6 +1643,7 @@ id title_template
 id toggle
 id top
 id topPanel
+id trace_capture_close
 id trace_detail_back
 id trace_detail_batch
 id trace_detail_code
@@ -1771,12 +1777,14 @@ layout activity_order_detail
 layout activity_order_list
 layout activity_order_pay
 layout activity_product_detail
+layout activity_trace_capture
 layout activity_trace_detail
 layout activity_trace_record
 layout activity_trace_scan
 layout custom_dialog
 layout dialog_admin_ship
 layout dialog_admin_stock
+layout dialog_logout_confirm
 layout fragment_cart
 layout fragment_home
 layout fragment_profile
@@ -1995,6 +2003,8 @@ string library_zxingandroidembedded_libraryVersion
 string library_zxingandroidembedded_libraryWebsite
 string library_zxingandroidembedded_licenseId
 string library_zxingandroidembedded_repositoryLink
+string logout_confirm_message
+string logout_confirm_title
 string nav_cart
 string nav_home
 string nav_profile
